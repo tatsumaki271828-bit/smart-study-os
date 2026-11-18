@@ -429,7 +429,7 @@
           <li>
             <button type="button" class="nav-item active" data-nav-tab="today">
               <span class="nav-item-left"><span>🎯</span><span>今日のダッシュボード</span></span>
-              <span class="nav-badge" id="nav-badge-today">4</span>
+              <span class="nav-badge" id="nav-badge-today">0</span>
             </button>
           </li>
           <li>
@@ -440,7 +440,7 @@
           <li>
             <button type="button" class="nav-item" data-nav-tab="inbox">
               <span class="nav-item-left"><span>📥</span><span>Inbox・課題分解</span></span>
-              <span class="nav-badge alert" id="nav-badge-inbox">1</span>
+              <span class="nav-badge" id="nav-badge-inbox">0</span>
             </button>
           </li>
           <li>
@@ -570,7 +570,7 @@
     /* ==========================================================================
        1. Database & Date Utilities
        ========================================================================== */
-    const STORAGE_KEY = 'smart_study_os_v2_state';
+    const STORAGE_KEY = 'smart_study_os_v3_clean';
     const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 
     function toDateStr(dateObj = new Date()) {
@@ -625,12 +625,6 @@
     }
 
     function createSeedData(todayStr = toDateStr()) {
-      const yesterday = addDays(todayStr, -1);
-      const tomorrow = addDays(todayStr, 1);
-      const in2Days = addDays(todayStr, 2);
-      const in4Days = addDays(todayStr, 4);
-      const lastWeek = addDays(todayStr, -7);
-
       const subjects = [
         {
           id: 'sub_circuits',
@@ -638,8 +632,8 @@
           aliases: ['電子回路', '回路', 'アナログ回路'],
           color: 'hsl(192, 78%, 36%)',
           defaultWeekday: 5,
-          syllabusNote: 'LMS: 第6回 オペアンプの周波数特性と発振回路 / 関数電卓必携',
-          weakPointsNote: 'ボード線図の位相余裕の計算、トランジスタ小信号等価回路'
+          syllabusNote: '',
+          weakPointsNote: ''
         },
         {
           id: 'sub_em',
@@ -647,8 +641,8 @@
           aliases: ['電磁気学', '電磁気', '電磁'],
           color: 'hsl(28, 84%, 48%)',
           defaultWeekday: 1,
-          syllabusNote: '教科書 第4章 マクスウェル方程式と電磁波 / 毎回小テストあり',
-          weakPointsNote: 'ベクトルポテンシャルとビオ・サバールの法則の積分計算'
+          syllabusNote: '',
+          weakPointsNote: ''
         },
         {
           id: 'sub_thermo',
@@ -656,8 +650,8 @@
           aliases: ['熱力学', '熱力'],
           color: 'hsl(4, 72%, 52%)',
           defaultWeekday: 3,
-          syllabusNote: '演習プリント No.5 カルノーサイクルとエントロピー増大則',
-          weakPointsNote: '断熱変化と等温変化のP-V線図での仕事量比較'
+          syllabusNote: '',
+          weakPointsNote: ''
         },
         {
           id: 'sub_exp',
@@ -665,8 +659,8 @@
           aliases: ['物理学実験', '実験', '物理実験'],
           color: 'hsl(152, 62%, 36%)',
           defaultWeekday: 4,
-          syllabusNote: '実験テキスト p.42〜 半導体ダイオードの電流-電圧特性測定',
-          weakPointsNote: '最小二乗法による誤差伝播の計算式'
+          syllabusNote: '',
+          weakPointsNote: ''
         },
         {
           id: 'sub_eng',
@@ -674,158 +668,15 @@
           aliases: ['英語', 'TOEIC', '英単語', 'リスニング'],
           color: 'hsl(215, 65%, 48%)',
           defaultWeekday: 2,
-          syllabusNote: 'Academic Reading Unit 7 / TOEIC Part 5 文法演習',
-          weakPointsNote: '関係代名詞の非制限用法と科学論文のアブストラクト読解'
+          syllabusNote: '',
+          weakPointsNote: ''
         }
       ];
 
-      const tasks = [
-        {
-          id: 'task_circuit_rep',
-          subjectId: 'sub_circuits',
-          title: '電子回路のレポート提出（オペアンプ増幅回路）',
-          rawInput: '毎週金曜までに電子回路のレポートを提出',
-          category: 'report',
-          status: 'in_progress',
-          deadlineDate: in2Days,
-          estimatedMinutes: 120,
-          importance: 3,
-          understandingLevel: null,
-          nextReviewDate: null,
-          createdAt: yesterday,
-          recurringRuleId: 'rule_circuit_rep',
-          occurrenceDate: in2Days
-        },
-        {
-          id: 'task_exp_org',
-          subjectId: 'sub_exp',
-          title: '今日の実験結果を整理する',
-          rawInput: '今日の実験結果を整理する',
-          category: 'self_study',
-          status: 'planned',
-          deadlineDate: todayStr,
-          estimatedMinutes: 30,
-          importance: 2,
-          understandingLevel: null,
-          nextReviewDate: null,
-          createdAt: todayStr
-        },
-        {
-          id: 'task_thermo_prob',
-          subjectId: 'sub_thermo',
-          title: '熱力学の問題3問を解く',
-          rawInput: '熱力学の問題3問を解く',
-          category: 'assignment',
-          status: 'planned',
-          deadlineDate: tomorrow,
-          estimatedMinutes: 45,
-          importance: 2,
-          understandingLevel: null,
-          nextReviewDate: null,
-          createdAt: yesterday
-        },
-        {
-          id: 'task_em_quiz',
-          subjectId: 'sub_em',
-          title: '電磁気の小テスト対策（ビオ・サバールの法則）',
-          rawInput: '毎週月曜日に電磁気の小テスト',
-          category: 'quiz',
-          status: 'planned',
-          deadlineDate: in4Days,
-          estimatedMinutes: 60,
-          importance: 3,
-          understandingLevel: null,
-          nextReviewDate: null,
-          createdAt: todayStr,
-          recurringRuleId: 'rule_em_quiz',
-          occurrenceDate: in4Days
-        },
-        {
-          id: 'task_eng_study',
-          subjectId: 'sub_eng',
-          title: '英語を20分勉強する（TOEIC単語・Part5）',
-          rawInput: '英語を20分勉強する',
-          category: 'self_study',
-          status: 'inbox',
-          deadlineDate: null,
-          estimatedMinutes: 20,
-          importance: 1,
-          understandingLevel: null,
-          nextReviewDate: null,
-          createdAt: todayStr
-        },
-        {
-          id: 'task_em_prev',
-          subjectId: 'sub_em',
-          title: 'ガウスの法則の演習プリントNo.3',
-          rawInput: '電磁気の課題プリント',
-          category: 'assignment',
-          status: 'completed',
-          deadlineDate: yesterday,
-          estimatedMinutes: 30,
-          importance: 2,
-          understandingLevel: 1,
-          nextReviewDate: in2Days,
-          createdAt: addDays(todayStr, -3),
-          completedAt: yesterday
-        }
-      ];
-
-      const taskSteps = [
-        { id: 'step_cir_1', taskId: 'task_circuit_rep', title: '課題内容・指定条件の確認とデータ整理', orderIndex: 1, templateIndex: 0, estimatedMinutes: 15, scheduledDate: yesterday, isCompleted: true, completedAt: yesterday },
-        { id: 'step_cir_2', taskId: 'task_circuit_rep', title: '利得・周波数特性の理論値計算とグラフ作成', orderIndex: 2, templateIndex: 1, estimatedMinutes: 30, scheduledDate: yesterday, isCompleted: false, completedAt: null },
-        { id: 'step_cir_3', taskId: 'task_circuit_rep', title: 'シミュレーション結果との比較・考察の執筆', orderIndex: 3, templateIndex: 2, estimatedMinutes: 45, scheduledDate: todayStr, isCompleted: false, completedAt: null },
-        { id: 'step_cir_4', taskId: 'task_circuit_rep', title: '本文まとめ・誤字チェック・PDF提出', orderIndex: 4, templateIndex: 3, estimatedMinutes: 30, scheduledDate: tomorrow, isCompleted: false, completedAt: null },
-        { id: 'step_exp_1', taskId: 'task_exp_org', title: '測定データのExcel入力と有効数字の整理', orderIndex: 1, estimatedMinutes: 30, scheduledDate: todayStr, isCompleted: false, completedAt: null },
-        { id: 'step_thermo_1', taskId: 'task_thermo_prob', title: '演習問題 問1〜問2（等温・断熱変化）を解く', orderIndex: 1, estimatedMinutes: 30, scheduledDate: todayStr, isCompleted: false, completedAt: null },
-        { id: 'step_thermo_2', taskId: 'task_thermo_prob', title: '演習問題 問3（カルノーサイクル）と解答確認', orderIndex: 2, estimatedMinutes: 15, scheduledDate: tomorrow, isCompleted: false, completedAt: null },
-        { id: 'step_em_1', taskId: 'task_em_quiz', title: '講義ノートの公式確認と基本例題の解き直し', orderIndex: 1, templateIndex: 0, estimatedMinutes: 30, scheduledDate: in2Days, isCompleted: false, completedAt: null },
-        { id: 'step_em_2', taskId: 'task_em_quiz', title: '過去小テスト問題の演習と弱点チェック', orderIndex: 2, templateIndex: 1, estimatedMinutes: 30, scheduledDate: addDays(todayStr, 3), isCompleted: false, completedAt: null },
-        { id: 'step_eng_1', taskId: 'task_eng_study', title: '英語を20分勉強する（TOEIC単語・Part5）', orderIndex: 1, estimatedMinutes: 20, scheduledDate: null, isCompleted: false, completedAt: null },
-        { id: 'step_em_prev_1', taskId: 'task_em_prev', title: 'ガウスの法則の演習プリントNo.3', orderIndex: 1, estimatedMinutes: 30, scheduledDate: yesterday, isCompleted: true, completedAt: yesterday }
-      ];
-
-      const recurringRules = [
-        {
-          id: 'rule_circuit_rep',
-          subjectId: 'sub_circuits',
-          title: '電子回路のレポート提出',
-          category: 'report',
-          importance: 3,
-          weekday: weekdayOf(in2Days),
-          active: true,
-          startDate: addDays(todayStr, -14),
-          lastGeneratedDeadline: in2Days,
-          stepsTemplate: [
-            { title: '課題内容・指定条件の確認とデータ整理', estimatedMinutes: 15, sampleCount: 1, history: [{ date: yesterday, estimated: 20, actual: 15 }] },
-            { title: '利得・周波数特性の理論値計算とグラフ作成', estimatedMinutes: 30, sampleCount: 0, history: [] },
-            { title: 'シミュレーション結果との比較・考察の執筆', estimatedMinutes: 45, sampleCount: 0, history: [] },
-            { title: '本文まとめ・誤字チェック・PDF提出', estimatedMinutes: 30, sampleCount: 0, history: [] }
-          ],
-          createdAt: addDays(todayStr, -14)
-        },
-        {
-          id: 'rule_em_quiz',
-          subjectId: 'sub_em',
-          title: '電磁気の小テスト対策',
-          category: 'quiz',
-          importance: 3,
-          weekday: weekdayOf(in4Days),
-          active: true,
-          startDate: addDays(todayStr, -14),
-          lastGeneratedDeadline: in4Days,
-          stepsTemplate: [
-            { title: '講義ノートの公式確認と基本例題の解き直し', estimatedMinutes: 30, sampleCount: 1, history: [{ date: lastWeek, estimated: 20, actual: 30 }] },
-            { title: '過去小テスト問題の演習と弱点チェック', estimatedMinutes: 30, sampleCount: 1, history: [{ date: lastWeek, estimated: 25, actual: 30 }] }
-          ],
-          createdAt: addDays(todayStr, -14)
-        }
-      ];
-
-      const studyLogs = [
-        { id: 'log_1', taskId: 'task_circuit_rep', stepId: 'step_cir_1', subjectId: 'sub_circuits', title: '電子回路のレポート：課題内容・指定条件の確認とデータ整理', studiedDate: yesterday, durationMinutes: 15, estimatedMinutes: 20, understandingLevel: 3, reflectionNote: '実験データのCSV読み込みまで完了（初期推定20分→実績15分に自動補正）。' },
-        { id: 'log_2', taskId: 'task_em_prev', stepId: 'step_em_prev_1', subjectId: 'sub_em', title: 'ガウスの法則の演習プリントNo.3', studiedDate: yesterday, durationMinutes: 30, understandingLevel: 1, reflectionNote: '球対称でない電荷分布の面積分でつまずいた。週末にもう一度解く。' }
-      ];
+      const tasks = [];
+      const taskSteps = [];
+      const recurringRules = [];
+      const studyLogs = [];
 
       const dailyStates = { [todayStr]: { date: todayStr, condition: 'normal', customAvailableMinutes: null } };
       const userSettings = {
@@ -1864,8 +1715,8 @@
                 </div>
               ` : `
                 <div class="hero-focus-card" style="align-items:center;text-align:center;padding:1.5rem;">
-                  <div style="font-size:1.6rem;">🎉</div>
-                  <div class="hero-step-title">今日予定されていたタスクはすべて完了しました！</div>
+                  <div style="font-size:1.6rem;">${state.tasks.length === 0 ? '✨' : '🎉'}</div>
+                  <div class="hero-step-title">${state.tasks.length === 0 ? 'まだタスクはありません。上の入力欄から課題や予定を追加してみましょう！' : '今日予定されていたタスクはすべて完了しました！'}</div>
                 </div>
               `}
             </section>
@@ -2361,7 +2212,7 @@
                   📤 JSONファイルから復元
                   <input type="file" id="input-restore-json" accept=".json,application/json" style="display:none;" />
                 </label>
-                <button type="button" class="btn-secondary" id="btn-reset-demo">初期サンプル再読込</button>
+                <button type="button" class="btn-danger-ghost" id="btn-reset-demo">🗑️ タスク・履歴をすべて空にする</button>
               </div>
             </div>
           </section>
@@ -2426,9 +2277,12 @@
         reader.readAsText(file);
       });
       document.getElementById('btn-reset-demo')?.addEventListener('click', () => {
-        state = createSeedData(toDateStr());
+        state.tasks = [];
+        state.taskSteps = [];
+        state.recurringRules = [];
+        state.studyLogs = [];
         commitState();
-        showToast('初期サンプルデータを再読み込みしました');
+        showToast('すべてのタスク・定期課題・学習履歴を空にしました');
       });
     }
 
@@ -2720,11 +2574,19 @@
           <div class="form-field full"><label class="form-label">📎 教材・資料メモ</label><textarea id="sub-edit-syllabus" class="form-textarea" rows="2">${escapeHtml(existing ? existing.syllabusNote : '')}</textarea></div>
           <div class="form-field full"><label class="form-label">⚠️ 苦手分野メモ</label><textarea id="sub-edit-weak" class="form-textarea" rows="2">${escapeHtml(existing ? existing.weakPointsNote : '')}</textarea></div>
         </div>
-        <div style="display:flex;justify-content:flex-end;padding-top:0.65rem;border-top:1px solid var(--border-subtle);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.65rem;border-top:1px solid var(--border-subtle);">
+          ${existing ? `<button type="button" class="btn-danger-ghost" id="btn-delete-subject">🗑️ この科目を削除</button>` : `<span></span>`}
           <button type="button" class="btn-primary" id="btn-save-subject">保存する</button>
         </div>
       `;
       modal.classList.remove('hidden');
+      document.getElementById('btn-delete-subject')?.addEventListener('click', () => {
+        if (!existing) return;
+        state.subjects = state.subjects.filter(s => s.id !== existing.id);
+        modal.classList.add('hidden');
+        commitState();
+        showToast(`科目「${existing.name}」を削除しました`);
+      });
       document.getElementById('btn-save-subject')?.addEventListener('click', () => {
         const name = document.getElementById('sub-edit-name')?.value?.trim();
         if (!name) return;
