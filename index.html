@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Smart Study OS — 大学生向けスマート学習・課題管理アプリ</title>
-  <meta name="description" content="時間割連動の予習・復習自動生成、AM/PMコンディション最適化、学習メモ・Gemini週間振り返りに対応した個人学習OS。">
+  <meta name="description" content="時間割連動・科目×タスク種別見積もり学習・1/2限早期期限警告・スマホ最適化UIを備えた個人学習OS。">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23116979'/%3E%3Ccircle cx='390' cy='122' r='44' fill='%23e69c24'/%3E%3Cpath d='M148 268l72 72 148-156' fill='none' stroke='%23ffffff' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23116979'/%3E%3Ccircle cx='390' cy='122' r='44' fill='%23e69c24'/%3E%3Cpath d='M148 268l72 72 148-156' fill='none' stroke='%23ffffff' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#116979">
@@ -1025,42 +1025,179 @@ a {
   box-shadow: var(--shadow-xs);
 }
 
-/* Deadline Radar List */
+/* Task Type Badge */
+.task-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.16rem 0.52rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background-color: var(--accent-soft);
+  color: var(--accent-soft-text);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* Deadline Radar Independent Cards (3-Row Hierarchy) */
+.risk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
 .radar-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  cursor: pointer;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .radar-card:hover {
   border-color: var(--border-default);
+  box-shadow: var(--shadow-sm);
 }
 
-.radar-top {
+.radar-row-1 {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
 }
 
-.radar-title {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-primary);
+.radar-row-1-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  min-width: 0;
+  flex: 1;
 }
 
-.radar-progress-row {
+.radar-task-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  word-break: break-word;
+  cursor: pointer;
+}
+
+.radar-row-2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.radar-row-3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.75rem;
+  gap: 0.75rem;
+  padding-top: 0.15rem;
+}
+
+.radar-progress-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.radar-progress-label {
+  font-size: 0.72rem;
   color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.mini-progress-bar {
+  height: 6px;
+  background-color: var(--bg-surface-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background-color: var(--accent-primary);
+  border-radius: var(--radius-pill);
+  transition: width var(--transition-base);
+}
+
+.radar-mini-btn {
+  padding: 0.28rem 0.62rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.radar-mini-btn:hover {
+  background-color: var(--accent-soft);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.radar-mini-btn.primary {
+  background-color: var(--accent-soft);
+  border-color: var(--accent-primary);
+  color: var(--accent-soft-text);
+}
+
+/* Weekly Plan Vertical Step Card (No vertical text squishing) */
+.plan-step-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.58rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.plan-step-card:hover {
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.plan-step-top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.plan-step-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.45rem;
+  border-top: 1px dashed var(--border-subtle);
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -1612,13 +1749,40 @@ a {
 .toast-msg {
   background-color: var(--text-primary);
   color: var(--bg-surface);
-  padding: 0.6rem 1.1rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.83rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.82rem;
   font-weight: 600;
   box-shadow: var(--shadow-md);
   pointer-events: auto;
   animation: toastIn 200ms ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.toast-undo-btn {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  padding: 0.28rem 0.68rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast), transform 100ms ease;
+}
+
+.toast-undo-btn:hover {
+  opacity: 0.92;
+}
+
+.toast-undo-btn:active {
+  transform: scale(0.97);
 }
 
 @keyframes toastIn {
@@ -1752,7 +1916,7 @@ a {
               <span class="capture-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
               </span>
-              <input type="text" id="quick-capture-input" class="capture-input" placeholder="自然な文章で入力（例: 水曜までに電子回路Ⅱのレポートを提出 / 金曜に電磁気学Ⅱbの小テスト）" aria-label="クイック課題登録">
+              <input type="text" id="quick-capture-input" class="capture-input" placeholder="課題を入力（例: 金曜に電磁気の小テスト / 実験の小レポート）" aria-label="クイック課題登録">
               <button type="submit" id="quick-capture-submit" class="capture-submit-btn">
                 <span>追加</span>
               </button>
@@ -1762,13 +1926,13 @@ a {
           <!-- Live Extracted Attributes Preview -->
           <div id="quick-capture-preview" class="capture-preview hidden" aria-live="polite"></div>
 
-          <!-- 1-Tap Input Examples -->
-          <div class="quick-examples-row">
-            <span class="quick-example-label">入力例:</span>
-            <button type="button" class="example-pill" data-example-text="毎週金曜に電磁気学Ⅱbの小テスト">毎週金曜に電磁気学Ⅱbの小テスト</button>
-            <button type="button" class="example-pill" data-example-text="毎週水曜までに電子回路Ⅱのレポートを提出">毎週水曜までに電子回路Ⅱのレポート</button>
-            <button type="button" class="example-pill" data-example-text="熱統計力学の問題3問を解く">熱統計力学の問題3問を解く</button>
-            <button type="button" class="example-pill" data-example-text="エネルギー・電子制御実験Ⅰのデータを整理する">実験Ⅰのデータを整理する</button>
+          <!-- 1-Tap Input Examples (Shown on focus) -->
+          <div class="quick-examples-row" id="quick-examples-row">
+            <span class="quick-example-label">例:</span>
+            <button type="button" class="example-pill" data-example-text="金曜に電磁気の小テスト">金曜に電磁気の小テスト</button>
+            <button type="button" class="example-pill" data-example-text="水曜に電子回路のレポート">水曜に電子回路のレポート</button>
+            <button type="button" class="example-pill" data-example-text="実験の小レポート">実験の小レポート</button>
+            <button type="button" class="example-pill" data-example-text="熱力学の課題">熱力学の課題</button>
           </div>
         </div>
       </header>
@@ -1895,6 +2059,7 @@ const ICON_PATHS = {
   sliders: '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
   layers: '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
   refresh: '<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+  rotateCcw: '<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>',
   copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
   download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
   upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
@@ -1910,6 +2075,7 @@ const ICON_PATHS = {
   batteryMid: '<rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="10" x2="6" y2="14"/><line x1="10" y1="10" x2="10" y2="14"/>',
   batteryLow: '<rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="10" x2="6" y2="14"/>',
   sparkles: '<path d="M12 3v4M10 5h4M6 17v3M4.5 18.5h3M17 4l1.5 3.5L22 9l-3.5 1.5L17 14l-1.5-3.5L12 9l3.5-1.5L17 4z"/>',
+  tag: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
   x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
   mapPin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>'
 };
@@ -1923,8 +2089,8 @@ function icon(name, size = 16, className = '') {
 // --- db.js ---
 /**
  * Smart Study OS - Database & Persistence Layer (db.js)
- * Dual persistence (LocalStorage + IndexedDB) with 1-click JSON Backup & Restore
- * and automatic migration for Timetable, AM/PM Condition, and Subject Memo Logs.
+ * Dual persistence (LocalStorage + IndexedDB) with 1-click JSON Backup & Restore,
+ * Legacy Subject Unification, TaskType Normalization, and Timetable Metadata.
  */
 
 const STORAGE_KEY = 'smart_study_os_v3_clean';
@@ -1982,14 +2148,33 @@ function uid(prefix = 'id') {
 }
 
 /**
- * Default 11 University Timetable Courses
+ * Check whether a subject is an Experiment course (科目名に「実験」を含む授業)
+ */
+function isExperimentSubject(subOrName) {
+  if (!subOrName) return false;
+  if (typeof subOrName === 'string') {
+    return /実験/.test(subOrName);
+  }
+  return subOrName.id === 'sub_exp1' || /実験/.test(subOrName.name || '');
+}
+
+/**
+ * Check whether a subject is a 1st/2nd period early-morning course (1・2限科目)
+ */
+function isEarlyMorningSubject(sub) {
+  if (!sub) return false;
+  return sub.periodSlot === '1-2' || ['sub_am4', 'sub_meas', 'sub_am5'].includes(sub.id);
+}
+
+/**
+ * Default 11 University Timetable Courses with comprehensive aliases
  */
 function getDefaultTimetableSubjects() {
   return [
     {
       id: 'sub_ec1',
       name: '電気回路Ⅰ',
-      aliases: ['電気回路Ⅰ', '電気回路1', '電気回路'],
+      aliases: ['電気回路Ⅰ', '電気回路1', '電気回路I', '電気回路', '電回Ⅰ', '電回1', '電回'],
       color: 'hsl(195, 82%, 35%)',
       defaultWeekday: 1,
       periodSlot: '3-4',
@@ -2005,7 +2190,18 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_exp1',
       name: 'エネルギー・電子制御実験Ⅰ',
-      aliases: ['エネルギー・電子制御実験Ⅰ', 'エネルギー実験', '電子制御実験', '実験Ⅰ', '実験'],
+      aliases: [
+        'エネルギー・電子制御実験Ⅰ',
+        'エネルギー・電子制御実験1',
+        'エネルギー・電子制御実験',
+        'エネルギー実験',
+        '電子制御実験',
+        '電気電子実験',
+        '制御実験',
+        '実験Ⅰ',
+        '実験1',
+        '実験'
+      ],
       color: 'hsl(152, 65%, 34%)',
       defaultWeekday: 1,
       periodSlot: '5-8',
@@ -2021,7 +2217,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_am4',
       name: '応用数学Ⅳ',
-      aliases: ['応用数学Ⅳ', '応用数学4', '応数Ⅳ', '応数4'],
+      aliases: ['応用数学Ⅳ', '応用数学4', '応用数学IV', '応数Ⅳ', '応数4', '応数IV'],
       color: 'hsl(220, 72%, 46%)',
       defaultWeekday: 2,
       periodSlot: '1-2',
@@ -2037,7 +2233,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_aec',
       name: '応用電気回路',
-      aliases: ['応用電気回路', '応電回路', '応用回路'],
+      aliases: ['応用電気回路', '応電回路', '応用回路', '応電'],
       color: 'hsl(182, 76%, 33%)',
       defaultWeekday: 2,
       periodSlot: '3-4',
@@ -2053,7 +2249,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_la2',
       name: '線形代数学Ⅱ',
-      aliases: ['線形代数学Ⅱ', '線形代数学2', '線形代数', '線形'],
+      aliases: ['線形代数学Ⅱ', '線形代数学2', '線形代数学II', '線形代数Ⅱ', '線形代数2', '線形代数学', '線形代数', '線代', '線形'],
       color: 'hsl(258, 62%, 50%)',
       defaultWeekday: 2,
       periodSlot: '7-8',
@@ -2069,7 +2265,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_elc2',
       name: '電子回路Ⅱ',
-      aliases: ['電子回路Ⅱ', '電子回路2', '電子回路', '回路'],
+      aliases: ['電子回路Ⅱ', '電子回路2', '電子回路II', '電子回路', '電回Ⅱ', '電回2'],
       color: 'hsl(335, 72%, 46%)',
       defaultWeekday: 3,
       periodSlot: '5-6',
@@ -2085,7 +2281,18 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_mob',
       name: '次世代モビリティ工学概論',
-      aliases: ['次世代モビリティ工学概論', 'モビリティ工学', 'モビリティ', '次世代モビリティ'],
+      aliases: [
+        '次世代モビリティ工学概論',
+        '次世代モビリティ工学',
+        'モビリティ工学概論',
+        'モビリティ工学',
+        '次世代モビリティ',
+        'モビリティ',
+        '自動車工学概論',
+        '自動車概論',
+        '自動車工学',
+        '自動車'
+      ],
       color: 'hsl(168, 70%, 34%)',
       defaultWeekday: 3,
       periodSlot: '7-8',
@@ -2101,7 +2308,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_meas',
       name: '電気電子計測',
-      aliases: ['電気電子計測', '電子計測', '電気計測', '計測'],
+      aliases: ['電気電子計測', '電子計測', '電気計測', '計測工学', '計測'],
       color: 'hsl(38, 86%, 44%)',
       defaultWeekday: 4,
       periodSlot: '1-2',
@@ -2117,7 +2324,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_am5',
       name: '応用数学Ⅴ',
-      aliases: ['応用数学Ⅴ', '応用数学5', '応数Ⅴ', '応数5', '応用数学'],
+      aliases: ['応用数学Ⅴ', '応用数学5', '応用数学V', '応数Ⅴ', '応数5', '応数V', '応用数学'],
       color: 'hsl(232, 68%, 50%)',
       defaultWeekday: 5,
       periodSlot: '1-2',
@@ -2133,7 +2340,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_em2b',
       name: '電磁気学Ⅱb',
-      aliases: ['電磁気学Ⅱb', '電磁気学2b', '電磁気学', '電磁気', '電磁'],
+      aliases: ['電磁気学Ⅱb', '電磁気学2b', '電磁気学IIb', '電磁気学Ⅱ', '電磁気学2', '電磁気学', '電磁気', '電磁'],
       color: 'hsl(24, 84%, 46%)',
       defaultWeekday: 5,
       periodSlot: '3-4',
@@ -2149,7 +2356,7 @@ function getDefaultTimetableSubjects() {
     {
       id: 'sub_thermo',
       name: '熱統計力学',
-      aliases: ['熱統計力学', '熱統計', '熱力学', '統計力学', '熱力'],
+      aliases: ['熱統計力学', '熱・統計力学', '熱統計', '熱力学', '統計力学', '熱力'],
       color: 'hsl(4, 74%, 50%)',
       defaultWeekday: 5,
       periodSlot: '7-8',
@@ -2163,6 +2370,76 @@ function getDefaultTimetableSubjects() {
       memoLogs: []
     }
   ];
+}
+
+/**
+ * Match a subject from natural text by checking longest aliases first across all subjects
+ */
+function matchSubjectFromText(text, subjects = []) {
+  if (!text || !Array.isArray(subjects) || subjects.length === 0) return null;
+  const pairs = [];
+  for (const sub of subjects) {
+    const candidates = Array.from(new Set([sub.name, ...(sub.aliases || [])])).filter(Boolean);
+    for (const alias of candidates) {
+      pairs.push({ alias, sub });
+    }
+  }
+  // Longer aliases take strict priority (e.g., "応用電気回路" before "電気回路")
+  pairs.sort((a, b) => b.alias.length - a.alias.length);
+  for (const pair of pairs) {
+    if (text.includes(pair.alias)) {
+      return pair.sub;
+    }
+  }
+  return null;
+}
+
+/**
+ * Rename legacy course names in task/step/rule titles to official timetable course names
+ */
+function upgradeLegacyCourseText(str) {
+  if (!str || typeof str !== 'string') return str;
+  let out = str;
+  out = out.replace(/自動車工学概論|自動車概論/g, '次世代モビリティ工学概論');
+  if (!out.includes('熱統計力学')) {
+    out = out.replace(/熱力学/g, '熱統計力学');
+  }
+  return out;
+}
+
+/**
+ * Infer taskType from task/rule/log properties and subject
+ */
+function inferTaskTypeForItem(item, sub) {
+  const isExp = isExperimentSubject(sub) || /実験/.test(item?.title || '') || /実験/.test(item?.rawInput || '');
+  const text = `${item?.title || ''} ${item?.rawInput || ''}`;
+
+  if (isExp) {
+    if (item?.taskType && ['レポート', '小レポート', 'その他'].includes(item.taskType)) {
+      return item.taskType;
+    }
+    if (/小レポート|小レポ|予習レポ/.test(text)) return '小レポート';
+    if (/レポート|本レポ/.test(text)) return 'レポート';
+    if (item?.taskType === 'その他') return 'その他';
+    return 'レポート';
+  }
+
+  if (item?.taskType && ['小テスト', '課題', 'レポート', 'テスト', '予習・復習'].includes(item.taskType)) {
+    return item.taskType;
+  }
+  if (item?.isPrepReview || item?.category === 'prep' || item?.category === 'review' || /【予習】|【復習】|予習|復習/.test(text)) {
+    return '予習・復習';
+  }
+  if (/小テスト|確認テスト|ミニテスト|クイズ/.test(text) || item?.category === 'quiz') {
+    return '小テスト';
+  }
+  if (/レポート|レポ|報告書/.test(text) || item?.category === 'report') {
+    return 'レポート';
+  }
+  if (/テスト|試験|中間|期末/.test(text) || item?.category === 'exam') {
+    return 'テスト';
+  }
+  return '課題';
 }
 
 /**
@@ -2197,94 +2474,118 @@ function createSeedData(todayStr = toDateStr()) {
   };
 
   return {
-    version: 3,
+    version: 4,
     subjects,
     tasks: [],
     taskSteps: [],
     studyLogs: [],
     dailyStates,
     userSettings,
-    recurringRules: []
+    recurringRules: [],
+    typeEstimates: {}
   };
 }
 
 /**
  * Migrate and normalize loaded state so existing localStorage data remains 100% compatible
+ * while automatically unifying legacy subject names ('熱力学' -> '熱統計力学', '自動車概論' -> '次世代モビリティ工学概論', etc.)
  */
 function normalizeState(data) {
   const defaults = getDefaultTimetableSubjects();
   const defaultMap = new Map(defaults.map(s => [s.id, s]));
 
-  // Map legacy generic subject IDs to new timetable subject IDs
+  // Map legacy generic subject IDs to canonical timetable subject IDs
   const legacyIdMap = {
     sub_circuits: 'sub_elc2',
     sub_em: 'sub_em2b',
     sub_exp: 'sub_exp1',
-    sub_thermo: 'sub_thermo'
+    sub_thermo: 'sub_thermo',
+    sub_auto: 'sub_mob',
+    sub_car: 'sub_mob',
+    sub_mobility: 'sub_mob'
   };
 
   const rawSubjects = Array.isArray(data.subjects) ? data.subjects : [];
-  const rawTasks = Array.isArray(data.tasks) ? data.tasks : [];
+  let rawTasks = Array.isArray(data.tasks) ? data.tasks : [];
+  let rawSteps = Array.isArray(data.taskSteps) ? data.taskSteps : [];
   const rawRules = Array.isArray(data.recurringRules) ? data.recurringRules : [];
   const rawLogs = Array.isArray(data.studyLogs) ? data.studyLogs : [];
 
-  // Remap legacy subject IDs on tasks, recurringRules, studyLogs if those legacy IDs were used
-  rawTasks.forEach(t => {
-    if (t.subjectId && legacyIdMap[t.subjectId]) t.subjectId = legacyIdMap[t.subjectId];
-  });
-  rawRules.forEach(r => {
-    if (r.subjectId && legacyIdMap[r.subjectId]) r.subjectId = legacyIdMap[r.subjectId];
-  });
-  rawLogs.forEach(l => {
-    if (l.subjectId && legacyIdMap[l.subjectId]) l.subjectId = legacyIdMap[l.subjectId];
-  });
-
-  // Build merged subject list: start with all 11 default timetable courses, preserving user edits
-  const existingById = new Map();
+  // Build canonical subjects first, merging user settings & memoLogs
+  const canonicalById = new Map(defaults.map(d => [d.id, { ...d, aliases: [...d.aliases], memoLogs: [] }]));
   const customSubjects = [];
 
   for (const s of rawSubjects) {
-    const mappedId = legacyIdMap[s.id] || s.id;
-    if (defaultMap.has(mappedId)) {
-      const def = defaultMap.get(mappedId);
-      existingById.set(mappedId, {
+    if (!s) continue;
+    let targetId = legacyIdMap[s.id] || (canonicalById.has(s.id) ? s.id : null);
+
+    // Check if a custom/legacy subject's name matches one of the 11 timetable subjects (e.g., "熱力学", "自動車概論", "電子回路", "電磁気学")
+    if (!targetId && s.name) {
+      const matchedDef = matchSubjectFromText(s.name, defaults);
+      if (matchedDef) {
+        targetId = matchedDef.id;
+        legacyIdMap[s.id] = targetId;
+      }
+    }
+
+    if (targetId && canonicalById.has(targetId)) {
+      const can = canonicalById.get(targetId);
+      const def = defaultMap.get(targetId);
+      const isExp = isExperimentSubject(def);
+      const mergedMemos = [
+        ...(Array.isArray(can.memoLogs) ? can.memoLogs : []),
+        ...(Array.isArray(s.memoLogs) ? s.memoLogs : [])
+      ];
+      // Deduplicate memoLogs by id
+      const seenMemoIds = new Set();
+      const uniqueMemos = mergedMemos.filter(m => {
+        if (!m || !m.text) return false;
+        const key = m.id || `${m.date}_${m.text}`;
+        if (seenMemoIds.has(key)) return false;
+        seenMemoIds.add(key);
+        return true;
+      });
+
+      canonicalById.set(targetId, {
         ...def,
         ...s,
-        id: mappedId,
-        // Upgrade legacy generic name to full course name if it was untouched legacy seed
-        name: ['sub_circuits', 'sub_em', 'sub_exp'].includes(s.id) ? def.name : (s.name || def.name),
+        id: targetId,
+        // Always use official timetable name for canonical courses so "熱力学" / "自動車概論" / "電子回路" unify cleanly
+        name: def.name,
         aliases: Array.from(new Set([...(def.aliases || []), ...(s.aliases || [])])),
         defaultWeekday: typeof s.defaultWeekday === 'number' ? s.defaultWeekday : def.defaultWeekday,
         periodSlot: s.periodSlot || def.periodSlot,
-        room: s.room !== undefined ? s.room : def.room,
-        autoPrep: !!s.autoPrep,
-        autoReview: !!s.autoReview,
+        room: s.room !== undefined && s.room !== '' ? s.room : def.room,
+        autoPrep: isExp ? false : Boolean(s.autoPrep),
+        autoReview: isExp ? false : Boolean(s.autoReview),
         prepMinutes: Number(s.prepMinutes) || 20,
         reviewMinutes: Number(s.reviewMinutes) || 20,
-        memoLogs: Array.isArray(s.memoLogs) ? s.memoLogs : []
+        memoLogs: uniqueMemos
       });
     } else if (s.id === 'sub_eng') {
-      // Only keep legacy 'sub_eng' if user has tasks/logs referencing it
       const hasRef = rawTasks.some(t => t.subjectId === 'sub_eng') || rawRules.some(r => r.subjectId === 'sub_eng');
       if (hasRef) {
         customSubjects.push({
           ...s,
+          aliases: Array.isArray(s.aliases) ? s.aliases : [s.name],
           periodSlot: s.periodSlot || '',
           room: s.room || '',
-          autoPrep: !!s.autoPrep,
-          autoReview: !!s.autoReview,
+          autoPrep: isExperimentSubject(s) ? false : Boolean(s.autoPrep),
+          autoReview: isExperimentSubject(s) ? false : Boolean(s.autoReview),
           prepMinutes: Number(s.prepMinutes) || 20,
           reviewMinutes: Number(s.reviewMinutes) || 20,
           memoLogs: Array.isArray(s.memoLogs) ? s.memoLogs : []
         });
       }
     } else {
+      const isExp = isExperimentSubject(s);
       customSubjects.push({
         ...s,
+        aliases: Array.isArray(s.aliases) ? s.aliases : [s.name],
         periodSlot: s.periodSlot || '',
         room: s.room || '',
-        autoPrep: !!s.autoPrep,
-        autoReview: !!s.autoReview,
+        autoPrep: isExp ? false : Boolean(s.autoPrep),
+        autoReview: isExp ? false : Boolean(s.autoReview),
         prepMinutes: Number(s.prepMinutes) || 20,
         reviewMinutes: Number(s.reviewMinutes) || 20,
         memoLogs: Array.isArray(s.memoLogs) ? s.memoLogs : []
@@ -2292,26 +2593,83 @@ function normalizeState(data) {
     }
   }
 
-  // If rawSubjects Already had v3 subjects (and maybe user deleted one intentionally), respect user's v3 list
-  let finalSubjects;
-  if (data.version >= 3 && rawSubjects.length > 0) {
-    finalSubjects = rawSubjects.map(s => ({
-      ...s,
-      aliases: Array.isArray(s.aliases) ? s.aliases : [s.name],
-      periodSlot: s.periodSlot || '',
-      room: s.room || '',
-      autoPrep: !!s.autoPrep,
-      autoReview: !!s.autoReview,
-      prepMinutes: Number(s.prepMinutes) || 20,
-      reviewMinutes: Number(s.reviewMinutes) || 20,
-      memoLogs: Array.isArray(s.memoLogs) ? s.memoLogs : []
-    }));
-  } else {
-    finalSubjects = [
-      ...defaults.map(def => existingById.get(def.id) || def),
-      ...customSubjects
-    ];
+  const finalSubjects = [
+    ...defaults.map(def => canonicalById.get(def.id) || def),
+    ...customSubjects
+  ];
+  const subjectMap = new Map(finalSubjects.map(s => [s.id, s]));
+
+  // Remove any auto-generated prep/review tasks that might have been created for Experiment subjects
+  const expPrepReviewTaskIds = new Set(
+    rawTasks
+      .filter(t => {
+        const sub = subjectMap.get(legacyIdMap[t.subjectId] || t.subjectId);
+        return isExperimentSubject(sub) && t.isPrepReview && t.status !== 'completed';
+      })
+      .map(t => t.id)
+  );
+  if (expPrepReviewTaskIds.size > 0) {
+    rawTasks = rawTasks.filter(t => !expPrepReviewTaskIds.has(t.id));
+    rawSteps = rawSteps.filter(s => !expPrepReviewTaskIds.has(s.taskId));
   }
+
+  // Upgrade & unify tasks
+  rawTasks.forEach(t => {
+    if (t.subjectId && legacyIdMap[t.subjectId]) {
+      t.subjectId = legacyIdMap[t.subjectId];
+    }
+    t.title = upgradeLegacyCourseText(t.title);
+    if (t.rawInput) t.rawInput = upgradeLegacyCourseText(t.rawInput);
+
+    // Re-match subject if missing or if title explicitly matches a more specific timetable course
+    const matched = matchSubjectFromText(`${t.title || ''} ${t.rawInput || ''}`, finalSubjects);
+    if ((!t.subjectId || !subjectMap.has(t.subjectId)) && matched) {
+      t.subjectId = matched.id;
+    } else if (t.subjectId === 'sub_ec1' && matched && matched.id === 'sub_aec') {
+      t.subjectId = 'sub_aec';
+    }
+
+    const sub = subjectMap.get(t.subjectId);
+    t.taskType = inferTaskTypeForItem(t, sub);
+  });
+
+  // Upgrade & unify taskSteps
+  rawSteps.forEach(st => {
+    st.title = upgradeLegacyCourseText(st.title);
+  });
+
+  // Upgrade & unify recurringRules
+  rawRules.forEach(r => {
+    if (r.subjectId && legacyIdMap[r.subjectId]) {
+      r.subjectId = legacyIdMap[r.subjectId];
+    }
+    r.title = upgradeLegacyCourseText(r.title);
+    const matched = matchSubjectFromText(r.title || '', finalSubjects);
+    if ((!r.subjectId || !subjectMap.has(r.subjectId)) && matched) {
+      r.subjectId = matched.id;
+    }
+    const sub = subjectMap.get(r.subjectId);
+    r.taskType = inferTaskTypeForItem(r, sub);
+  });
+
+  // Upgrade & unify studyLogs
+  const taskById = new Map(rawTasks.map(t => [t.id, t]));
+  rawLogs.forEach(l => {
+    if (l.subjectId && legacyIdMap[l.subjectId]) {
+      l.subjectId = legacyIdMap[l.subjectId];
+    }
+    l.title = upgradeLegacyCourseText(l.title);
+    const parentTask = l.taskId ? taskById.get(l.taskId) : null;
+    if (!l.subjectId && parentTask?.subjectId) {
+      l.subjectId = parentTask.subjectId;
+    }
+    if (!l.subjectId || !subjectMap.has(l.subjectId)) {
+      const matched = matchSubjectFromText(l.title || '', finalSubjects);
+      if (matched) l.subjectId = matched.id;
+    }
+    const sub = subjectMap.get(l.subjectId);
+    l.taskType = l.taskType || parentTask?.taskType || inferTaskTypeForItem(l, sub);
+  });
 
   // Normalize dailyStates with AM/PM conditions
   const rawDaily = data.dailyStates || {};
@@ -2328,14 +2686,15 @@ function normalizeState(data) {
   }
 
   return {
-    version: 3,
+    version: 4,
     subjects: finalSubjects,
     tasks: rawTasks,
-    taskSteps: Array.isArray(data.taskSteps) ? data.taskSteps : [],
+    taskSteps: rawSteps,
     studyLogs: rawLogs,
     dailyStates: normalizedDaily,
     userSettings: data.userSettings || createSeedData().userSettings,
-    recurringRules: rawRules
+    recurringRules: rawRules,
+    typeEstimates: data.typeEstimates && typeof data.typeEstimates === 'object' ? data.typeEstimates : {}
   };
 }
 
@@ -2497,49 +2856,181 @@ function parseAndValidateBackup(jsonString) {
 
 // --- parser.js ---
 /**
- * Smart Study OS - Natural Language Task Parser & Decomposition Engine (parser.js)
- * Extracts Subject, Deadline, Category, Estimated Duration, and Breakdown Steps
- * without forcing guesses when information is omitted.
+ * Smart Study OS - Natural Language Task Parser & TaskType Decomposition Engine (parser.js)
+ * Extracts Subject (with alias/legacy unification), TaskType, Deadline,
+ * Initial or Learned Estimated Duration, and Automatic Step Breakdown.
  */
+const NORMAL_TASK_TYPES = ['小テスト', '課題', 'レポート', 'テスト', '予習・復習'];
+const EXPERIMENT_TASK_TYPES = ['レポート', '小レポート', 'その他'];
+function getAllowedTaskTypes(subjectOrIsExp = false) {
+  const isExp = typeof subjectOrIsExp === 'boolean'
+    ? subjectOrIsExp
+    : isExperimentSubject(subjectOrIsExp);
+  return isExp ? EXPERIMENT_TASK_TYPES : NORMAL_TASK_TYPES;
+}
 const CATEGORY_META = {
-  report: { label: 'レポート', iconName: 'fileText', defaultImportance: 3, defaultMinutes: 120 },
-  quiz: { label: '小テスト', iconName: 'edit', defaultImportance: 2, defaultMinutes: 60 },
-  exam: { label: '定期試験', iconName: 'target', defaultImportance: 3, defaultMinutes: 180 },
-  assignment: { label: '課題・演習', iconName: 'book', defaultImportance: 2, defaultMinutes: 45 },
-  prep: { label: '講義予習', iconName: 'book', defaultImportance: 2, defaultMinutes: 20 },
-  review: { label: '講義復習', iconName: 'refresh', defaultImportance: 2, defaultMinutes: 20 },
-  self_study: { label: '自主学習', iconName: 'clock', defaultImportance: 1, defaultMinutes: 30 }
+  report: { label: 'レポート', iconName: 'fileText', defaultImportance: 3, defaultMinutes: 90 },
+  quiz: { label: '小テスト', iconName: 'edit', defaultImportance: 2, defaultMinutes: 30 },
+  exam: { label: 'テスト', iconName: 'target', defaultImportance: 3, defaultMinutes: 180 },
+  assignment: { label: '課題', iconName: 'book', defaultImportance: 2, defaultMinutes: 45 },
+  prep: { label: '予習・復習', iconName: 'book', defaultImportance: 2, defaultMinutes: 20 },
+  review: { label: '予習・復習', iconName: 'refresh', defaultImportance: 2, defaultMinutes: 20 },
+  self_study: { label: 'その他', iconName: 'clock', defaultImportance: 1, defaultMinutes: 30 }
 };
 
 /**
- * Decomposition Templates by Category / Pattern
- * Small tasks (< 45 mins) are NOT decomposed unnecessarily.
+ * Get specification (initial minutes, decomposition steps, icon, importance) for (isExperiment, taskType)
  */
-const DECOMPOSITION_TEMPLATES = {
-  report: [
-    { title: '課題要件・テーマの確認', minutes: 15 },
-    { title: '実験データ・参考資料の整理', minutes: 25 },
-    { title: '計算・グラフ・図表の作成', minutes: 30 },
-    { title: '考察・本文の執筆', minutes: 35 },
-    { title: '最終確認・誤字チェック・提出', minutes: 15 }
-  ],
-  experiment_org: [
-    { title: '測定データ・実験ノートの整理', minutes: 15 },
-    { title: 'グラフ作成・有効数字の計算確認', minutes: 15 }
-  ],
-  quiz: [
-    { title: '出題範囲の講義ノート・公式確認', minutes: 20 },
-    { title: '例題・演習問題の解き直し', minutes: 25 },
-    { title: '重要ポイントの最終チェック', minutes: 15 }
-  ],
-  exam: [
-    { title: '試験範囲の全体確認と重要度仕分け', minutes: 20 },
-    { title: '前半範囲の演習問題解き直し', minutes: 45 },
-    { title: '後半範囲の演習問題解き直し', minutes: 45 },
-    { title: '苦手問題・間違えた箇所の集中復習', minutes: 40 },
-    { title: '公式・要点の総仕上げチェック', minutes: 30 }
-  ]
-};
+function getTaskTypeSpec(isExperiment, taskType) {
+  if (isExperiment) {
+    if (taskType === '小レポート') {
+      return {
+        taskType: '小レポート',
+        category: 'report',
+        iconName: 'edit',
+        importance: 2,
+        baseMinutes: 45,
+        shouldDecompose: false,
+        steps: []
+      };
+    }
+    if (taskType === 'その他') {
+      return {
+        taskType: 'その他',
+        category: 'self_study',
+        iconName: 'clock',
+        importance: 2,
+        baseMinutes: 30,
+        shouldDecompose: false,
+        steps: []
+      };
+    }
+    // Default for Experiment: 'レポート' (150分・3ステップ)
+    return {
+      taskType: 'レポート',
+      category: 'report',
+      iconName: 'fileText',
+      importance: 3,
+      baseMinutes: 150,
+      shouldDecompose: true,
+      steps: [
+        { title: 'データ整理・グラフ作成', minutes: 50 },
+        { title: '考察・理論', minutes: 70 },
+        { title: '最終チェック', minutes: 30 }
+      ]
+    };
+  }
+
+  // Normal Course specifications
+  switch (taskType) {
+    case '小テスト':
+      return {
+        taskType: '小テスト',
+        category: 'quiz',
+        iconName: 'edit',
+        importance: 2,
+        baseMinutes: 30,
+        shouldDecompose: false,
+        steps: []
+      };
+    case 'レポート':
+      return {
+        taskType: 'レポート',
+        category: 'report',
+        iconName: 'fileText',
+        importance: 3,
+        baseMinutes: 90,
+        shouldDecompose: true,
+        steps: [
+          { title: '構成・下調べ', minutes: 40 },
+          { title: '執筆・仕上げ', minutes: 50 }
+        ]
+      };
+    case 'テスト':
+      return {
+        taskType: 'テスト',
+        category: 'exam',
+        iconName: 'target',
+        importance: 3,
+        baseMinutes: 180,
+        shouldDecompose: true,
+        steps: [
+          { title: '範囲確認・公式整理', minutes: 50 },
+          { title: '演習問題', minutes: 80 },
+          { title: '総復習', minutes: 50 }
+        ]
+      };
+    case '予習・復習':
+      return {
+        taskType: '予習・復習',
+        category: 'review',
+        iconName: 'refresh',
+        importance: 2,
+        baseMinutes: 20,
+        shouldDecompose: false,
+        steps: []
+      };
+    case '課題':
+    default:
+      return {
+        taskType: '課題',
+        category: 'assignment',
+        iconName: 'book',
+        importance: 2,
+        baseMinutes: 45,
+        shouldDecompose: false,
+        steps: []
+      };
+  }
+}
+
+/**
+ * Detect taskType from natural text, prioritizing longer keywords first
+ */
+function detectTaskTypeFromText(text, isExperiment = false) {
+  const s = text || '';
+
+  if (isExperiment) {
+    // Experiment course keyword rules (longest keywords prioritized)
+    const expRules = [
+      { keyword: '小レポート', type: '小レポート' },
+      { keyword: '予習レポ', type: '小レポート' },
+      { keyword: 'レポート', type: 'レポート' },
+      { keyword: '小レポ', type: '小レポート' },
+      { keyword: '本レポ', type: 'レポート' },
+      { keyword: 'その他', type: 'その他' }
+    ];
+    expRules.sort((a, b) => b.keyword.length - a.keyword.length);
+    for (const r of expRules) {
+      if (s.includes(r.keyword)) return r.type;
+    }
+    return 'レポート';
+  }
+
+  // Normal course keyword rules (longer keywords prioritized so '小テスト'/'確認テスト' beat 'テスト')
+  const normalRules = [
+    { keyword: '確認テスト', type: '小テスト' },
+    { keyword: '予習・復習', type: '予習・復習' },
+    { keyword: 'ミニテスト', type: '小テスト' },
+    { keyword: '小テスト', type: '小テスト' },
+    { keyword: 'レポート', type: 'レポート' },
+    { keyword: 'プリント', type: '課題' },
+    { keyword: 'テスト', type: 'テスト' },
+    { keyword: '試験', type: 'テスト' },
+    { keyword: '中間', type: 'テスト' },
+    { keyword: '期末', type: 'テスト' },
+    { keyword: '予習', type: '予習・復習' },
+    { keyword: '復習', type: '予習・復習' },
+    { keyword: '課題', type: '課題' },
+    { keyword: '演習', type: '課題' },
+    { keyword: '宿題', type: '課題' }
+  ];
+  normalRules.sort((a, b) => b.keyword.length - a.keyword.length);
+  for (const r of normalRules) {
+    if (s.includes(r.keyword)) return r.type;
+  }
+  return '課題';
+}
 
 const WEEKDAY_MAP = {
   '日': 0, '月': 1, '火': 2, '水': 3, '木': 4, '金': 5, '土': 6
@@ -2550,57 +3041,36 @@ const WEEKDAY_MAP = {
  * @param {string} rawText - User input string
  * @param {Array} subjects - Registered subjects array
  * @param {string} todayStr - Today's YYYY-MM-DD
- * @param {number} defaultMinutes - Default task duration from settings (30)
+ * @param {number} defaultMinutes - Default fallback duration
+ * @param {Function|null} getLearnedMinutesFn - Optional callback `(subjectId, taskType) => learnedMinutes | null`
  */
-function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defaultMinutes = 30) {
+function parseNaturalInput(
+  rawText,
+  subjects = [],
+  todayStr = toDateStr(),
+  defaultMinutes = 30,
+  getLearnedMinutesFn = null
+) {
   const text = (rawText || '').trim();
-  if (!text) {
-    return null;
-  }
+  if (!text) return null;
 
   const [ty, tm, td] = todayStr.split('-').map(Number);
   const todayObj = new Date(ty, tm - 1, td);
   const currentDow = todayObj.getDay();
 
-  // 1. Detect Subject (Match against registered subjects & aliases)
-  let matchedSubject = null;
-  for (const sub of subjects) {
-    const candidates = [sub.name, ...(sub.aliases || [])].filter(Boolean);
-    // Sort longer aliases first for accurate matching
-    candidates.sort((a, b) => b.length - a.length);
-    if (candidates.some(alias => text.includes(alias))) {
-      matchedSubject = sub;
-      break;
-    }
-  }
+  // 1. Detect Subject (Longest alias match across all registered subjects)
+  const matchedSubject = matchSubjectFromText(text, subjects);
+  const isExp = isExperimentSubject(matchedSubject) || (!matchedSubject && /実験|小レポート|小レポ|予習レポ|本レポ/.test(text));
 
-  // 2. Detect Category & Importance
-  let category = 'assignment';
-  let categoryExplicit = false;
+  // 2. Detect TaskType & Spec
+  const taskType = detectTaskTypeFromText(text, isExp);
+  const spec = getTaskTypeSpec(isExp, taskType);
+  const category = spec.category;
 
-  if (/レポート|レポ|報告書|論文/.test(text)) {
-    category = 'report';
-    categoryExplicit = true;
-  } else if (/小テスト|クイズ|単語テスト|ミニテスト/.test(text)) {
-    category = 'quiz';
-    categoryExplicit = true;
-  } else if (/定期試験|期末試験|中間試験|期末テスト|中間テスト|本試験|試験/.test(text)) {
-    category = 'exam';
-    categoryExplicit = true;
-  } else if (/問題|演習|課題|宿題|プリント|提出/.test(text)) {
-    category = 'assignment';
-    categoryExplicit = true;
-  } else if (/勉強|復習|予習|整理|まとめ|暗記|読書|読む|リスニング/.test(text)) {
-    category = 'self_study';
-    categoryExplicit = true;
-  }
-
-  // 3. Detect Deadline Date (Do NOT guess if no date expression is present)
+  // 3. Detect Deadline Date
   let deadlineDate = null;
   let matchedDateToken = '';
 
-  // 3-0. Weekly recurrence: 毎週月曜に / 毎週金曜までに / 毎週 (曜日なし)
-  //      曜日がない場合は科目の授業曜日 → それもなければ今日の曜日 (後から変更可)
   let recurrence = null;
   const weeklyMatch = text.match(/毎週(?:の)?(?:([日月火水木金土])曜(?:日)?)?(?:まで(?:に)?|に|の)?/);
   if (weeklyMatch) {
@@ -2668,7 +3138,6 @@ function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defau
       let delta = targetDow - currentDow;
 
       if (prefix === '来週') {
-        // Next week's target day (at least into next week's cycle)
         const daysToNextMonday = ((1 - currentDow + 7) % 7) || 7;
         const offsetFromMonday = (targetDow === 0) ? 6 : (targetDow - 1);
         delta = daysToNextMonday + offsetFromMonday;
@@ -2677,17 +3146,14 @@ function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defau
         const offsetFromMonday = (targetDow === 0) ? 6 : (targetDow - 1);
         delta = daysToNextMonday + 7 + offsetFromMonday;
       } else {
-        // 今週 or bare "金曜日までに"
-        if (delta <= 0) {
-          delta += 7;
-        }
+        if (delta <= 0) delta += 7;
       }
       deadlineDate = addDays(todayStr, delta);
       matchedDateToken = dowMatch[0];
     }
   }
 
-  // 3d. "来週の[科目]の課題" when weekday is omitted -> use subject's defaultWeekday if available
+  // 3d. "来週の[科目]の課題" when weekday is omitted -> use subject's defaultWeekday
   if (!deadlineDate && /来週/.test(text) && matchedSubject && typeof matchedSubject.defaultWeekday === 'number') {
     const targetDow = matchedSubject.defaultWeekday;
     const daysToNextMonday = ((1 - currentDow + 7) % 7) || 7;
@@ -2696,7 +3162,7 @@ function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defau
     matchedDateToken = '来週';
   }
 
-  // 4. Detect Estimated Duration (Minutes)
+  // 4. Detect Explicit Duration (Minutes) if typed
   let explicitMinutes = null;
   let matchedDurationToken = '';
 
@@ -2717,77 +3183,34 @@ function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defau
     matchedDurationToken = minMatch[0];
   }
 
-  // Check problem count (e.g., "問題3問" -> 15 mins * 3 = 45 mins)
-  let problemCount = null;
-  const probMatch = text.match(/(\d+)\s*問/);
-  if (probMatch) {
-    problemCount = parseInt(probMatch[1], 10);
-  }
+  // 5. Determine Estimated Duration & Decomposition Steps from TaskType Spec + Subject×TaskType Learning
+  const learnedInfo = (matchedSubject && typeof getLearnedMinutesFn === 'function')
+    ? getLearnedMinutesFn(matchedSubject.id, taskType)
+    : null;
 
-  // 5. Determine Decomposition Steps (Only decompose large tasks; keep small tasks single-step)
-  let suggestedSteps = [];
-  let shouldDecompose = false;
+  let shouldDecompose = spec.shouldDecompose;
+  let suggestedSteps = spec.steps.map(s => ({ ...s }));
+  let estimatedMinutes = explicitMinutes || (learnedInfo ? learnedInfo.learnedMinutes : spec.baseMinutes);
+  const isLearnedDuration = Boolean(!explicitMinutes && learnedInfo && learnedInfo.sampleCount > 0);
 
-  if (category === 'report') {
-    shouldDecompose = true;
-    suggestedSteps = DECOMPOSITION_TEMPLATES.report.map(s => ({ ...s }));
-  } else if (category === 'exam') {
-    shouldDecompose = true;
-    suggestedSteps = DECOMPOSITION_TEMPLATES.exam.map(s => ({ ...s }));
-  } else if (category === 'quiz' && (!explicitMinutes || explicitMinutes >= 45)) {
-    shouldDecompose = true;
-    suggestedSteps = DECOMPOSITION_TEMPLATES.quiz.map(s => ({ ...s }));
-  } else if (/実験結果.*整理/.test(text) && (!explicitMinutes || explicitMinutes >= 40)) {
-    shouldDecompose = true;
-    suggestedSteps = DECOMPOSITION_TEMPLATES.experiment_org.map(s => ({ ...s }));
-  } else if (problemCount && problemCount >= 3 && (!explicitMinutes || explicitMinutes >= 45)) {
-    // e.g. 熱力学の問題3問を解く -> Split into manageable chunks if >= 3 problems
-    shouldDecompose = true;
-    const firstBatch = Math.ceil(problemCount / 2);
-    const secondBatch = problemCount - firstBatch;
-    suggestedSteps = [
-      { title: `問題 1〜${firstBatch} を解く`, minutes: firstBatch * 15 },
-      { title: `問題 ${firstBatch + 1}〜${problemCount} を解く＆解答確認`, minutes: secondBatch * 15 }
-    ];
-  }
-
-  // If user specified an explicit short duration (e.g., 20分 or 30分), do NOT force multi-step breakdown
-  if (explicitMinutes && explicitMinutes <= 35 && category !== 'report') {
-    shouldDecompose = false;
-    suggestedSteps = [];
-  }
-
-  // Calculate final estimatedMinutes
-  let estimatedMinutes = explicitMinutes;
-  let isDefaultDuration = false;
-
-  if (!estimatedMinutes) {
-    if (shouldDecompose && suggestedSteps.length > 0) {
-      estimatedMinutes = suggestedSteps.reduce((acc, s) => acc + s.minutes, 0);
-    } else if (problemCount) {
-      estimatedMinutes = Math.max(15, Math.min(120, problemCount * 15));
-    } else {
-      // Rule #2: Default to 30 mins when unspecified
-      estimatedMinutes = defaultMinutes || 30;
-      isDefaultDuration = true;
-    }
-  } else if (shouldDecompose && suggestedSteps.length > 0) {
-    // Scale template steps to match explicit total duration
+  if (shouldDecompose && suggestedSteps.length > 0) {
     const templateSum = suggestedSteps.reduce((acc, s) => acc + s.minutes, 0);
-    const ratio = estimatedMinutes / templateSum;
-    suggestedSteps = suggestedSteps.map(s => ({
-      title: s.title,
-      minutes: Math.max(10, Math.round((s.minutes * ratio) / 5) * 5)
-    }));
+    if (estimatedMinutes !== templateSum) {
+      const ratio = estimatedMinutes / Math.max(1, templateSum);
+      suggestedSteps = suggestedSteps.map(s => ({
+        title: s.title,
+        minutes: Math.max(5, Math.round((s.minutes * ratio) / 5) * 5)
+      }));
+      estimatedMinutes = suggestedSteps.reduce((acc, s) => acc + s.minutes, 0);
+    }
   }
 
-  // 6. Clean up Title (Keep natural readability while stripping leading date prefix)
+  // 6. Clean up Title & upgrade legacy course names (e.g., "熱力学" -> "熱統計力学", "自動車概論" -> "次世代モビリティ工学概論")
   let cleanTitle = text;
   if (matchedDateToken && !/今日/.test(matchedDateToken)) {
     cleanTitle = cleanTitle.replace(matchedDateToken, '').trim();
   }
   if (matchedDurationToken) {
-    // Strip standalone duration phrases like "20分勉強する" -> keep natural or clean
     cleanTitle = cleanTitle
       .replace(/を?\s*\d+(?:\.\d+)?\s*(?:時間半|時間|分|分間)\s*(?:勉強する|やる|行う)$/, 'を勉強する')
       .replace(/\s+\d+\s*(?:分|時間)$/, '')
@@ -2797,6 +3220,7 @@ function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defau
   if (!cleanTitle) {
     cleanTitle = text;
   }
+  cleanTitle = upgradeLegacyCourseText(cleanTitle);
 
   return {
     rawInput: text,
@@ -2804,37 +3228,55 @@ function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defau
     subjectId: matchedSubject ? matchedSubject.id : null,
     subjectName: matchedSubject ? matchedSubject.name : null,
     subjectColor: matchedSubject ? matchedSubject.color : null,
+    isExperiment: isExp,
+    taskType,
     category,
-    categoryLabel: CATEGORY_META[category].label,
-    categoryIconName: CATEGORY_META[category].iconName,
-    categoryExplicit,
-    importance: CATEGORY_META[category].defaultImportance,
+    categoryLabel: taskType,
+    categoryIconName: spec.iconName,
+    importance: spec.importance,
     deadlineDate,
     deadlineLabel: deadlineDate ? formatJpDate(deadlineDate, todayStr) : '未設定',
+    baseMinutes: spec.baseMinutes,
     estimatedMinutes,
     explicitMinutes,
     isDurationExplicit: Boolean(explicitMinutes),
-    isDefaultDuration,
+    isLearnedDuration,
+    learnedRatio: learnedInfo ? learnedInfo.ratio : null,
     shouldDecompose,
     suggestedSteps,
     recurrence
   };
 }
-function getCategoryStepTemplates(category) {
-  if (category === 'report') return DECOMPOSITION_TEMPLATES.report.map(s => ({ ...s }));
-  if (category === 'quiz') return DECOMPOSITION_TEMPLATES.quiz.map(s => ({ ...s }));
-  if (category === 'exam') return DECOMPOSITION_TEMPLATES.exam.map(s => ({ ...s }));
+
+/**
+ * Get step templates for Task Detail Modal re-decomposition
+ */
+function getCategoryStepTemplates(categoryOrTaskType, isExperiment = false, taskType = null) {
+  const effectiveType = taskType || (
+    ['小テスト', '課題', 'レポート', 'テスト', '予習・復習', '小レポート', 'その他'].includes(categoryOrTaskType)
+      ? categoryOrTaskType
+      : categoryOrTaskType === 'report'
+        ? 'レポート'
+        : categoryOrTaskType === 'quiz'
+          ? '小テスト'
+          : categoryOrTaskType === 'exam'
+            ? 'テスト'
+            : '課題'
+  );
+  const spec = getTaskTypeSpec(isExperiment, effectiveType);
+  if (spec.steps && spec.steps.length > 0) {
+    return spec.steps.map(s => ({ ...s }));
+  }
   return [
-    { title: '課題内容・資料の確認', minutes: 10 },
-    { title: 'メイン作業・演習', minutes: 25 },
-    { title: '見直し・完了確認', minutes: 10 }
+    { title: `${effectiveType}の取り組み・確認`, minutes: spec.baseMinutes }
   ];
 }
 
 
 // --- scheduler.js ---
 /**
- * Smart Study OS - Auto-Scheduler, Risk Evaluator, AM/PM Condition & Gemini Weekly Prompt Engine (scheduler.js)
+ * Smart Study OS - Auto-Scheduler, Risk Evaluator, AM/PM Condition,
+ * Subject×TaskType Estimate Learning & Gemini Weekly Prompt Engine (scheduler.js)
  */
 const CONDITION_META = {
   energetic: {
@@ -2914,6 +3356,119 @@ function getDayEffectiveCapacity(dateStr, state) {
 }
 
 /**
+ * Compute Subject × TaskType estimation statistics across all completed studyLogs
+ */
+function getSubjectTaskTypeStats(state, filterSubjectId = null) {
+  const subjectMap = new Map((state.subjects || []).map(s => [s.id, s]));
+  const taskMap = new Map((state.tasks || []).map(t => [t.id, t]));
+  const bucketMap = new Map();
+
+  for (const log of state.studyLogs || []) {
+    const parentTask = log.taskId ? taskMap.get(log.taskId) : null;
+    const subId = log.subjectId || parentTask?.subjectId;
+    if (!subId) continue;
+    if (filterSubjectId && subId !== filterSubjectId) continue;
+
+    const sub = subjectMap.get(subId);
+    const isExp = isExperimentSubject(sub);
+    const taskType = log.taskType || parentTask?.taskType || inferTaskTypeForItem(log, sub);
+    const spec = getTaskTypeSpec(isExp, taskType);
+
+    const actual = Number(log.durationMinutes) || 0;
+    const baseEst = Number(log.baseEstimatedMinutes) || Number(log.estimatedMinutes) || spec.baseMinutes;
+    if (actual <= 0 || baseEst <= 0) continue;
+
+    const key = `${subId}__${taskType}`;
+    if (!bucketMap.has(key)) {
+      bucketMap.set(key, {
+        key,
+        subjectId: subId,
+        subjectName: sub ? sub.name : '未設定',
+        subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)',
+        taskType,
+        baseMinutes: spec.baseMinutes,
+        totalActual: 0,
+        totalBaseEst: 0,
+        sampleCount: 0
+      });
+    }
+    const b = bucketMap.get(key);
+    b.totalActual += actual;
+    b.totalBaseEst += baseEst;
+    b.sampleCount += 1;
+  }
+
+  const results = [];
+  for (const b of bucketMap.values()) {
+    const ratioNum = b.totalActual / Math.max(1, b.totalBaseEst);
+    const ratio = ratioNum.toFixed(2);
+    const avgMinutes = Math.max(5, Math.round(b.baseMinutes * ratioNum));
+    const learnedMinutes = Math.max(5, Math.round(avgMinutes / 5) * 5);
+    results.push({
+      ...b,
+      ratioNum,
+      ratio,
+      avgMinutes,
+      learnedMinutes,
+      summaryText: `${b.subjectName}（${b.taskType}）：平均${avgMinutes}分（見積もり比 ${ratio}倍）`
+    });
+  }
+
+  return results;
+}
+
+/**
+ * Look up learned estimate for a specific (subjectId, taskType) pair
+ */
+function getLearnedEstimateForSubjectType(state, subjectId, taskType) {
+  if (!state || !subjectId || !taskType) return null;
+  const stats = getSubjectTaskTypeStats(state, subjectId);
+  return stats.find(s => s.subjectId === subjectId && s.taskType === taskType) || null;
+}
+
+/**
+ * Preview how completing a step will update the Subject × TaskType learned estimate
+ */
+function previewSubjectTypeLearning(state, step, task, actualMinutes) {
+  if (!task || !task.subjectId) return null;
+  const sub = (state.subjects || []).find(s => s.id === task.subjectId);
+  if (!sub) return null;
+
+  const isExp = isExperimentSubject(sub);
+  const taskType = task.taskType || inferTaskTypeForItem(task, sub);
+  const spec = getTaskTypeSpec(isExp, taskType);
+  const currentLearned = getLearnedEstimateForSubjectType(state, sub.id, taskType);
+
+  const stepBaseEst = Number(step.baseEstimatedMinutes) || Number(step.estimatedMinutes) || spec.baseMinutes;
+  const act = Math.max(1, Number(actualMinutes) || stepBaseEst);
+
+  const prevTotalAct = currentLearned ? currentLearned.totalActual : 0;
+  const prevTotalBase = currentLearned ? currentLearned.totalBaseEst : 0;
+  const oldTaskEstimate = currentLearned ? currentLearned.learnedMinutes : spec.baseMinutes;
+
+  const nextTotalAct = prevTotalAct + act;
+  const nextTotalBase = prevTotalBase + stepBaseEst;
+  const nextRatioNum = nextTotalAct / Math.max(1, nextTotalBase);
+  const nextRatio = nextRatioNum.toFixed(2);
+  const nextAvgMinutes = Math.max(5, Math.round(spec.baseMinutes * nextRatioNum));
+  const nextTaskEstimate = Math.max(5, Math.round(nextAvgMinutes / 5) * 5);
+
+  return {
+    subjectId: sub.id,
+    subjectName: sub.name,
+    taskType,
+    baseMinutes: spec.baseMinutes,
+    oldEstimate: oldTaskEstimate,
+    nextEstimate: nextTaskEstimate,
+    avgMinutes: nextAvgMinutes,
+    ratio: nextRatio,
+    actualMinutes: act,
+    stepEstimatedBefore: step.estimatedMinutes || stepBaseEst,
+    sampleCount: (currentLearned ? currentLearned.sampleCount : 0) + 1
+  };
+}
+
+/**
  * Calculate remaining steps and total remaining minutes for a parent task
  */
 function getTaskProgressStats(taskId, taskSteps) {
@@ -2945,16 +3500,21 @@ function getTaskProgressStats(taskId, taskSteps) {
 
 /**
  * Evaluate Deadline Risk Level for a Task
+ * Includes early-warning escalation for 1・2限 courses (effective deadline: night before)
  */
 function evaluateTaskRisk(task, state, todayStr = toDateStr()) {
   const stats = getTaskProgressStats(task.id, state.taskSteps);
   const remainingMinutes = stats.remainingMinutes;
+  const sub = (state.subjects || []).find(s => s.id === task.subjectId);
+  const isEarlyMorning = isEarlyMorningSubject(sub);
 
   if (task.status === 'completed' || remainingMinutes === 0) {
     return {
       level: 'safe',
       score: 0,
       daysLeft: null,
+      effectiveDaysLeft: null,
+      isEarlyMorning,
       remainingMinutes: 0,
       totalMinutes: stats.totalMinutes,
       completedSteps: stats.completedSteps,
@@ -2969,6 +3529,8 @@ function evaluateTaskRisk(task, state, todayStr = toDateStr()) {
       level: 'none',
       score: 15 + (task.importance || 2) * 5,
       daysLeft: null,
+      effectiveDaysLeft: null,
+      isEarlyMorning,
       remainingMinutes,
       totalMinutes: stats.totalMinutes,
       completedSteps: stats.completedSteps,
@@ -2979,9 +3541,11 @@ function evaluateTaskRisk(task, state, todayStr = toDateStr()) {
   }
 
   const daysLeft = diffDays(todayStr, task.deadlineDate);
+  // For 1・2限 courses, the effective work deadline is the night before (daysLeft - 1)
+  const effectiveDaysLeft = isEarlyMorning ? daysLeft - 1 : daysLeft;
 
   let availableMinutesUntilDeadline = 0;
-  const spanDays = Math.max(0, daysLeft);
+  const spanDays = Math.max(0, effectiveDaysLeft);
   for (let i = 0; i <= Math.min(spanDays, 14); i++) {
     const dStr = addDays(todayStr, i);
     availableMinutesUntilDeadline += getDayEffectiveCapacity(dStr, state);
@@ -3000,31 +3564,50 @@ function evaluateTaskRisk(task, state, todayStr = toDateStr()) {
   } else if (daysLeft === 0) {
     level = 'danger';
     reason = `今日が締切です（残作業 ${remainingMinutes}分）`;
-  } else if (daysLeft === 1 && remainingMinutes >= 45) {
+  } else if (isEarlyMorning && daysLeft === 1) {
     level = 'danger';
-    reason = `明日締切・残作業 ${remainingMinutes}分で集中対応が必要`;
+    reason = `明日1・2限授業のため今夜が実質期限（残 ${remainingMinutes}分）`;
+  } else if (effectiveDaysLeft <= 1 && remainingMinutes >= 40) {
+    level = 'danger';
+    reason = isEarlyMorning
+      ? `1・2限授業（前日夜期限）まで残り1日・残 ${remainingMinutes}分`
+      : `明日締切・残作業 ${remainingMinutes}分で集中対応が必要`;
   } else if (loadRatio >= 0.65) {
     level = 'danger';
     reason = `締切までの空き時間に対し残作業（${remainingMinutes}分）が逼迫`;
-  } else if (daysLeft <= 2 || loadRatio >= 0.32 || (daysLeft <= 4 && remainingMinutes >= 90)) {
+  } else if (
+    effectiveDaysLeft <= 2 ||
+    loadRatio >= 0.30 ||
+    (effectiveDaysLeft <= 4 && remainingMinutes >= 85) ||
+    (isEarlyMorning && daysLeft <= 4)
+  ) {
     level = 'warning';
-    reason = `あと${daysLeft}日・残作業 ${remainingMinutes}分（今日からの分散着手を推奨）`;
+    reason = isEarlyMorning
+      ? `1・2限（前日夜期限）・あと${daysLeft}日 / 残 ${remainingMinutes}分`
+      : `あと${daysLeft}日・残作業 ${remainingMinutes}分（今日からの分散着手を推奨）`;
   } else {
     level = 'safe';
-    reason = `あと${daysLeft}日・残作業 ${remainingMinutes}分（計画通り進行中）`;
+    reason = isEarlyMorning
+      ? `あと${daysLeft}日（前日夜期限）・残作業 ${remainingMinutes}分`
+      : `あと${daysLeft}日・残作業 ${remainingMinutes}分（計画通り進行中）`;
   }
 
-  const urgencyBase = daysLeft <= 0 ? 120 - daysLeft * 15 : Math.max(10, 95 - daysLeft * 14);
+  const urgencyBase = effectiveDaysLeft <= 0
+    ? 125 - effectiveDaysLeft * 15
+    : Math.max(10, 95 - effectiveDaysLeft * 14);
   const score = Math.round(
     urgencyBase +
     Math.min(60, remainingMinutes * 0.45) +
-    (task.importance || 2) * 12
+    (task.importance || 2) * 12 +
+    (isEarlyMorning ? 15 : 0)
   );
 
   return {
     level,
     score,
     daysLeft,
+    effectiveDaysLeft,
+    isEarlyMorning,
     remainingMinutes,
     totalMinutes: stats.totalMinutes,
     completedSteps: stats.completedSteps,
@@ -3050,10 +3633,13 @@ function getScheduledMinutesByDate(taskSteps, todayStr = toDateStr()) {
 /**
  * Auto-schedule steps for a newly added or decomposed task
  */
-function assignDatesForNewTaskSteps(steps, deadlineDate, state, todayStr = toDateStr()) {
+function assignDatesForNewTaskSteps(steps, deadlineDate, state, todayStr = toDateStr(), subjectId = null) {
   if (!deadlineDate) {
     return steps.map(s => ({ ...s, scheduledDate: null }));
   }
+
+  const sub = subjectId ? (state.subjects || []).find(s => s.id === subjectId) : null;
+  const isEarlyMorning = isEarlyMorningSubject(sub);
 
   const daysUntilDeadline = diffDays(todayStr, deadlineDate);
   if (daysUntilDeadline <= 0) {
@@ -3061,8 +3647,11 @@ function assignDatesForNewTaskSteps(steps, deadlineDate, state, todayStr = toDat
   }
 
   const scheduledByDate = getScheduledMinutesByDate(state.taskSteps, todayStr);
-  const isFinalSubmissionStep = (title) => /提出|最終確認|見直し/.test(title);
-  const maxWorkOffset = daysUntilDeadline >= 2 ? daysUntilDeadline - 1 : daysUntilDeadline;
+  const isFinalSubmissionStep = (title) => /提出|最終確認|最終チェック|見直し/.test(title);
+  // For 1・2限 courses, aim to complete all work by the night before (daysUntilDeadline - 1)
+  const maxWorkOffset = (daysUntilDeadline >= 2 || (isEarlyMorning && daysUntilDeadline >= 1))
+    ? Math.max(0, daysUntilDeadline - 1)
+    : daysUntilDeadline;
 
   const candidateDates = [];
   for (let i = 0; i <= maxWorkOffset; i++) {
@@ -3074,7 +3663,7 @@ function assignDatesForNewTaskSteps(steps, deadlineDate, state, todayStr = toDat
   return steps.map((step, idx) => {
     const stepMins = Number(step.estimatedMinutes) || 30;
 
-    if (idx === steps.length - 1 && isFinalSubmissionStep(step.title) && daysUntilDeadline >= 1) {
+    if (!isEarlyMorning && idx === steps.length - 1 && isFinalSubmissionStep(step.title) && daysUntilDeadline >= 1) {
       const subDate = addDays(todayStr, Math.min(daysUntilDeadline, maxWorkOffset + 1));
       scheduledByDate[subDate] = (scheduledByDate[subDate] || 0) + stepMins;
       return { ...step, scheduledDate: subDate };
@@ -3198,16 +3787,19 @@ function generateReplanProposal(state, todayStr = toDateStr(), forceAll = false)
   for (const taskId of sortedTaskIds) {
     const task = taskMap.get(taskId);
     const subject = subjectMap.get(task?.subjectId);
+    const isEarlyMorning = isEarlyMorningSubject(subject);
     const tSteps = stepsByTask.get(taskId);
     const deadline = task?.deadlineDate || addDays(todayStr, 5);
     const daysLeft = Math.max(0, diffDays(todayStr, deadline));
-    const maxOffset = daysLeft >= 2 ? daysLeft - 1 : daysLeft;
+    const maxOffset = (daysLeft >= 2 || (isEarlyMorning && daysLeft >= 1))
+      ? Math.max(0, daysLeft - 1)
+      : daysLeft;
 
     let minOffset = 0;
 
     tSteps.forEach((step, idx) => {
       const mins = Number(step.estimatedMinutes) || 30;
-      const isLastSub = idx === tSteps.length - 1 && /提出|最終確認/.test(step.title) && daysLeft >= 1;
+      const isLastSub = !isEarlyMorning && idx === tSteps.length - 1 && /提出|最終確認/.test(step.title) && daysLeft >= 1;
 
       let chosenOffset = minOffset;
       if (isLastSub) {
@@ -3226,7 +3818,7 @@ function generateReplanProposal(state, todayStr = toDateStr(), forceAll = false)
         }
         if (!placed) {
           let bestRatio = Infinity;
-          for (let off = minOffset; off <= daysLeft; off++) {
+          for (let off = minOffset; off <= maxOffset; off++) {
             const dStr = addDays(todayStr, off);
             const cap = getDayEffectiveCapacity(dStr, state);
             const cur = simLoadByDate[dStr] || 0;
@@ -3282,7 +3874,6 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
   const condition = conditions.activeCondition;
   const capacityMinutes = getDayEffectiveCapacity(todayStr, state);
 
-  // When PM is set to 'tired', automatically elevate lecture review/prep & short tasks above heavy report steps
   const isPmTiredMode = conditionPm === 'tired';
 
   const enrichedSteps = state.taskSteps
@@ -3290,17 +3881,19 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
       const task = taskMap.get(step.taskId);
       if (!task) return null;
       const sub = subjectMap.get(task.subjectId);
+      const taskType = task.taskType || inferTaskTypeForItem(task, sub);
       const risk = evaluateTaskRisk(task, state, todayStr);
       const isOverdue = !step.isCompleted && step.scheduledDate && diffDays(todayStr, step.scheduledDate) < 0;
       const isPrepOrReview = Boolean(
         task.isPrepReview ||
+        taskType === '予習・復習' ||
         task.category === 'review' ||
         task.category === 'prep' ||
         /復習|予習/.test(task.title) ||
         /復習|予習/.test(step.title)
       );
       const isShortStep = (Number(step.estimatedMinutes) || 30) <= 25;
-      const isHeavyReport = task.category === 'report' && (Number(step.estimatedMinutes) || 30) >= 35;
+      const isHeavyReport = (taskType === 'レポート' || task.category === 'report') && (Number(step.estimatedMinutes) || 30) >= 35;
 
       let priorityScore = risk.score + (isOverdue ? 100 : 0) - step.orderIndex * 2;
       let pmTiredBoosted = false;
@@ -3320,6 +3913,7 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
       return {
         ...step,
         taskTitle: task.title,
+        taskType,
         category: task.category,
         isPrepReview: task.isPrepReview || null,
         deadlineDate: task.deadlineDate,
@@ -3354,7 +3948,6 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
     0
   );
 
-  // Pull in unscheduled/review steps if capacity allows (or if PM tired mode wants a quick review task)
   const unscheduledSteps = enrichedSteps
     .filter(s => !s.isCompleted && (!s.scheduledDate || (isPmTiredMode && s.pmTiredBoosted && s.scheduledDate !== todayStr)))
     .sort((a, b) => b.priorityScore - a.priorityScore);
@@ -3394,12 +3987,21 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
     .filter(t => t.status !== 'completed')
     .map(t => {
       const sub = subjectMap.get(t.subjectId);
+      const taskType = t.taskType || inferTaskTypeForItem(t, sub);
       const risk = evaluateTaskRisk(t, state, todayStr);
+      const nextStep = firstUncompletedByTask.get(t.id) || null;
+      const isTodayScheduled = state.taskSteps.some(
+        s => s.taskId === t.id && !s.isCompleted && s.scheduledDate === todayStr
+      );
       return {
         ...t,
+        taskType,
         subjectName: sub ? sub.name : '未設定',
         subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)',
         deadlineLabel: formatJpDate(t.deadlineDate, todayStr),
+        nextStepId: nextStep ? nextStep.id : null,
+        nextStepTitle: nextStep ? nextStep.title : null,
+        isTodayScheduled,
         risk
       };
     })
@@ -3410,8 +4012,10 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
     .filter(t => t.understandingLevel === 1 || t.nextReviewDate)
     .map(t => {
       const sub = subjectMap.get(t.subjectId);
+      const taskType = t.taskType || inferTaskTypeForItem(t, sub);
       return {
         ...t,
+        taskType,
         subjectName: sub ? sub.name : '未設定',
         subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)',
         reviewDateLabel: t.nextReviewDate ? formatJpDate(t.nextReviewDate, todayStr) : '要復習'
@@ -3441,11 +4045,10 @@ function buildDashboardModel(state, todayStr = toDateStr(), pocketMaxMinutes = 3
 }
 
 /**
- * Generate structured Weekly Reflection Prompt for Gemini
+ * Generate structured Weekly Reflection Prompt for Gemini (including Subject × TaskType estimation stats)
  */
 function generateWeeklyGeminiPrompt(state, todayStr = toDateStr()) {
   const startStr = addDays(todayStr, -6);
-  const subjectMap = new Map((state.subjects || []).map(s => [s.id, s]));
 
   // 1. 今週の完了タスク数と合計学習時間
   const weekLogs = (state.studyLogs || []).filter(
@@ -3477,97 +4080,60 @@ function generateWeeklyGeminiPrompt(state, todayStr = toDateStr()) {
     ? `疲れやすい時間帯: ${tiredSlots.join('、')}`
     : '今週「疲れている」を選択した時間帯はありません（安定したコンディション）';
 
-  // 3. 科目別の見積もりクセ（推定時間に対する実測時間の平均倍率・ズレの傾向）
-  const subjectStats = new Map();
-  for (const log of state.studyLogs || []) {
-    if (!log.subjectId) continue;
-    const actual = Number(log.durationMinutes) || 0;
-    const est = Number(log.estimatedMinutes) || actual;
-    if (actual <= 0 || est <= 0) continue;
-    if (!subjectStats.has(log.subjectId)) {
-      subjectStats.set(log.subjectId, { totalEst: 0, totalAct: 0, count: 0 });
-    }
-    const st = subjectStats.get(log.subjectId);
-    st.totalEst += est;
-    st.totalAct += actual;
-    st.count += 1;
-  }
-  // Also include recurring rules step histories
-  for (const rule of state.recurringRules || []) {
-    if (!rule.subjectId) continue;
-    for (const ts of rule.stepsTemplate || []) {
-      for (const h of ts.history || []) {
-        if (!subjectStats.has(rule.subjectId)) {
-          subjectStats.set(rule.subjectId, { totalEst: 0, totalAct: 0, count: 0 });
-        }
-        const st = subjectStats.get(rule.subjectId);
-        st.totalEst += Number(h.estimated) || 30;
-        st.totalAct += Number(h.actual) || 30;
-        st.count += 1;
-      }
-    }
-  }
+  // 3. 科目×タスク種別ごとの見積もりクセ（推定時間に対する実測時間の平均倍率・ズレの傾向）
+  const typeStats = getSubjectTaskTypeStats(state);
+  const estimationLines = typeStats.map(st => {
+    const diff = st.avgMinutes - st.baseMinutes;
+    const trend = diff > 3
+      ? `初期見積もり(${st.baseMinutes}分)より平均 +${diff}分 長引く傾向`
+      : diff < -3
+        ? `初期見積もり(${st.baseMinutes}分)より平均 ${Math.abs(diff)}分 早く終わる傾向`
+        : '初期見積もりと実測がほぼ一致';
+    return `- ${st.subjectName}（${st.taskType}）：平均${st.avgMinutes}分（見積もり比 ${st.ratio}倍 / 記録${st.sampleCount}回・${trend}）`;
+  });
 
-  const estimationLines = [];
-  for (const [subId, st] of subjectStats.entries()) {
-    const sub = subjectMap.get(subId);
-    const subName = sub ? sub.name : 'その他';
-    const ratio = (st.totalAct / Math.max(1, st.totalEst)).toFixed(2);
-    const avgDiff = Math.round((st.totalAct - st.totalEst) / st.count);
-    const trend = avgDiff > 3
-      ? `見積もりより平均 +${avgDiff}分 長引く傾向（過小評価クセ）`
-      : avgDiff < -3
-        ? `見積もりより平均 ${Math.abs(avgDiff)}分 早く終わる傾向`
-        : '見積もりと実測がほぼ一致';
-    estimationLines.push(`- ${subName}: 実測/推定倍率 ${ratio}倍（推定計${st.totalEst}分 → 実測計${st.totalAct}分 / ${trend}）`);
-  }
   if (estimationLines.length === 0) {
-    estimationLines.push('- まだ完了タスクの実測ログが蓄積されていません（タスク完了時に実時間を記録すると自動集計されます）');
+    estimationLines.push('- まだ完了タスクの実測ログが蓄積されていません（タスク完了時に実時間を記録すると「科目×種別」ごとに自動集計されます）');
   }
 
   // 4. 今週書き留めた教科ごとの学習メモ一覧
   const memoLines = [];
   for (const sub of state.subjects || []) {
     const memos = (sub.memoLogs || []).filter(m => !m.date || (m.date >= startStr && m.date <= todayStr));
-    const logNotes = weekLogs
-      .filter(l => l.subjectId === sub.id && l.reflectionNote)
-      .map(l => `[${l.studiedDate}] ${l.reflectionNote}`);
-    const combined = [
-      ...memos.map(m => `[${m.date || todayStr}] ${m.text}`),
-      ...logNotes
-    ];
-    const uniqueMemos = Array.from(new Set(combined));
-    if (uniqueMemos.length > 0 || sub.weakPointsNote) {
+    if (memos.length > 0) {
       memoLines.push(`【${sub.name}】`);
-      if (sub.weakPointsNote) {
-        memoLines.push(`  ・苦手分野メモ: ${sub.weakPointsNote}`);
+      for (const m of memos) {
+        memoLines.push(`  - (${m.date || todayStr}) ${m.text}`);
       }
-      uniqueMemos.forEach(line => memoLines.push(`  ・${line}`));
     }
   }
   if (memoLines.length === 0) {
-    memoLines.push('- 今週記録された学習メモ・つまずきログはまだありません');
+    memoLines.push('- 今週記録された学習メモはありません');
   }
 
+  const hrs = Math.floor(totalStudiedMinutes / 60);
+  const remMins = totalStudiedMinutes % 60;
+  const timeText = hrs > 0 ? `${hrs}時間${remMins}分（計${totalStudiedMinutes}分）` : `${totalStudiedMinutes}分`;
+
   return [
-    `# 今週の学習振り返りデータ（${startStr} 〜 ${todayStr}）`,
-    '',
-    '## 1. 今週の完了タスク数と合計学習時間',
-    `- 完了した親課題数: ${completedTasksCount}件（完了ステップ数: ${completedStepsCount}ステップ）`,
-    `- 合計学習時間: ${totalStudiedMinutes}分（約 ${(totalStudiedMinutes / 60).toFixed(1)}時間 / 記録ログ ${weekLogs.length}件）`,
-    '',
-    '## 2. 午前・午後のコンディション推移',
+    `# 週間学習振り返りデータ（${startStr} 〜 ${todayStr}）`,
+    ``,
+    `## 1. 今週の完了タスク数と合計学習時間`,
+    `- 完了した親課題数: ${completedTasksCount}件（完了ステップ数: ${completedStepsCount}件）`,
+    `- 合計学習時間（実測）: ${timeText}`,
+    ``,
+    `## 2. 午前・午後のコンディション推移`,
     ...condLines,
     `- 傾向サマリー: ${fatigueSummary}`,
-    '',
-    '## 3. 科目別の見積もりクセ（推定時間 vs 実測時間）',
+    ``,
+    `## 3. 科目×タスク種別ごとの見積もりクセ（推定時間に対する実測時間の平均倍率）`,
     ...estimationLines,
-    '',
-    '## 4. 今週書き留めた教科ごとの学習メモ・つまずき一覧',
+    ``,
+    `## 4. 今週書き留めた教科ごとの学習メモ（つまずき・疑問点）`,
     ...memoLines,
-    '',
-    '---',
-    '上記の学習ログと見積もりクセをもとに、来週の時間配分の改善案と、つまずいている科目の具体的な復習アプローチを提案してください。'
+    ``,
+    `---`,
+    `上記の学習ログと見積もりクセをもとに、来週の時間配分の改善案と、つまずいている科目の具体的な復習アプローチを提案してください。`
   ].join('\n');
 }
 
@@ -3718,6 +4284,8 @@ function applyActualToRecurringRule(state, step, actualMinutes, todayStr) {
 function createInstanceForRule(state, rule, deadlineDate, todayStr) {
   const taskId = uid('task');
   const [, m, d] = deadlineDate.split('-').map(Number);
+  const sub = (state.subjects || []).find(s => s.id === rule.subjectId);
+  const taskType = rule.taskType || inferTaskTypeForItem(rule, sub);
 
   const rawSteps = rule.stepsTemplate.map((ts, idx) => ({
     id: uid('step'),
@@ -3725,18 +4293,20 @@ function createInstanceForRule(state, rule, deadlineDate, todayStr) {
     title: ts.title,
     orderIndex: idx + 1,
     estimatedMinutes: ts.estimatedMinutes,
+    baseEstimatedMinutes: ts.baseEstimatedMinutes || ts.estimatedMinutes,
     templateIndex: idx,
     scheduledDate: null,
     isCompleted: false,
     completedAt: null
   }));
-  const scheduledSteps = assignDatesForNewTaskSteps(rawSteps, deadlineDate, state, todayStr);
+  const scheduledSteps = assignDatesForNewTaskSteps(rawSteps, deadlineDate, state, todayStr, rule.subjectId);
 
   const task = {
     id: taskId,
     subjectId: rule.subjectId,
     title: `${rule.title}（${m}/${d}）`,
     rawInput: `毎週${WEEKDAY_LABELS[rule.weekday]}曜: ${rule.title}`,
+    taskType,
     category: rule.category,
     status: 'planned',
     deadlineDate,
@@ -3779,12 +4349,29 @@ function generateRecurringInstances(state, todayStr) {
 
 /**
  * 時間割科目の「予習（講義前日・推定20分）」「復習（講義当日〜翌日・推定20分）」自動生成同期
+ * ※実験科目（エネルギー・電子制御実験Ⅰなど）は通常の予習・復習（20分）自動生成対象から除外
  */
 function syncTimetablePrepReviewTasks(state, todayStr) {
   const created = [];
   const subjects = state.subjects || [];
 
   for (const sub of subjects) {
+    // 実験科目は予習・復習（20分）の自動生成対象から除外し、既存の未完了分があれば削除する
+    if (isExperimentSubject(sub)) {
+      sub.autoPrep = false;
+      sub.autoReview = false;
+      const removeExpIds = new Set(
+        state.tasks
+          .filter(t => t.subjectId === sub.id && t.isPrepReview && t.status !== 'completed')
+          .map(t => t.id)
+      );
+      if (removeExpIds.size > 0) {
+        state.tasks = state.tasks.filter(t => !removeExpIds.has(t.id));
+        state.taskSteps = state.taskSteps.filter(s => !removeExpIds.has(s.taskId));
+      }
+      continue;
+    }
+
     const dow = sub.defaultWeekday;
     if (typeof dow !== 'number') continue;
 
@@ -3813,6 +4400,8 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
       }
     }
 
+    const learnedPrepRev = getLearnedEstimateForSubjectType(state, sub.id, '予習・復習');
+
     // 2. ONになっている場合は直近1週間の講義日に対して予習・復習タスクを自動生成
     for (let offset = -1; offset <= 7; offset++) {
       const lectureDate = addDays(todayStr, offset);
@@ -3824,7 +4413,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
         const prepKey = `prep_${sub.id}_${lectureDate}`;
         const exists = state.tasks.some(t => t.prepReviewKey === prepKey);
         if (!exists) {
-          const prepMins = Number(sub.prepMinutes) || 20;
+          const prepMins = learnedPrepRev ? learnedPrepRev.learnedMinutes : (Number(sub.prepMinutes) || 20);
           const prepScheduledDate = offset >= 1 ? addDays(lectureDate, -1) : todayStr;
           const taskId = uid('task');
           const stepId = uid('step');
@@ -3833,6 +4422,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
             subjectId: sub.id,
             title: `【予習】${sub.name}（${lm}/${ld}講義分）`,
             rawInput: `時間割自動生成: ${sub.name} 予習`,
+            taskType: '予習・復習',
             category: 'prep',
             isPrepReview: 'prep',
             prepReviewKey: prepKey,
@@ -3850,6 +4440,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
             title: `${sub.name} 次回講義範囲の予習・資料確認`,
             orderIndex: 1,
             estimatedMinutes: prepMins,
+            baseEstimatedMinutes: 20,
             scheduledDate: prepScheduledDate,
             isCompleted: false,
             completedAt: null
@@ -3865,7 +4456,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
         const reviewKey = `review_${sub.id}_${lectureDate}`;
         const exists = state.tasks.some(t => t.prepReviewKey === reviewKey);
         if (!exists) {
-          const revMins = Number(sub.reviewMinutes) || 20;
+          const revMins = learnedPrepRev ? learnedPrepRev.learnedMinutes : (Number(sub.reviewMinutes) || 20);
           const revScheduledDate = offset < 0 ? todayStr : lectureDate;
           const revDeadlineDate = addDays(lectureDate, 1);
           const taskId = uid('task');
@@ -3875,6 +4466,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
             subjectId: sub.id,
             title: `【復習】${sub.name}（${lm}/${ld}講義分）`,
             rawInput: `時間割自動生成: ${sub.name} 復習`,
+            taskType: '予習・復習',
             category: 'review',
             isPrepReview: 'review',
             prepReviewKey: reviewKey,
@@ -3892,6 +4484,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
             title: `${sub.name} 講義ノート整理・要点復習`,
             orderIndex: 1,
             estimatedMinutes: revMins,
+            baseEstimatedMinutes: 20,
             scheduledDate: revScheduledDate,
             isCompleted: false,
             completedAt: null
@@ -3908,7 +4501,7 @@ function syncTimetablePrepReviewTasks(state, todayStr) {
 }
 
 /**
- * クイック登録 (例: 毎週月曜に電磁気の小テスト) からルールを作る
+ * クイック登録 (例: 毎週金曜に電磁気の小テスト) からルールを作る
  */
 function createRuleFromParsed(state, parsed, stepDefs, todayStr) {
   let delta = parsed.recurrence.weekday - weekdayOf(todayStr);
@@ -3919,6 +4512,7 @@ function createRuleFromParsed(state, parsed, stepDefs, todayStr) {
     id: uid('rule'),
     subjectId: parsed.subjectId,
     title: parsed.cleanTitle,
+    taskType: parsed.taskType || '課題',
     category: parsed.category,
     importance: parsed.importance,
     weekday: parsed.recurrence.weekday,
@@ -3928,6 +4522,7 @@ function createRuleFromParsed(state, parsed, stepDefs, todayStr) {
     stepsTemplate: stepDefs.map(s => ({
       title: s.title,
       estimatedMinutes: s.minutes,
+      baseEstimatedMinutes: s.baseMinutes || s.minutes,
       sampleCount: 0,
       history: []
     })),
@@ -3947,11 +4542,13 @@ function createRuleFromTask(state, task, weekday, todayStr) {
   const steps = state.taskSteps
     .filter(s => s.taskId === task.id)
     .sort((a, b) => a.orderIndex - b.orderIndex);
+  const sub = (state.subjects || []).find(s => s.id === task.subjectId);
 
   const rule = {
     id: uid('rule'),
     subjectId: task.subjectId,
     title: task.title.replace(/（\d{1,2}\/\d{1,2}）$/, ''),
+    taskType: task.taskType || inferTaskTypeForItem(task, sub),
     category: task.category,
     importance: task.importance || 2,
     weekday,
@@ -3962,18 +4559,20 @@ function createRuleFromTask(state, task, weekday, todayStr) {
     stepsTemplate: steps.map(s => ({
       title: s.title,
       estimatedMinutes: s.estimatedMinutes || 30,
+      baseEstimatedMinutes: s.baseEstimatedMinutes || s.estimatedMinutes || 30,
       sampleCount: 0,
       history: []
     })),
     createdAt: todayStr
   };
 
-  steps.forEach((s, idx) => { s.templateIndex = idx; });
-  task.recurringRuleId = rule.id;
-  task.occurrenceDate = task.deadlineDate || null;
-
   if (!state.recurringRules) state.recurringRules = [];
   state.recurringRules.push(rule);
+  task.recurringRuleId = rule.id;
+  task.occurrenceDate = task.deadlineDate || todayStr;
+  steps.forEach((s, idx) => {
+    s.templateIndex = idx;
+  });
   return rule;
 }
 
@@ -3981,8 +4580,9 @@ function createRuleFromTask(state, task, weekday, todayStr) {
 // --- app.js ---
 /**
  * Smart Study OS - Main Application Controller & UI View Renderer (app.js)
- * Monochrome 1.75px SVG Icons, AM/PM Condition, University Timetable + Auto Prep/Review,
- * Subject 1-Line Memo Logs, Weekly Gemini Reflection Prompt, and JSON Backup/Restore.
+ * Monochrome 1.75px SVG Icons, Mobile-Optimized Vertical Cards & Radar,
+ * Subject Unification, TaskType Classification & Decomposition,
+ * Subject × TaskType Estimate Learning, 1st/2nd Period Early Warning, and 5s Undo Toast.
  */
 
 // Global App State
@@ -4103,11 +4703,51 @@ function showToast(message) {
   if (!container) return;
   const el = document.createElement('div');
   el.className = 'toast-msg';
-  el.textContent = message;
+  el.innerHTML = `<span>${escapeHtml(message)}</span>`;
   container.appendChild(el);
   setTimeout(() => {
     el.remove();
   }, 3000);
+}
+
+/**
+ * Show 5-second toast notification with an "Undo (元に戻す)" action button
+ */
+function showUndoToast(message, snapshotJson) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  // Remove any previous undo toast to keep mobile bottom clean
+  container.querySelectorAll('.toast-msg').forEach(n => n.remove());
+
+  const el = document.createElement('div');
+  el.className = 'toast-msg';
+  el.innerHTML = `
+    <span style="min-width:0;flex:1;">${escapeHtml(message)}</span>
+    <button type="button" class="toast-undo-btn">
+      ${icon('rotateCcw', 13)}
+      <span>元に戻す</span>
+    </button>
+  `;
+  container.appendChild(el);
+
+  let undone = false;
+  const timer = setTimeout(() => {
+    if (!undone) el.remove();
+  }, 5000);
+
+  el.querySelector('.toast-undo-btn')?.addEventListener('click', () => {
+    if (undone) return;
+    undone = true;
+    clearTimeout(timer);
+    el.remove();
+    try {
+      state = JSON.parse(snapshotJson);
+      commitState();
+      showToast('完了操作を取り消して元の状態に戻しました');
+    } catch (err) {
+      console.error('Undo restore failed:', err);
+    }
+  });
 }
 
 /**
@@ -4164,8 +4804,12 @@ function bindGlobalEvents() {
 
   const captureInput = document.getElementById('quick-capture-input');
   const captureForm = document.getElementById('quick-capture-form');
+  const captureContainer = document.querySelector('.capture-container');
 
   if (captureInput) {
+    captureInput.addEventListener('focus', () => {
+      captureContainer?.classList.add('examples-open');
+    });
     captureInput.addEventListener('input', () => {
       captureDecomposeOverride = null;
       captureRecurringOverride = null;
@@ -4174,14 +4818,28 @@ function bindGlobalEvents() {
     });
   }
 
+  // Collapse example chips when tapping outside the capture header
+  document.addEventListener('click', (e) => {
+    if (!captureContainer) return;
+    if (!captureContainer.contains(e.target) && (!captureInput || !captureInput.value.trim())) {
+      captureContainer.classList.remove('examples-open');
+    }
+  });
+
   if (captureForm) {
     captureForm.addEventListener('submit', (e) => {
       e.preventDefault();
       handleQuickCaptureSubmit();
+      captureContainer?.classList.remove('examples-open');
+      captureInput?.blur();
     });
   }
 
   document.querySelectorAll('[data-example-text]').forEach(pill => {
+    pill.addEventListener('mousedown', (e) => {
+      // Prevent blur before click on mobile/desktop
+      e.preventDefault();
+    });
     pill.addEventListener('click', () => {
       if (!captureInput) return;
       captureInput.value = pill.getAttribute('data-example-text');
@@ -4276,7 +4934,13 @@ function renderCapturePreview() {
 
   const todayStr = toDateStr();
   const defaultMins = state.userSettings?.defaultTaskMinutes || 30;
-  const parsed = parseNaturalInput(raw, state.subjects, todayStr, defaultMins);
+  const parsed = parseNaturalInput(
+    raw,
+    state.subjects,
+    todayStr,
+    defaultMins,
+    (subId, tType) => getLearnedEstimateForSubjectType(state, subId, tType)
+  );
   if (!parsed) return;
 
   const effectiveDecompose = captureDecomposeOverride !== null
@@ -4291,26 +4955,32 @@ function renderCapturePreview() {
          <span class="subject-dot" style="background:${parsed.subjectColor}"></span>
          科目: ${escapeHtml(parsed.subjectName)}
        </span>`
-    : `<span class="preview-chip">科目: 未設定（そのまま登録可）</span>`;
+    : `<span class="preview-chip">科目: 未設定（後から選択可）</span>`;
+
+  const taskTypeChip = `<span class="preview-chip matched">${icon(parsed.categoryIconName || 'tag', 13)} 種別: ${escapeHtml(parsed.taskType)}</span>`;
 
   const deadlineChip = rec
     ? `<span class="preview-chip matched">${icon('calendar', 13)} 初回期限: ${escapeHtml(formatJpDate(rec.firstDeadline, todayStr))}</span>`
     : parsed.deadlineDate
-      ? `<span class="preview-chip matched">${icon('calendar', 13)} 期限: ${escapeHtml( parsed.deadlineLabel)}</span>`
-      : `<span class="preview-chip">${icon('calendar', 13)} 期限: 未設定（Inbox・空き時間提案へ）</span>`;
+      ? `<span class="preview-chip matched">${icon('calendar', 13)} 期限: ${escapeHtml(parsed.deadlineLabel)}</span>`
+      : `<span class="preview-chip">${icon('calendar', 13)} 期限: 未設定（Inboxへ）</span>`;
 
-  const categoryChip = `<span class="preview-chip matched">${icon(parsed.categoryIconName || 'fileText', 13)} 種類: ${escapeHtml(parsed.categoryLabel)}</span>`;
+  const durationNote = parsed.isDurationExplicit
+    ? ''
+    : parsed.isLearnedDuration
+      ? `（過去実測比 ${parsed.learnedRatio}倍を自動反映）`
+      : `（${parsed.taskType}の初期推定）`;
 
-  const durationChip = `<span class="preview-chip ${parsed.isDurationExplicit ? 'matched' : ''} tabular-nums">
-    ${icon('clock', 13)} 推定: 合計${parsed.estimatedMinutes}分${parsed.isDurationExplicit ? '' : '（初期値・完了時に実時間から自動学習）'}
+  const durationChip = `<span class="preview-chip ${(parsed.isDurationExplicit || parsed.isLearnedDuration) ? 'matched' : ''} tabular-nums">
+    ${icon('clock', 13)} 推定: ${parsed.estimatedMinutes}分${durationNote}
   </span>`;
 
   const decomposeChip = `<button type="button" id="toggle-capture-decompose" class="preview-chip ${effectiveDecompose ? 'warning' : ''}" style="cursor:pointer;">
-    ${icon('layers', 13)} 自動分解: ${effectiveDecompose ? `ON (${parsed.suggestedSteps.length}ステップ)` : 'OFF (単一タスク)'} [切替]
+    ${icon('layers', 13)} 自動分解: ${effectiveDecompose ? `ON (${parsed.suggestedSteps.length}ステップ)` : 'OFF (1ステップ)'} [切替]
   </button>`;
 
   const recurringChip = `<button type="button" id="toggle-capture-recurring" class="preview-chip ${rec ? 'matched' : ''}" style="cursor:pointer;">
-    ${icon('repeat', 13)} ${rec ? `毎週${WEEKDAY_LABELS[rec.weekday]}曜に繰り返す: ON` : '毎週繰り返す: OFF'} [切替]
+    ${icon('repeat', 13)} ${rec ? `毎週${WEEKDAY_LABELS[rec.weekday]}曜: ON` : '毎週繰り返し: OFF'} [切替]
   </button>`;
 
   const weekdaySelector = rec
@@ -4320,10 +4990,10 @@ function renderCapturePreview() {
     : '';
 
   previewEl.innerHTML = `
-    <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">自動抽出:</span>
+    <span style="font-size:0.74rem;color:var(--text-muted);font-weight:600;">自動判定:</span>
     ${subjectChip}
+    ${taskTypeChip}
     ${deadlineChip}
-    ${categoryChip}
     ${durationChip}
     ${decomposeChip}
     ${recurringChip}
@@ -4333,9 +5003,8 @@ function renderCapturePreview() {
   document.getElementById('toggle-capture-decompose')?.addEventListener('click', () => {
     if (!effectiveDecompose && parsed.suggestedSteps.length <= 1) {
       parsed.suggestedSteps = [
-        { title: '課題内容・資料の確認', minutes: 10 },
-        { title: 'メイン作業・演習', minutes: Math.max(15, parsed.estimatedMinutes - 20) },
-        { title: '見直し・完了確認', minutes: 10 }
+        { title: '構成・下調べ', minutes: Math.max(15, Math.round((parsed.estimatedMinutes * 0.45) / 5) * 5) },
+        { title: '執筆・仕上げ', minutes: Math.max(15, parsed.estimatedMinutes - Math.round((parsed.estimatedMinutes * 0.45) / 5) * 5) }
       ];
     }
     captureDecomposeOverride = !effectiveDecompose;
@@ -4363,7 +5032,13 @@ function handleQuickCaptureSubmit() {
 
   const todayStr = toDateStr();
   const defaultMins = state.userSettings?.defaultTaskMinutes || 30;
-  const parsed = parseNaturalInput(input.value, state.subjects, todayStr, defaultMins);
+  const parsed = parseNaturalInput(
+    input.value,
+    state.subjects,
+    todayStr,
+    defaultMins,
+    (subId, tType) => getLearnedEstimateForSubjectType(state, subId, tType)
+  );
   if (!parsed) return;
 
   const effectiveDecompose = captureDecomposeOverride !== null
@@ -4371,11 +5046,21 @@ function handleQuickCaptureSubmit() {
     : parsed.shouldDecompose;
   const rec = resolveCaptureRecurrence(parsed, todayStr);
 
+  const spec = getTaskTypeSpec(parsed.isExperiment, parsed.taskType);
+
   let stepDefs = [];
   if (effectiveDecompose && parsed.suggestedSteps.length > 0) {
-    stepDefs = parsed.suggestedSteps.map(s => ({ title: s.title, minutes: s.minutes }));
+    stepDefs = parsed.suggestedSteps.map((s, idx) => ({
+      title: s.title,
+      minutes: s.minutes,
+      baseMinutes: spec.steps[idx]?.minutes || s.minutes
+    }));
   } else {
-    stepDefs = [{ title: parsed.cleanTitle, minutes: parsed.estimatedMinutes }];
+    stepDefs = [{
+      title: parsed.cleanTitle,
+      minutes: parsed.estimatedMinutes,
+      baseMinutes: spec.baseMinutes
+    }];
   }
 
   if (rec) {
@@ -4394,7 +5079,7 @@ function handleQuickCaptureSubmit() {
     renderCapturePreview();
 
     commitState();
-    showToast(`「${rule.title}」を毎週${WEEKDAY_LABELS[rec.weekday]}曜の定期課題として登録しました`);
+    showToast(`「${rule.title}（${parsed.taskType}）」を毎週${WEEKDAY_LABELS[rec.weekday]}曜の定期課題として登録しました`);
     return;
   }
 
@@ -4405,12 +5090,19 @@ function handleQuickCaptureSubmit() {
     title: s.title,
     orderIndex: idx + 1,
     estimatedMinutes: s.minutes,
+    baseEstimatedMinutes: s.baseMinutes || s.minutes,
     scheduledDate: null,
     isCompleted: false,
     completedAt: null
   }));
 
-  const scheduledSteps = assignDatesForNewTaskSteps(rawSteps, parsed.deadlineDate, state, todayStr);
+  const scheduledSteps = assignDatesForNewTaskSteps(
+    rawSteps,
+    parsed.deadlineDate,
+    state,
+    todayStr,
+    parsed.subjectId
+  );
   const totalMins = scheduledSteps.reduce((acc, s) => acc + (Number(s.estimatedMinutes) || 30), 0);
 
   const newTask = {
@@ -4418,6 +5110,7 @@ function handleQuickCaptureSubmit() {
     subjectId: parsed.subjectId,
     title: parsed.cleanTitle,
     rawInput: parsed.rawInput,
+    taskType: parsed.taskType,
     category: parsed.category,
     status: parsed.deadlineDate ? 'planned' : 'inbox',
     deadlineDate: parsed.deadlineDate,
@@ -4440,8 +5133,8 @@ function handleQuickCaptureSubmit() {
   commitState();
   showToast(
     scheduledSteps.length > 1
-      ? `「${newTask.title}」を${scheduledSteps.length}ステップに分解して計画しました`
-      : `「${newTask.title}」を追加しました`
+      ? `「${newTask.title}（${newTask.taskType}）」を${scheduledSteps.length}ステップに分解して計画しました`
+      : `「${newTask.title}（${newTask.taskType}・${totalMins}分）」を追加しました`
   );
 }
 
@@ -4518,7 +5211,7 @@ function renderSidebarSubjects() {
 }
 
 /* ==========================================================================
-   VIEW 1: Today's Action Dashboard (AM/PM 2-Stage Condition + PM Tired Review Priority)
+   VIEW 1: Today's Action Dashboard (AM/PM Condition + Card-based Risk Radar)
    ========================================================================== */
 function renderTodayDashboard(container, model) {
   const {
@@ -4664,7 +5357,7 @@ function renderTodayDashboard(container, model) {
               <div style="color:var(--accent-primary);">${icon('checkCircle', 28)}</div>
               <div class="hero-step-title">${state.tasks.length === 0 ? 'まだタスクはありません。上の入力欄や時間割の予習・復習スイッチから追加してみましょう' : '今日予定されていたタスクはすべて完了しました'}</div>
               <p style="font-size:0.84rem;color:var(--text-secondary);">
-                右側の「空き時間にできるタスク提案」から前倒しで進めるか、ゆっくり休みましょう。
+                右側の「空き時間にできるタスク提案」や「締切危険度レーダー」から前倒しで進めるか、ゆっくり休みましょう。
               </p>
             </div>
           `}
@@ -4701,7 +5394,7 @@ function renderTodayDashboard(container, model) {
         ` : ''}
       </div>
 
-      <!-- Right Column: Time-Pocket Suggestions + Deadline Risk Monitor -->
+      <!-- Right Column: Time-Pocket Suggestions + Deadline Risk Radar -->
       <div style="display:flex;flex-direction:column;gap:1.5rem;">
         <!-- 4. Time-Pocket Task Suggestions (15 / 30 / 60 / 90 min) -->
         <section class="section-block">
@@ -4738,6 +5431,7 @@ function renderTodayDashboard(container, model) {
                         <span class="subject-dot" style="background:${step.subjectColor}"></span>
                         ${escapeHtml(step.subjectName)}
                       </span>
+                      <span class="task-type-badge">${escapeHtml(step.taskType || '課題')}</span>
                       <span class="duration-tag tabular-nums">${step.estimatedMinutes}分</span>
                     </div>
                     <div class="step-title-text" style="cursor:pointer;" data-open-task="${step.taskId}">
@@ -4763,35 +5457,75 @@ function renderTodayDashboard(container, model) {
           </div>
         </section>
 
-        <!-- 5. Deadline Risk Radar -->
+        <!-- 5. Deadline Risk Radar (Independent Cards with 3-Row Hierarchy & Quick Action) -->
         <section class="section-block">
           <div class="section-header">
             <h2 class="section-title">${icon('alertTriangle', 17)} <span>締切危険度レーダー</span></h2>
-            <span class="section-subtitle">残作業時間×空き時間で判定</span>
+            <span class="section-subtitle">1・2限は前日夜を実質期限に判定</span>
           </div>
 
           <div class="risk-list">
-            ${activeTasksWithRisk.slice(0, 5).map(t => {
+            ${activeTasksWithRisk.slice(0, 6).map(t => {
               const r = t.risk;
               const pct = r.totalSteps > 0 ? Math.round((r.completedSteps / r.totalSteps) * 100) : 0;
+              const daysText = r.daysLeft === null
+                ? '期限未設定'
+                : r.daysLeft < 0
+                  ? `${Math.abs(r.daysLeft)}日超過（${t.deadlineLabel}）`
+                  : r.daysLeft === 0
+                    ? `今日締切（${t.deadlineLabel}）`
+                    : `残り${r.daysLeft}日（${t.deadlineLabel}）`;
+
               return `
-                <div class="risk-item" style="cursor:pointer;" data-open-task="${t.id}">
-                  <div class="risk-item-top">
-                    <div class="badge-row">
+                <div class="radar-card">
+                  <!-- 1行目: 科目バッジ＋種別バッジ＋課題名（太字）＋右端にステータスバッジ -->
+                  <div class="radar-row-1">
+                    <div class="radar-row-1-left">
                       <span class="subject-pill">
                         <span class="subject-dot" style="background:${t.subjectColor}"></span>
                         ${escapeHtml(t.subjectName)}
                       </span>
-                      <span style="font-weight:700;font-size:0.87rem;">${escapeHtml(t.title)}</span>
+                      <span class="task-type-badge">${escapeHtml(t.taskType || '課題')}</span>
+                      <span class="radar-task-title" data-open-task="${t.id}">${escapeHtml(t.title)}</span>
                     </div>
-                    <span class="risk-badge ${r.level}">${icon(RISK_META[r.level].iconName, 13)} <span>${r.label}</span></span>
+                    <span class="risk-badge ${r.level}" style="flex-shrink:0;">
+                      ${icon(RISK_META[r.level].iconName, 12)}
+                      <span>${r.label}</span>
+                    </span>
                   </div>
-                  <div class="mini-progress-bar">
-                    <div class="mini-progress-fill" style="width:${pct}%"></div>
+
+                  <!-- 2行目: 残り日数・残作業時間（＋1・2限科目の前日夜期限警告） -->
+                  <div class="radar-row-2 tabular-nums" data-open-task="${t.id}" style="cursor:pointer;">
+                    <span>${icon('calendar', 12)} ${escapeHtml(daysText)}</span>
+                    <span>・</span>
+                    <span>${icon('clock', 12)} 残作業 <strong>${r.remainingMinutes}分</strong></span>
+                    ${r.isEarlyMorning ? `<span class="risk-badge warning" style="font-size:0.68rem;padding:0.1rem 0.42rem;">1・2限（前日夜期限）</span>` : ''}
                   </div>
-                  <div class="risk-progress-row tabular-nums">
-                    <span>${escapeHtml(r.reason)}</span>
-                    <span>進捗 ${r.completedSteps}/${r.totalSteps} (${pct}%)</span>
+
+                  <!-- 3行目: 進捗率・プログレスバー＋『今日枠へ追加』または『開始』のミニボタン -->
+                  <div class="radar-row-3">
+                    <div class="radar-progress-wrap" data-open-task="${t.id}" style="cursor:pointer;">
+                      <div class="radar-progress-label tabular-nums">
+                        <span>進捗 ${r.completedSteps}/${r.totalSteps}ステップ</span>
+                        <span>${pct}%</span>
+                      </div>
+                      <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" style="width:${pct}%"></div>
+                      </div>
+                    </div>
+                    ${t.nextStepId ? (
+                      !t.isTodayScheduled ? `
+                        <button type="button" class="radar-mini-btn primary" data-radar-add-today="${t.nextStepId}" title="次ステップを今日の予定枠に追加">
+                          ${icon('plus', 12)}
+                          <span>今日枠へ追加</span>
+                        </button>
+                      ` : `
+                        <button type="button" class="radar-mini-btn" data-start-timer="${t.nextStepId}" title="集中タイマーを開始">
+                          ${icon('play', 12)}
+                          <span>開始</span>
+                        </button>
+                      `
+                    ) : ''}
                   </div>
                 </div>
               `;
@@ -4820,6 +5554,7 @@ function renderTodayDashboard(container, model) {
                         <span class="subject-dot" style="background:${rt.subjectColor}"></span>
                         ${escapeHtml(rt.subjectName)}
                       </span>
+                      <span class="task-type-badge">${escapeHtml(rt.taskType || '課題')}</span>
                       <span class="risk-badge warning">復習推奨: ${escapeHtml(rt.reviewDateLabel)}</span>
                     </div>
                     <div class="step-title-text">${escapeHtml(rt.title)}</div>
@@ -4852,9 +5587,10 @@ function renderHeroFocusCardHtml(step) {
             <span class="subject-dot" style="background:${step.subjectColor}"></span>
             ${escapeHtml(step.subjectName)}
           </span>
+          <span class="task-type-badge">${escapeHtml(step.taskType || '課題')}</span>
           ${step.isRecurring ? `<span class="subject-pill">${icon('repeat', 12)} <span>毎週</span></span>` : ''}
-          ${step.isPrepReview ? `<span class="subject-pill">${icon('book', 12)} <span>時間割${step.isPrepReview === 'prep' ? '予習' : '復習'}</span></span>` : ''}
           ${step.pmTiredBoosted ? `<span class="risk-badge safe">${icon('batteryLow', 12)} <span>午後疲労モード優先</span></span>` : ''}
+          ${step.risk.isEarlyMorning ? `<span class="risk-badge warning">1・2限（前日夜期限）</span>` : ''}
           <span class="risk-badge ${step.risk.level}">
             ${icon(rMeta.iconName, 13)} <span>危険度:${step.risk.label}（${escapeHtml(step.deadlineLabel)}）</span>
           </span>
@@ -4867,7 +5603,7 @@ function renderHeroFocusCardHtml(step) {
         <div class="hero-step-title">${escapeHtml(step.title)}</div>
         <div class="hero-parent-title">
           親課題: ${escapeHtml(step.taskTitle)}
-          （ステップ ${step.orderIndex}/${step.risk.totalSteps}・クリックでステップ編集）
+          （ステップ ${step.orderIndex}/${step.risk.totalSteps}・タップで編集）
         </div>
       </div>
 
@@ -4896,7 +5632,7 @@ function renderStepCardHtml(step) {
       <div class="step-card-left">
         <button
           type="button"
-          class="check-circle ${step.isCompleted ? 'checked' : ''}"
+          class="check-circle ${step.isCompleted ? 'completed' : ''}"
           data-complete-step="${step.id}"
           aria-label="ステップ完了切替"
         >
@@ -4908,9 +5644,10 @@ function renderStepCardHtml(step) {
               <span class="subject-dot" style="background:${step.subjectColor}"></span>
               ${escapeHtml(step.subjectName)}
             </span>
+            <span class="task-type-badge">${escapeHtml(step.taskType || '課題')}</span>
             ${step.isRecurring ? `<span class="subject-pill">${icon('repeat', 12)} <span>毎週</span></span>` : ''}
-            ${step.isPrepReview ? `<span class="subject-pill">${icon('book', 12)} <span>時間割${step.isPrepReview === 'prep' ? '予習' : '復習'}</span></span>` : ''}
             ${step.pmTiredBoosted ? `<span class="risk-badge safe">午後優先</span>` : ''}
+            ${step.risk.isEarlyMorning ? `<span class="risk-badge warning">1・2限</span>` : ''}
             <span class="risk-badge ${step.risk.level}">${icon(rMeta.iconName, 12)} <span>${step.risk.label}</span></span>
             ${step.isOverdue ? `<span class="risk-badge warning">繰越</span>` : ''}
             ${step.isBonusRecommendation ? `<span class="risk-badge safe">空き枠推奨</span>` : ''}
@@ -4940,7 +5677,6 @@ function renderStepCardHtml(step) {
  * Bind events inside Today's Dashboard
  */
 function bindDashboardInteractions(container, replanProposal) {
-  // AM / PM Condition switcher
   container.querySelectorAll('[data-set-condition-slot]').forEach(btn => {
     btn.addEventListener('click', () => {
       const slot = btn.getAttribute('data-set-condition-slot');
@@ -4985,14 +5721,28 @@ function bindDashboardInteractions(container, replanProposal) {
         const parent = state.tasks.find(t => t.id === step.taskId);
         if (parent && parent.status === 'completed') parent.status = 'in_progress';
         commitState();
+        showToast('ステップを未完了に戻しました');
       } else {
         openCompleteStepModal(stepId);
       }
     });
   });
 
+  container.querySelectorAll('[data-radar-add-today]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const stepId = btn.getAttribute('data-radar-add-today');
+      const step = state.taskSteps.find(s => s.id === stepId);
+      if (!step) return;
+      step.scheduledDate = toDateStr();
+      commitState();
+      showToast(`「${step.title}」を今日の予定枠に追加しました`);
+    });
+  });
+
   container.querySelectorAll('[data-start-timer]').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const stepId = btn.getAttribute('data-start-timer');
       startFocusTimerForStep(stepId);
     });
@@ -5016,6 +5766,7 @@ function bindDashboardInteractions(container, replanProposal) {
         subjectId: srcTask.subjectId,
         title: `【復習】${srcTask.title}`,
         rawInput: `復習: ${srcTask.title}`,
+        taskType: '予習・復習',
         category: 'review',
         status: 'planned',
         deadlineDate: addDays(todayStr, 2),
@@ -5031,6 +5782,7 @@ function bindDashboardInteractions(container, replanProposal) {
         title: `つまずき箇所の解き直し：${srcTask.title}`,
         orderIndex: 1,
         estimatedMinutes: 20,
+        baseEstimatedMinutes: 20,
         scheduledDate: todayStr,
         isCompleted: false,
         completedAt: null
@@ -5046,7 +5798,7 @@ function bindDashboardInteractions(container, replanProposal) {
 }
 
 /* ==========================================================================
-   VIEW 2: 7-Day Schedule & Weekly Gemini Reflection Prompt Generator
+   VIEW 2: 7-Day Schedule (Vertical Step Cards) & Weekly Gemini Reflection Prompt
    ========================================================================== */
 function renderPlanTimelineView(container) {
   const todayStr = toDateStr();
@@ -5067,11 +5819,13 @@ function renderPlanTimelineView(container) {
       .map(s => {
         const task = taskMap.get(s.taskId);
         const sub = subjectMap.get(task?.subjectId);
+        const taskType = task ? (task.taskType || inferTaskTypeForItem(task, sub)) : '課題';
         return {
           ...s,
           taskTitle: task ? task.title : '',
+          taskType,
           deadlineLabel: formatJpDate(task?.deadlineDate, todayStr),
-          subjectName: sub ? sub.name : '未設定',
+          subjectName: sub ? sub.name : '科目未設定',
           subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)'
         };
       });
@@ -5109,13 +5863,13 @@ function renderPlanTimelineView(container) {
         return `
           <div class="day-bucket-card">
             <div class="day-bucket-header">
-              <div style="display:flex;align-items:center;gap:0.65rem;">
+              <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
                 <span class="day-bucket-title">${escapeHtml(day.label)}</span>
                 <span class="risk-badge ${isOver ? 'danger' : day.totalMins > 0 ? 'safe' : 'none'} tabular-nums">
                   予定 ${day.totalMins}分 / 空き枠 ${day.capacity}分
                 </span>
               </div>
-              <div style="width:140px;">
+              <div style="width:90px;flex-shrink:0;">
                 <div class="progress-track" style="height:6px;">
                   <div class="${isOver ? 'progress-fill-overload' : 'progress-fill-planned'}" style="width:${pct}%"></div>
                 </div>
@@ -5125,22 +5879,27 @@ function renderPlanTimelineView(container) {
             ${day.steps.length > 0 ? `
               <div class="step-list">
                 ${day.steps.map(st => `
-                  <div class="step-card ${st.isCompleted ? 'completed' : ''}">
-                    <div class="step-card-left">
-                      <span class="subject-dot" style="background:${st.subjectColor};margin-top:0.35rem;"></span>
-                      <div class="step-info">
-                        <div class="step-title-text" style="cursor:pointer;" data-open-task="${st.taskId}">
-                          ${escapeHtml(st.title)}
-                        </div>
-                        <div class="step-submeta">
-                          <span>${escapeHtml(st.subjectName)}</span>
-                          <span>・親課題: ${escapeHtml(st.taskTitle)}（締切: ${escapeHtml(st.deadlineLabel)}）</span>
-                        </div>
+                  <!-- Vertical Stack Card: Top = Badges + Full-width Title + Parent Info, Bottom = Duration + Date Move Select -->
+                  <div class="plan-step-card ${st.isCompleted ? 'completed' : ''}">
+                    <div class="plan-step-top">
+                      <div class="badge-row">
+                        <span class="subject-pill">
+                          <span class="subject-dot" style="background:${st.subjectColor}"></span>
+                          ${escapeHtml(st.subjectName)}
+                        </span>
+                        <span class="task-type-badge">${escapeHtml(st.taskType)}</span>
+                      </div>
+                      <div class="step-title-text" style="font-weight:700;font-size:0.92rem;line-height:1.4;cursor:pointer;word-break:break-word;" data-open-task="${st.taskId}">
+                        ${escapeHtml(st.title)}
+                      </div>
+                      <div class="step-submeta" style="font-size:0.76rem;color:var(--text-secondary);word-break:break-word;">
+                        親課題: ${escapeHtml(st.taskTitle)}（締切: ${escapeHtml(st.deadlineLabel)}）
                       </div>
                     </div>
-                    <div class="step-actions">
-                      <span class="duration-tag tabular-nums">${st.estimatedMinutes}分</span>
-                      <select class="form-select" style="width:auto;padding:0.2rem 0.45rem;font-size:0.75rem;" data-move-step-date="${st.id}">
+
+                    <div class="plan-step-bottom">
+                      <span class="duration-tag tabular-nums">${icon('clock', 12)} 推定 ${st.estimatedMinutes}分</span>
+                      <select class="form-select" style="width:auto;max-width:68%;padding:0.24rem 0.5rem;font-size:0.76rem;" data-move-step-date="${st.id}">
                         ${days.map(optDay => `
                           <option value="${optDay.dateStr}" ${optDay.dateStr === day.dateStr ? 'selected' : ''}>
                             ${escapeHtml(optDay.label)}へ移動
@@ -5171,7 +5930,7 @@ function renderPlanTimelineView(container) {
     const promptText = generateWeeklyGeminiPrompt(state, todayStr);
     copyTextWithModalFallback(
       '今週の振り返り（Gemini用プロンプト）',
-      '今週の完了タスク・AM/PMコンディション推移・科目別の見積もりクセ・学習メモを整理したプロンプトをコピーしました。そのままGeminiに貼り付けて送信してください。',
+      '今週の完了タスク・AM/PMコンディション推移・科目×種別ごとの見積もりクセ・学習メモを整理したプロンプトをコピーしました。そのままGeminiに貼り付けて送信してください。',
       promptText,
       '今週の振り返りプロンプトをクリップボードにコピーしました'
     );
@@ -5217,7 +5976,7 @@ function renderInboxTasksView(container) {
     <section class="status-banner">
       <div class="date-greeting">
         <h1>Inbox・全タスク整理＆ステップ分解</h1>
-        <p>自然文で素早く登録したタスクの期限・科目の補完や、大きな課題のステップ分解を行います。</p>
+        <p>自然文で素早く登録したタスクの授業科目・種別・期限の補完や、大きな課題のステップ分解を行います。</p>
       </div>
       <div class="condition-segmented">
         <button type="button" class="condition-btn ${inboxFilter === 'all' ? 'active' : ''}" data-inbox-filter="all">
@@ -5235,9 +5994,9 @@ function renderInboxTasksView(container) {
     <div class="step-list">
       ${filteredTasks.map(task => {
         const sub = subjectMap.get(task.subjectId);
+        const taskType = task.taskType || inferTaskTypeForItem(task, sub);
         const steps = state.taskSteps.filter(s => s.taskId === task.id).sort((a, b) => a.orderIndex - b.orderIndex);
         const risk = evaluateTaskRisk(task, state, todayStr);
-        const catMeta = CATEGORY_META[task.category] || CATEGORY_META.self_study;
         const rMeta = RISK_META[risk.level] || RISK_META.none;
 
         return `
@@ -5248,9 +6007,9 @@ function renderInboxTasksView(container) {
                   <span class="subject-dot" style="background:${sub ? sub.color : 'hsl(215,14%,55%)'}"></span>
                   ${escapeHtml(sub ? sub.name : '科目未設定')}
                 </span>
-                <span class="subject-pill">${icon(catMeta.iconName || 'fileText', 12)} <span>${catMeta.label}</span></span>
+                <span class="task-type-badge">${escapeHtml(taskType)}</span>
                 ${task.recurringRuleId ? `<span class="subject-pill">${icon('repeat', 12)} <span>毎週定期</span></span>` : ''}
-                ${task.isPrepReview ? `<span class="subject-pill">${icon('book', 12)} <span>時間割${task.isPrepReview === 'prep' ? '予習' : '復習'}</span></span>` : ''}
+                ${risk.isEarlyMorning ? `<span class="risk-badge warning">1・2限（前日夜期限）</span>` : ''}
                 <span class="risk-badge ${risk.level}">${icon(rMeta.iconName, 12)} <span>${risk.label}</span></span>
                 <span style="font-size:0.78rem;color:var(--text-secondary);">
                   ${icon('calendar', 13)} ${escapeHtml(formatJpDate(task.deadlineDate, todayStr))}
@@ -5259,7 +6018,7 @@ function renderInboxTasksView(container) {
               <div style="display:flex;align-items:center;gap:0.45rem;">
                 <span class="duration-tag tabular-nums">合計 ${risk.totalMinutes}分 (${risk.completedSteps}/${risk.totalSteps}ステップ)</span>
                 <button type="button" class="btn-secondary" style="padding:0.3rem 0.65rem;font-size:0.76rem;" data-open-task="${task.id}">
-                  ${icon('sliders', 13)} <span>分解・編集</span>
+                  ${icon('sliders', 13)} <span>科目・種別・分解編集</span>
                 </button>
               </div>
             </div>
@@ -5303,7 +6062,7 @@ function renderInboxTasksView(container) {
 }
 
 /* ==========================================================================
-   VIEW 4: Weekly Timetable, Prep/Review Switches, Subject Memo Logs & Settings
+   VIEW 4: Weekly Timetable, Prep/Review Switches, Subject×TaskType Stats & Memo Logs
    ========================================================================== */
 function renderTimetableHtml(todayStr) {
   const currentDow = weekdayOf(todayStr);
@@ -5321,43 +6080,51 @@ function renderTimetableHtml(todayStr) {
     { slot: '7-8', label: '7・8限' }
   ];
 
-  // Track cells covered by a 5-8 (2-row span) course
   const coveredBySpan = new Set();
 
-  const renderCourseCard = (sub) => `
-    <div class="tt-card" style="border-left-color:${sub.color};">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.3rem;">
-        <div class="tt-course-name" data-edit-subject="${sub.id}">${escapeHtml(sub.name)}</div>
-        <button type="button" class="close-btn" style="padding:0.1rem;font-size:0.7rem;" data-edit-subject="${sub.id}" title="科目設定・メモ">
-          ${icon('edit', 12)}
-        </button>
-      </div>
-      ${sub.room ? `
-        <div class="tt-room-badge">
-          ${icon('mapPin', 11)}
-          <span>${escapeHtml(sub.room)}</span>
+  const renderCourseCard = (sub) => {
+    const isExp = isExperimentSubject(sub);
+    return `
+      <div class="tt-card" style="border-left-color:${sub.color};">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.3rem;">
+          <div class="tt-course-name" data-edit-subject="${sub.id}">${escapeHtml(sub.name)}</div>
+          <button type="button" class="close-btn" style="padding:0.1rem;font-size:0.7rem;" data-edit-subject="${sub.id}" title="科目設定・メモ">
+            ${icon('edit', 12)}
+          </button>
         </div>
-      ` : ''}
-      <div class="tt-switch-row">
-        <button
-          type="button"
-          class="tt-switch-btn ${sub.autoPrep ? 'on' : ''}"
-          data-toggle-prep="${sub.id}"
-          title="講義前日に予習タスク（推定${sub.prepMinutes || 20}分）を自動生成"
-        >
-          <span>予習: ${sub.autoPrep ? 'ON' : 'OFF'}</span>
-        </button>
-        <button
-          type="button"
-          class="tt-switch-btn ${sub.autoReview ? 'on' : ''}"
-          data-toggle-review="${sub.id}"
-          title="講義当日〜翌日に復習タスク（推定${sub.reviewMinutes || 20}分）を自動生成"
-        >
-          <span>復習: ${sub.autoReview ? 'ON' : 'OFF'}</span>
-        </button>
+        ${sub.room ? `
+          <div class="tt-room-badge">
+            ${icon('mapPin', 11)}
+            <span>${escapeHtml(sub.room)}</span>
+          </div>
+        ` : ''}
+        ${isExp ? `
+          <div style="margin-top:auto;padding-top:0.2rem;font-size:0.65rem;color:var(--text-muted);font-weight:600;">
+            実験科目（予習・復習除外）
+          </div>
+        ` : `
+          <div class="tt-switch-row">
+            <button
+              type="button"
+              class="tt-switch-btn ${sub.autoPrep ? 'on' : ''}"
+              data-toggle-prep="${sub.id}"
+              title="講義前日に予習タスク（推定${sub.prepMinutes || 20}分）を自動生成"
+            >
+              <span>予習: ${sub.autoPrep ? 'ON' : 'OFF'}</span>
+            </button>
+            <button
+              type="button"
+              class="tt-switch-btn ${sub.autoReview ? 'on' : ''}"
+              data-toggle-review="${sub.id}"
+              title="講義当日〜翌日に復習タスク（推定${sub.reviewMinutes || 20}分）を自動生成"
+            >
+              <span>復習: ${sub.autoReview ? 'ON' : 'OFF'}</span>
+            </button>
+          </div>
+        `}
       </div>
-    </div>
-  `;
+    `;
+  };
 
   return `
     <div class="timetable-scroll">
@@ -5380,7 +6147,6 @@ function renderTimetableHtml(todayStr) {
                 const key = `${w.dow}_${row.slot}`;
                 if (coveredBySpan.has(key)) return '';
 
-                // Check for 5-8 span course on 5-6 row
                 if (row.slot === '5-6') {
                   const spanSub = state.subjects.find(
                     s => s.defaultWeekday === w.dow && s.periodSlot === '5-8'
@@ -5423,66 +6189,91 @@ function renderTimetableHtml(todayStr) {
 function renderRecurringRulesHtml() {
   const rules = state.recurringRules || [];
   const subjectMap = new Map(state.subjects.map(s => [s.id, s]));
+  const allTypeStats = getSubjectTaskTypeStats(state);
+
+  const typeStatsBanner = allTypeStats.length > 0 ? `
+    <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.5rem;background:var(--bg-surface);">
+      <div style="font-weight:700;font-size:0.86rem;display:flex;align-items:center;gap:0.4rem;">
+        ${icon('trendingUp', 15)}
+        <span>科目 × タスク種別ごとの見積もり学習クセ一覧</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.45rem;" class="tabular-nums">
+        ${allTypeStats.map(st => `
+          <span class="preview-chip matched" style="font-size:0.75rem;">
+            <span class="subject-dot" style="background:${st.subjectColor}"></span>
+            ${escapeHtml(st.subjectName)}（${escapeHtml(st.taskType)}）：平均${st.avgMinutes}分（見積もり比 ${st.ratio}倍）
+          </span>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
   if (rules.length === 0) {
     return `
+      ${typeStatsBanner}
       <div class="step-card" style="color:var(--text-secondary);font-size:0.82rem;">
-        現在登録されている毎週の定期課題はありません。上の入力欄で「毎週金曜に電磁気学Ⅱbの小テスト」のように入力するか、各課題の詳細画面から「毎週繰り返す」をONにできます。
+        現在登録されている毎週の定期課題はありません。上の入力欄で「毎週金曜に電磁気の小テスト」のように入力するか、各課題の詳細画面から「毎週繰り返す」をONにできます。
       </div>
     `;
   }
-  return rules.map(rule => {
-    const sub = subjectMap.get(rule.subjectId);
-    const totalEstimate = rule.stepsTemplate.reduce((acc, s) => acc + (s.estimatedMinutes || 0), 0);
-    const totalSamples = rule.stepsTemplate.reduce((acc, s) => acc + (s.sampleCount || 0), 0);
-    return `
-      <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.6rem;${rule.active ? '' : 'opacity:0.65;'}">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
-          <div class="badge-row">
-            <span class="subject-pill">
-              <span class="subject-dot" style="background:${sub ? sub.color : 'hsl(215,14%,55%)'}"></span>
-              ${escapeHtml(sub ? sub.name : '科目未設定')}
-            </span>
-            <span style="font-weight:700;font-size:0.92rem;">${icon('repeat', 14)} ${escapeHtml(rule.title)}</span>
-            ${rule.active ? '' : `<span class="risk-badge none">一時停止中</span>`}
+  return `
+    ${typeStatsBanner}
+    ${rules.map(rule => {
+      const sub = subjectMap.get(rule.subjectId);
+      const taskType = rule.taskType || inferTaskTypeForItem(rule, sub);
+      const totalEstimate = rule.stepsTemplate.reduce((acc, s) => acc + (s.estimatedMinutes || 0), 0);
+      const totalSamples = rule.stepsTemplate.reduce((acc, s) => acc + (s.sampleCount || 0), 0);
+      return `
+        <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.6rem;${rule.active ? '' : 'opacity:0.65;'}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+            <div class="badge-row">
+              <span class="subject-pill">
+                <span class="subject-dot" style="background:${sub ? sub.color : 'hsl(215,14%,55%)'}"></span>
+                ${escapeHtml(sub ? sub.name : '科目未設定')}
+              </span>
+              <span class="task-type-badge">${escapeHtml(taskType)}</span>
+              <span style="font-weight:700;font-size:0.92rem;">${icon('repeat', 14)} ${escapeHtml(rule.title)}</span>
+              ${rule.active ? '' : `<span class="risk-badge none">一時停止中</span>`}
+            </div>
+            <div style="display:flex;align-items:center;gap:0.4rem;">
+              <span style="font-size:0.76rem;color:var(--text-secondary);">毎週</span>
+              <select class="form-select" style="width:auto;padding:0.2rem 0.45rem;font-size:0.76rem;" data-rule-weekday="${rule.id}">
+                ${WEEKDAY_LABELS.map((w, idx) => `<option value="${idx}" ${rule.weekday === idx ? 'selected' : ''}>${w}曜</option>`).join('')}
+              </select>
+              <button type="button" class="btn-secondary" style="font-size:0.74rem;padding:0.25rem 0.55rem;" data-toggle-rule="${rule.id}">
+                ${rule.active ? '一時停止' : '再開'}
+              </button>
+              <button type="button" class="close-btn" title="定期ルールを削除" data-delete-rule="${rule.id}">
+                ${icon('trash', 14)}
+              </button>
+            </div>
           </div>
-          <div style="display:flex;align-items:center;gap:0.4rem;">
-            <span style="font-size:0.76rem;color:var(--text-secondary);">毎週</span>
-            <select class="form-select" style="width:auto;padding:0.2rem 0.45rem;font-size:0.76rem;" data-rule-weekday="${rule.id}">
-              ${WEEKDAY_LABELS.map((w, idx) => `<option value="${idx}" ${rule.weekday === idx ? 'selected' : ''}>${w}曜</option>`).join('')}
-            </select>
-            <button type="button" class="btn-secondary" style="font-size:0.74rem;padding:0.25rem 0.55rem;" data-toggle-rule="${rule.id}">
-              ${rule.active ? '一時停止' : '再開'}
-            </button>
-            <button type="button" class="close-btn" title="定期ルールを削除" data-delete-rule="${rule.id}">
-              ${icon('trash', 14)}
-            </button>
+
+          <div style="font-size:0.76rem;color:var(--text-secondary);">
+            次回の推定 合計 <strong class="tabular-nums">${totalEstimate}分</strong>
+            ・実績からの学習反映 <span class="tabular-nums">${totalSamples}回</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:0.3rem;">
+            ${rule.stepsTemplate.map((ts, idx) => {
+              const last = (ts.history || []).slice(-1)[0];
+              const err = getAverageError(ts);
+              return `
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:var(--bg-surface-subtle);padding:0.35rem 0.6rem;border-radius:var(--radius-sm);font-size:0.78rem;flex-wrap:wrap;">
+                  <span>${idx + 1}. ${escapeHtml(ts.title)}</span>
+                  <span style="display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);" class="tabular-nums">
+                    ${last ? `<span>前回: 推定${last.estimated}分 → 実績${last.actual}分</span>` : `<span style="color:var(--text-muted);">実績まだなし（初期値）</span>`}
+                    ${err !== null ? `<span>（平均誤差 ±${err}分）</span>` : ''}
+                    <span class="duration-tag">次回推定 ${ts.estimatedMinutes}分</span>
+                  </span>
+                </div>
+              `;
+            }).join('')}
           </div>
         </div>
-
-        <div style="font-size:0.76rem;color:var(--text-secondary);">
-          次回の推定 合計 <strong class="tabular-nums">${totalEstimate}分</strong>
-          ・実績からの学習反映 <span class="tabular-nums">${totalSamples}回</span>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:0.3rem;">
-          ${rule.stepsTemplate.map((ts, idx) => {
-            const last = (ts.history || []).slice(-1)[0];
-            const err = getAverageError(ts);
-            return `
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:var(--bg-surface-subtle);padding:0.35rem 0.6rem;border-radius:var(--radius-sm);font-size:0.78rem;flex-wrap:wrap;">
-                <span>${idx + 1}. ${escapeHtml(ts.title)}</span>
-                <span style="display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);" class="tabular-nums">
-                  ${last ? `<span>前回: 推定${last.estimated}分 → 実績${last.actual}分</span>` : `<span style="color:var(--text-muted);">実績まだなし（初期値）</span>`}
-                  ${err !== null ? `<span>（平均誤差 ±${err}分）</span>` : ''}
-                  <span class="duration-tag">次回推定 ${ts.estimatedMinutes}分</span>
-                </span>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      </div>
-    `;
-  }).join('');
+      `;
+    }).join('')}
+  `;
 }
 
 function renderSubjectsAndLogsView(container) {
@@ -5493,8 +6284,8 @@ function renderSubjectsAndLogsView(container) {
   container.innerHTML = `
     <section class="status-banner">
       <div class="date-greeting">
-        <h1>週間時間割・教科別学習メモ・データ管理</h1>
-        <p>時間割からの「予習（前日20分）」「復習（当日〜翌日20分）」自動生成スイッチと、教科ごとの1行学習メモ・バックアップを管理します。</p>
+        <h1>週間時間割・科目×種別見積もり学習・学習メモ</h1>
+        <p>時間割からの予習・復習自動生成（実験科目は対象外）、科目×種別ごとの見積もりクセ、1行学習メモ・バックアップを管理します。</p>
       </div>
       <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
         <button type="button" class="btn-secondary" id="btn-open-new-subject">
@@ -5510,23 +6301,26 @@ function renderSubjectsAndLogsView(container) {
     <section class="section-block">
       <div class="section-header" style="flex-wrap:wrap;">
         <h2 class="section-title">${icon('grid', 17)} <span>週間時間割（予習・復習タスク自動生成スイッチ付き）</span></h2>
-        <span class="section-subtitle">各コマの「予習」「復習」をONにすると、毎週の該当日に20分タスクを自動追加します</span>
+        <span class="section-subtitle">1・2限科目は前日夜を実質期限として早期警告 ／ 実験科目は予習・復習自動生成の対象外</span>
       </div>
       ${renderTimetableHtml(todayStr)}
     </section>
 
-    <!-- 2. Subject Cards with 1-Line Learning Memo Accumulation -->
+    <!-- 2. Subject Cards with Subject×TaskType Estimation Habits & 1-Line Learning Memos -->
     <section class="section-block">
       <div class="section-header" style="flex-wrap:wrap;">
-        <h2 class="section-title">${icon('book', 17)} <span>履修科目 ＆ 学習メモ（つまずき1行ログ蓄積）</span></h2>
-        <span class="section-subtitle">書き留めたメモは週間計画タブの「Gemini振り返りプロンプト」に自動集約されます</span>
+        <h2 class="section-title">${icon('book', 17)} <span>履修科目 ＆ 科目×種別見積もりクセ・学習メモ</span></h2>
+        <span class="section-subtitle">完了実測から「科目×タスク種別」ごとの平均時間と見積もり比を自動学習します</span>
       </div>
       <div class="subject-grid">
         ${state.subjects.map(sub => {
+          const isExp = isExperimentSubject(sub);
+          const isEarly = isEarlyMorningSubject(sub);
           const subTasks = state.tasks.filter(t => t.subjectId === sub.id);
           const activeTasks = subTasks.filter(t => t.status !== 'completed');
           const subLogs = state.studyLogs.filter(l => l.subjectId === sub.id);
           const subMins = subLogs.reduce((acc, l) => acc + (Number(l.durationMinutes) || 0), 0);
+          const subTypeStats = getSubjectTaskTypeStats(state, sub.id);
           const memos = Array.isArray(sub.memoLogs) ? sub.memoLogs : [];
           const dowLabel = typeof sub.defaultWeekday === 'number' ? `${WEEKDAY_LABELS[sub.defaultWeekday]}曜` : '';
           const periodObj = PERIOD_SLOTS.find(p => p.id === sub.periodSlot);
@@ -5550,13 +6344,39 @@ function renderSubjectsAndLogsView(container) {
               <div style="display:flex;gap:0.35rem;flex-wrap:wrap;align-items:center;">
                 ${dowLabel ? `<span class="preview-chip">${dowLabel} ${escapeHtml(periodLabel)}</span>` : ''}
                 ${sub.room ? `<span class="preview-chip">${icon('mapPin', 11)} ${escapeHtml(sub.room)}</span>` : ''}
+                ${isEarly ? `<span class="preview-chip warning">1・2限（前日夜期限）</span>` : ''}
                 <span class="preview-chip tabular-nums">進行中: ${activeTasks.length}件</span>
-                <button type="button" class="tt-switch-btn ${sub.autoPrep ? 'on' : ''}" data-toggle-prep="${sub.id}">
-                  予習20分: ${sub.autoPrep ? 'ON' : 'OFF'}
-                </button>
-                <button type="button" class="tt-switch-btn ${sub.autoReview ? 'on' : ''}" data-toggle-review="${sub.id}">
-                  復習20分: ${sub.autoReview ? 'ON' : 'OFF'}
-                </button>
+                ${isExp ? `
+                  <span class="preview-chip">実験科目（予習・復習除外）</span>
+                ` : `
+                  <button type="button" class="tt-switch-btn ${sub.autoPrep ? 'on' : ''}" data-toggle-prep="${sub.id}">
+                    予習20分: ${sub.autoPrep ? 'ON' : 'OFF'}
+                  </button>
+                  <button type="button" class="tt-switch-btn ${sub.autoReview ? 'on' : ''}" data-toggle-review="${sub.id}">
+                    復習20分: ${sub.autoReview ? 'ON' : 'OFF'}
+                  </button>
+                `}
+              </div>
+
+              <!-- Subject × TaskType Estimation Habit Box -->
+              <div style="background:var(--bg-surface-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:0.45rem 0.6rem;font-size:0.74rem;">
+                <div style="font-weight:700;color:var(--text-secondary);margin-bottom:0.2rem;display:flex;align-items:center;gap:0.3rem;">
+                  ${icon('trendingUp', 12)}
+                  <span>種別ごとの見積もりクセ（実測学習）</span>
+                </div>
+                ${subTypeStats.length > 0 ? `
+                  <div style="display:flex;flex-direction:column;gap:0.18rem;" class="tabular-nums">
+                    ${subTypeStats.map(st => `
+                      <div style="color:var(--text-primary);font-weight:600;">
+                        ${escapeHtml(sub.name)}（${escapeHtml(st.taskType)}）：平均${st.avgMinutes}分（見積もり比 ${st.ratio}倍）
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <div style="color:var(--text-muted);font-size:0.71rem;" class="tabular-nums">
+                    初期推定: ${isExp ? 'レポート 150分(3ステップ) / 小レポート 45分' : '小テスト 30分 / 課題 45分 / レポート 90分 / テスト 180分'}
+                  </div>
+                `}
               </div>
 
               <!-- 1-Line Learning Memo Logger -->
@@ -5600,11 +6420,11 @@ function renderSubjectsAndLogsView(container) {
       </div>
     </section>
 
-    <!-- 3. Weekly Recurring Rules & Estimate Learning -->
+    <!-- 3. Weekly Recurring Rules & Subject×TaskType Estimate Learning -->
     <section class="section-block">
       <div class="section-header" style="flex-wrap:wrap;">
-        <h2 class="section-title">${icon('repeat', 17)} <span>毎週の定期課題 ＆ 推定時間の自動学習</span></h2>
-        <span class="section-subtitle">完了時に入力した実時間と推定時間の差から、次回以降の推定時間を自動補正します</span>
+        <h2 class="section-title">${icon('repeat', 17)} <span>毎週の定期課題 ＆ 科目×種別の推定時間自動学習</span></h2>
+        <span class="section-subtitle">完了時に入力した実時間から「科目×種別」単位で次回以降の推定時間を自動補正します</span>
       </div>
       <div class="step-list">
         ${renderRecurringRulesHtml()}
@@ -5621,16 +6441,18 @@ function renderSubjectsAndLogsView(container) {
         <div class="step-list">
           ${state.studyLogs.slice(0, 15).map(log => {
             const sub = subjectMap.get(log.subjectId);
+            const taskType = log.taskType || inferTaskTypeForItem(log, sub);
             const uBadge = log.understandingLevel === 3 ? '◎ 十分理解' : log.understandingLevel === 1 ? '△ 要復習' : '◯ 標準';
             const uClass = log.understandingLevel === 3 ? 'safe' : log.understandingLevel === 1 ? 'warning' : 'none';
             return `
               <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.35rem;">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.35rem;">
                   <div class="badge-row">
                     <span class="subject-pill">
                       <span class="subject-dot" style="background:${sub ? sub.color : 'hsl(215,14%,55%)'}"></span>
                       ${escapeHtml(sub ? sub.name : '科目未設定')}
                     </span>
+                    <span class="task-type-badge">${escapeHtml(taskType)}</span>
                     <span class="risk-badge ${uClass}">${uBadge}</span>
                   </div>
                   <span style="font-size:0.75rem;color:var(--text-muted);" class="tabular-nums">
@@ -5706,12 +6528,12 @@ function renderSubjectsAndLogsView(container) {
     </div>
   `;
 
-  // Toggle Prep / Review Auto-Generation Switches
+  // Toggle Prep / Review Auto-Generation Switches (non-experiment subjects only)
   container.querySelectorAll('[data-toggle-prep]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const sub = state.subjects.find(s => s.id === btn.getAttribute('data-toggle-prep'));
-      if (!sub) return;
+      if (!sub || isExperimentSubject(sub)) return;
       sub.autoPrep = !sub.autoPrep;
       syncTimetablePrepReviewTasks(state, todayStr);
       commitState();
@@ -5723,7 +6545,7 @@ function renderSubjectsAndLogsView(container) {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const sub = state.subjects.find(s => s.id === btn.getAttribute('data-toggle-review'));
-      if (!sub) return;
+      if (!sub || isExperimentSubject(sub)) return;
       sub.autoReview = !sub.autoReview;
       syncTimetablePrepReviewTasks(state, todayStr);
       commitState();
@@ -5731,7 +6553,6 @@ function renderSubjectsAndLogsView(container) {
     });
   });
 
-  // Add course to empty timetable slot
   container.querySelectorAll('[data-add-slot-dow]').forEach(btn => {
     btn.addEventListener('click', () => {
       const dow = Number(btn.getAttribute('data-add-slot-dow'));
@@ -5740,7 +6561,6 @@ function renderSubjectsAndLogsView(container) {
     });
   });
 
-  // Inline 1-Line Subject Memo addition
   const addSubjectMemo = (subId) => {
     const input = container.querySelector(`[data-memo-input="${subId}"]`);
     if (!input || !input.value.trim()) return;
@@ -5780,7 +6600,6 @@ function renderSubjectsAndLogsView(container) {
     });
   });
 
-  // Recurring rules controls
   container.querySelectorAll('[data-toggle-rule]').forEach(btn => {
     btn.addEventListener('click', () => {
       const rule = (state.recurringRules || []).find(r => r.id === btn.getAttribute('data-toggle-rule'));
@@ -5909,7 +6728,7 @@ function openPasteRestoreModal() {
     <div style="font-size:0.8rem;color:var(--text-secondary);">
       コピーしておいたバックアップJSONテキストを下の欄に貼り付けて「データを復元する」を押してください。
     </div>
-    <textarea id="paste-restore-textarea" class="form-textarea" rows="8" placeholder='{"version": 3, "subjects": [...], ...}' style="font-family:var(--font-mono);font-size:0.75rem;"></textarea>
+    <textarea id="paste-restore-textarea" class="form-textarea" rows="8" placeholder='{"version": 4, "subjects": [...], ...}' style="font-family:var(--font-mono);font-size:0.75rem;"></textarea>
     <div style="display:flex;justify-content:flex-end;gap:0.5rem;">
       <button type="button" class="btn-secondary" id="btn-cancel-paste-restore">キャンセル</button>
       <button type="button" class="btn-primary" id="btn-confirm-paste-restore">
@@ -5937,13 +6756,14 @@ function openPasteRestoreModal() {
 }
 
 /* ==========================================================================
-   MODAL 1: Complete Step, Adaptive Estimate Learning & Subject 1-Line Memo
+   MODAL 1: Complete Step, Subject×TaskType Learning & 5-Second Undo Toast
    ========================================================================== */
 function openCompleteStepModal(stepId, measuredMinutes = null) {
   const step = state.taskSteps.find(s => s.id === stepId);
   if (!step) return;
   const task = state.tasks.find(t => t.id === step.taskId);
   const sub = state.subjects.find(s => s.id === task?.subjectId);
+  const taskType = task ? (task.taskType || inferTaskTypeForItem(task, sub)) : '課題';
   const modal = document.getElementById('modal-complete-step');
   const body = document.getElementById('modal-complete-body');
   if (!modal || !body) return;
@@ -5953,12 +6773,19 @@ function openCompleteStepModal(stepId, measuredMinutes = null) {
 
   body.innerHTML = `
     <div>
-      <div style="font-size:0.78rem;color:var(--text-secondary);">
-        完了するステップ ${isRecurringStep ? `<span class="subject-pill">${icon('repeat', 12)} <span>毎週の定期課題</span></span>` : ''}
+      <div class="badge-row" style="margin-bottom:0.25rem;">
+        ${sub ? `
+          <span class="subject-pill">
+            <span class="subject-dot" style="background:${sub.color}"></span>
+            ${escapeHtml(sub.name)}
+          </span>
+        ` : ''}
+        <span class="task-type-badge">${escapeHtml(taskType)}</span>
+        ${isRecurringStep ? `<span class="subject-pill">${icon('repeat', 12)} <span>毎週定期</span></span>` : ''}
       </div>
       <div style="font-size:1.05rem;font-weight:700;margin-top:0.15rem;">${escapeHtml(step.title)}</div>
       <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.1rem;">
-        親課題: ${escapeHtml(task ? task.title : '')} ${sub ? `（${escapeHtml(sub.name)}）` : ''}
+        親課題: ${escapeHtml(task ? task.title : '')}
       </div>
     </div>
 
@@ -6014,23 +6841,39 @@ function openCompleteStepModal(stepId, measuredMinutes = null) {
     const banner = document.getElementById('learning-preview-banner');
     if (!banner) return;
     const actual = Math.max(1, Number(document.getElementById('complete-actual-mins')?.value) || initialMinutes);
-    const info = previewLearning(state, step, actual);
-    if (!info) {
+    const subTypeInfo = previewSubjectTypeLearning(state, step, task, actual);
+    const recInfo = previewLearning(state, step, actual);
+
+    if (!subTypeInfo && !recInfo) {
       banner.innerHTML = '';
       return;
     }
-    const diff = info.nextEstimate - info.oldEstimate;
+
+    if (subTypeInfo) {
+      banner.innerHTML = `
+        <div style="background:var(--accent-soft);border:1px solid var(--accent-primary);color:var(--text-primary);padding:0.65rem 0.85rem;border-radius:var(--radius-sm);font-size:0.78rem;">
+          <div style="font-weight:700;color:var(--accent-primary);display:flex;align-items:center;gap:0.35rem;" class="tabular-nums">
+            ${icon('trendingUp', 14)}
+            <span>${escapeHtml(subTypeInfo.subjectName)}（${escapeHtml(subTypeInfo.taskType)}）：平均${subTypeInfo.avgMinutes}分（見積もり比 ${subTypeInfo.ratio}倍）</span>
+          </div>
+          <div style="margin-top:0.2rem;" class="tabular-nums">
+            この実測（${subTypeInfo.actualMinutes}分）を学習し、次回以降の「${escapeHtml(subTypeInfo.subjectName)} × ${escapeHtml(subTypeInfo.taskType)}」の推定時間を <strong>${subTypeInfo.nextEstimate}分</strong> に自動補正します。
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const diff = recInfo.nextEstimate - recInfo.oldEstimate;
     const diffLabel = diff > 0 ? `+${diff}分` : `${diff}分`;
     banner.innerHTML = `
       <div style="background:var(--accent-soft);border:1px solid var(--accent-primary);color:var(--text-primary);padding:0.65rem 0.85rem;border-radius:var(--radius-sm);font-size:0.78rem;">
         <div style="font-weight:700;color:var(--accent-primary);display:flex;align-items:center;gap:0.35rem;">
           ${icon('trendingUp', 14)}
-          <span>推定時間の自動学習（実績 ${info.actualMinutes}分 vs 今回推定 ${info.oldEstimate}分）</span>
+          <span>推定時間の自動学習（実績 ${recInfo.actualMinutes}分 vs 今回推定 ${recInfo.oldEstimate}分）</span>
         </div>
         <div style="margin-top:0.2rem;">
-          ${diff === 0
-            ? `推定時間と実績が一致しています。次回の推定時間も <strong class="tabular-nums">${info.nextEstimate}分</strong> を維持します。`
-            : `この差を学習し、次回のこのステップの推定時間を <strong class="tabular-nums">${info.oldEstimate}分 → ${info.nextEstimate}分 (${diffLabel})</strong> に自動補正します。`}
+          次回のこのステップの推定時間を <strong class="tabular-nums">${recInfo.oldEstimate}分 → ${recInfo.nextEstimate}分 (${diffLabel})</strong> に自動補正します。
         </div>
       </div>
     `;
@@ -6060,38 +6903,40 @@ function openCompleteStepModal(stepId, measuredMinutes = null) {
 }
 
 function finalizeStepCompletion(step, task, actualMinutes, understandingLevel, reflectionNote) {
+  // Capture pre-completion state snapshot for 5-second Undo
+  const snapshotJson = JSON.stringify(state);
+
   const todayStr = toDateStr();
-  const estimatedBefore = step.estimatedMinutes || 30;
-  const learning = applyActualToRecurringRule(state, step, actualMinutes, todayStr);
+  const sub = state.subjects.find(s => s.id === task?.subjectId);
+  const taskType = task ? (task.taskType || inferTaskTypeForItem(task, sub)) : '課題';
+  const spec = getTaskTypeSpec(isExperimentSubject(sub), taskType);
+  const estimatedBefore = step.estimatedMinutes || spec.baseMinutes;
+  const baseEstimatedBefore = step.baseEstimatedMinutes || estimatedBefore;
+
+  applyActualToRecurringRule(state, step, actualMinutes, todayStr);
 
   step.isCompleted = true;
   step.completedAt = todayStr;
   step.estimatedMinutes = actualMinutes;
 
-  // Also update prep/review learned duration if this was an auto-generated prep/review task
-  if (task && task.subjectId && task.isPrepReview) {
-    const sub = state.subjects.find(s => s.id === task.subjectId);
-    if (sub) {
-      const key = task.isPrepReview === 'prep' ? 'prepMinutes' : 'reviewMinutes';
-      const oldVal = Number(sub[key]) || 20;
-      sub[key] = Math.max(5, Math.round((0.5 * actualMinutes + 0.5 * oldVal) / 5) * 5);
-    }
+  if (task && task.subjectId && task.isPrepReview && sub && !isExperimentSubject(sub)) {
+    const key = task.isPrepReview === 'prep' ? 'prepMinutes' : 'reviewMinutes';
+    const oldVal = Number(sub[key]) || 20;
+    sub[key] = Math.max(5, Math.round((0.5 * actualMinutes + 0.5 * oldVal) / 5) * 5);
   }
 
   // Append reflectionNote to subject's 1-line memoLogs if provided
-  if (reflectionNote && task && task.subjectId) {
-    const sub = state.subjects.find(s => s.id === task.subjectId);
-    if (sub) {
-      if (!Array.isArray(sub.memoLogs)) sub.memoLogs = [];
-      sub.memoLogs.unshift({
-        id: uid('memo'),
-        date: todayStr,
-        text: `${reflectionNote}（${step.title}）`
-      });
-    }
+  if (reflectionNote && sub) {
+    if (!Array.isArray(sub.memoLogs)) sub.memoLogs = [];
+    sub.memoLogs.unshift({
+      id: uid('memo'),
+      date: todayStr,
+      text: `${reflectionNote}（${step.title}）`
+    });
   }
 
   if (task) {
+    task.taskType = taskType;
     task.understandingLevel = understandingLevel;
     if (understandingLevel === 1) {
       task.nextReviewDate = addDays(todayStr, 3);
@@ -6114,24 +6959,29 @@ function finalizeStepCompletion(step, task, actualMinutes, understandingLevel, r
     taskId: task ? task.id : null,
     stepId: step.id,
     subjectId: task ? task.subjectId : null,
+    taskType,
     title: task && task.title !== step.title ? `${task.title}：${step.title}` : step.title,
     studiedDate: todayStr,
     durationMinutes: actualMinutes,
     estimatedMinutes: estimatedBefore,
+    baseEstimatedMinutes: baseEstimatedBefore,
     understandingLevel,
     reflectionNote
   });
 
+  const learnedStat = sub ? getLearnedEstimateForSubjectType(state, sub.id, taskType) : null;
+
   commitState();
-  if (learning && learning.oldEstimate !== learning.nextEstimate) {
-    showToast(`完了！次回「${learning.stepTitle}」の推定時間を ${learning.oldEstimate}分 → ${learning.nextEstimate}分 に自動補正しました`);
-  } else {
-    showToast(understandingLevel === 1 ? '完了！3日後に復習を提案します' : 'ステップ完了と学習ログを記録しました');
-  }
+
+  const undoMsg = learnedStat
+    ? `完了！${sub.name}（${taskType}）平均${learnedStat.avgMinutes}分（比${learnedStat.ratio}倍）`
+    : `「${step.title}」を完了しました`;
+
+  showUndoToast(undoMsg, snapshotJson);
 }
 
 /* ==========================================================================
-   MODAL 2: Task Detail, Step Decomposition & Weekly Recurrence Editor
+   MODAL 2: Task Detail, Subject/TaskType Selector & Step Decomposition Editor
    ========================================================================== */
 function renderRecurringSectionHtml(task) {
   const existingRule = task.recurringRuleId
@@ -6183,6 +7033,13 @@ function openTaskDetailModal(taskId) {
   if (!modal || !body) return;
 
   const renderModalContent = () => {
+    const sub = state.subjects.find(s => s.id === task.subjectId);
+    const isExp = isExperimentSubject(sub);
+    const allowedTypes = getAllowedTaskTypes(isExp);
+    if (!task.taskType || !allowedTypes.includes(task.taskType)) {
+      task.taskType = inferTaskTypeForItem(task, sub);
+    }
+
     const steps = state.taskSteps
       .filter(s => s.taskId === task.id)
       .sort((a, b) => a.orderIndex - b.orderIndex);
@@ -6194,25 +7051,32 @@ function openTaskDetailModal(taskId) {
           <input type="text" id="detail-task-title" class="form-input" value="${escapeHtml(task.title)}" />
         </div>
         <div class="form-field">
-          <label class="form-label">科目</label>
+          <label class="form-label">授業科目（時間割と連動）</label>
           <select id="detail-task-subject" class="form-select">
             <option value="">科目未設定</option>
-            ${state.subjects.map(s => `
-              <option value="${s.id}" ${task.subjectId === s.id ? 'selected' : ''}>${escapeHtml(s.name)}</option>
+            ${state.subjects.map(s => {
+              const dow = typeof s.defaultWeekday === 'number' ? `${WEEKDAY_LABELS[s.defaultWeekday]}曜` : '';
+              const pSlot = s.periodSlot ? `${s.periodSlot}限` : '';
+              const meta = [dow, pSlot].filter(Boolean).join(' ');
+              return `
+                <option value="${s.id}" ${task.subjectId === s.id ? 'selected' : ''}>
+                  ${escapeHtml(s.name)}${meta ? `（${meta}）` : ''}
+                </option>
+              `;
+            }).join('')}
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">タスク種別（${isExp ? '実験科目用' : '通常授業用'}）</label>
+          <select id="detail-task-type" class="form-select">
+            ${allowedTypes.map(tType => `
+              <option value="${tType}" ${task.taskType === tType ? 'selected' : ''}>${escapeHtml(tType)}</option>
             `).join('')}
           </select>
         </div>
         <div class="form-field">
           <label class="form-label">締切日</label>
           <input type="date" id="detail-task-deadline" class="form-input" value="${task.deadlineDate || ''}" />
-        </div>
-        <div class="form-field">
-          <label class="form-label">種類</label>
-          <select id="detail-task-category" class="form-select">
-            ${Object.entries(CATEGORY_META).map(([k, v]) => `
-              <option value="${k}" ${task.category === k ? 'selected' : ''}>${v.label}</option>
-            `).join('')}
-          </select>
         </div>
         <div class="form-field">
           <label class="form-label">優先度（重要度）</label>
@@ -6230,11 +7094,11 @@ function openTaskDetailModal(taskId) {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;flex-wrap:wrap;gap:0.4rem;">
           <div>
             <div style="font-weight:700;font-size:0.9rem;">${icon('layers', 15)} 実行ステップ分解 (${steps.length}ステップ)</div>
-            <div style="font-size:0.75rem;color:var(--text-secondary);">最初は適当な推定時間でOK。完了時の実時間から次回推定を自動学習します</div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);">種別に応じた初期推定・自動分解、または完了実測からの補正値を反映できます</div>
           </div>
           <div style="display:flex;gap:0.4rem;">
             <button type="button" class="btn-secondary" id="btn-auto-decompose-template" style="font-size:0.75rem;padding:0.3rem 0.6rem;">
-              テンプレート分解
+              種別テンプレートで再分解
             </button>
             <button type="button" class="btn-secondary" id="btn-add-step-row" style="font-size:0.75rem;padding:0.3rem 0.6rem;">
               + ステップ追加
@@ -6244,12 +7108,12 @@ function openTaskDetailModal(taskId) {
 
         <div style="display:flex;flex-direction:column;gap:0.45rem;" id="detail-steps-list">
           ${steps.map((st, idx) => `
-            <div style="display:flex;align-items:center;gap:0.45rem;background:var(--bg-surface-subtle);padding:0.45rem 0.6rem;border-radius:var(--radius-sm);">
+            <div style="display:flex;align-items:center;gap:0.45rem;background:var(--bg-surface-subtle);padding:0.45rem 0.6rem;border-radius:var(--radius-sm);flex-wrap:wrap;">
               <span class="tabular-nums" style="font-size:0.76rem;font-weight:700;color:var(--text-muted);width:22px;">${idx + 1}.</span>
               <input
                 type="text"
                 class="form-input"
-                style="flex:1;padding:0.3rem 0.5rem;font-size:0.83rem;"
+                style="flex:1;min-width:140px;padding:0.3rem 0.5rem;font-size:0.83rem;"
                 data-edit-step-title="${st.id}"
                 value="${escapeHtml(st.title)}"
               />
@@ -6290,8 +7154,13 @@ function openTaskDetailModal(taskId) {
     const syncDraftInputs = () => {
       task.title = document.getElementById('detail-task-title')?.value?.trim() || task.title;
       task.subjectId = document.getElementById('detail-task-subject')?.value || null;
+      const newSub = state.subjects.find(s => s.id === task.subjectId);
+      const selectedType = document.getElementById('detail-task-type')?.value;
+      const validTypes = getAllowedTaskTypes(isExperimentSubject(newSub));
+      task.taskType = validTypes.includes(selectedType) ? selectedType : inferTaskTypeForItem(task, newSub);
+      const spec = getTaskTypeSpec(isExperimentSubject(newSub), task.taskType);
+      task.category = spec.category;
       task.deadlineDate = document.getElementById('detail-task-deadline')?.value || null;
-      task.category = document.getElementById('detail-task-category')?.value || 'self_study';
       task.importance = Number(document.getElementById('detail-task-importance')?.value) || 2;
 
       body.querySelectorAll('[data-edit-step-title]').forEach(inp => {
@@ -6310,6 +7179,12 @@ function openTaskDetailModal(taskId) {
       const currentSteps = state.taskSteps.filter(s => s.taskId === task.id);
       task.estimatedMinutes = currentSteps.reduce((acc, s) => acc + (Number(s.estimatedMinutes) || 0), 0);
     };
+
+    // Re-render modal if Subject changes between Normal and Experiment course so TaskType options update
+    document.getElementById('detail-task-subject')?.addEventListener('change', () => {
+      syncDraftInputs();
+      renderModalContent();
+    });
 
     document.getElementById('btn-convert-to-recurring')?.addEventListener('click', () => {
       syncDraftInputs();
@@ -6356,22 +7231,30 @@ function openTaskDetailModal(taskId) {
     document.getElementById('btn-auto-decompose-template')?.addEventListener('click', () => {
       syncDraftInputs();
       const todayStr = toDateStr();
-      const templates = getCategoryStepTemplates(task.category);
+      const currentSub = state.subjects.find(s => s.id === task.subjectId);
+      const expFlag = isExperimentSubject(currentSub);
+      const templates = getCategoryStepTemplates(task.taskType, expFlag, task.taskType);
+      const learned = task.subjectId ? getLearnedEstimateForSubjectType(state, task.subjectId, task.taskType) : null;
+      const templateSum = templates.reduce((acc, t) => acc + t.minutes, 0);
+      const scale = learned ? (learned.learnedMinutes / Math.max(1, templateSum)) : 1;
+
       state.taskSteps = state.taskSteps.filter(s => s.taskId !== task.id);
       const rawSteps = templates.map((t, idx) => ({
         id: uid('step'),
         taskId: task.id,
-        title: t.title,
+        title: templates.length === 1 ? task.title : t.title,
         orderIndex: idx + 1,
         templateIndex: idx,
-        estimatedMinutes: t.minutes,
+        estimatedMinutes: Math.max(5, Math.round((t.minutes * scale) / 5) * 5),
+        baseEstimatedMinutes: t.minutes,
         scheduledDate: null,
         isCompleted: false,
         completedAt: null
       }));
-      const scheduled = assignDatesForNewTaskSteps(rawSteps, task.deadlineDate, state, todayStr);
+      const scheduled = assignDatesForNewTaskSteps(rawSteps, task.deadlineDate, state, todayStr, task.subjectId);
       state.taskSteps.push(...scheduled);
       renderModalContent();
+      showToast(`「${task.taskType}」のテンプレート（${scheduled.length}ステップ）を適用しました`);
     });
 
     document.getElementById('btn-add-step-row')?.addEventListener('click', () => {
@@ -6383,6 +7266,7 @@ function openTaskDetailModal(taskId) {
         title: `作業ステップ ${existing.length + 1}`,
         orderIndex: existing.length + 1,
         estimatedMinutes: 30,
+        baseEstimatedMinutes: 30,
         scheduledDate: task.deadlineDate || toDateStr(),
         isCompleted: false,
         completedAt: null
@@ -6404,7 +7288,7 @@ function openTaskDetailModal(taskId) {
         const unscheduled = state.taskSteps.filter(s => s.taskId === task.id && !s.scheduledDate && !s.isCompleted);
         if (unscheduled.length > 0) {
           const allTaskSteps = state.taskSteps.filter(s => s.taskId === task.id);
-          const scheduled = assignDatesForNewTaskSteps(allTaskSteps, task.deadlineDate, state, toDateStr());
+          const scheduled = assignDatesForNewTaskSteps(allTaskSteps, task.deadlineDate, state, toDateStr(), task.subjectId);
           state.taskSteps = state.taskSteps.filter(s => s.taskId !== task.id).concat(scheduled);
         }
         if (task.status === 'inbox') task.status = 'planned';
@@ -6497,6 +7381,7 @@ function openReplanModal(proposal) {
    ========================================================================== */
 function openSubjectModal(subjectId, presetWeekday = null, presetPeriod = null) {
   const existing = subjectId ? state.subjects.find(s => s.id === subjectId) : null;
+  const isExp = isExperimentSubject(existing);
   const modal = document.getElementById('modal-subject-edit');
   const titleEl = document.getElementById('title-subject-modal');
   const body = document.getElementById('modal-subject-body');
@@ -6538,7 +7423,7 @@ function openSubjectModal(subjectId, presetWeekday = null, presetPeriod = null) 
         </select>
       </div>
       <div class="form-field">
-        <label class="form-label">時限コマ</label>
+        <label class="form-label">時限コマ（1・2限は前日夜を実質期限に自動設定）</label>
         <select id="sub-edit-period" class="form-select">
           <option value="" ${!initPeriod ? 'selected' : ''}>時間割枠なし</option>
           ${PERIOD_SLOTS.map(p => `
@@ -6548,7 +7433,7 @@ function openSubjectModal(subjectId, presetWeekday = null, presetPeriod = null) 
       </div>
       <div class="form-field">
         <label class="form-label">自然文認識用の略称（カンマ区切り）</label>
-        <input type="text" id="sub-edit-aliases" class="form-input" value="${escapeHtml(existing ? (existing.aliases || []).join(', ') : '')}" placeholder="例: 電気回路, 回路1" />
+        <input type="text" id="sub-edit-aliases" class="form-input" value="${escapeHtml(existing ? (existing.aliases || []).join(', ') : '')}" placeholder="例: 電気回路, 電回" />
       </div>
       <div class="form-field">
         <label class="form-label">テーマカラー</label>
@@ -6560,16 +7445,22 @@ function openSubjectModal(subjectId, presetWeekday = null, presetPeriod = null) 
       </div>
       <div class="form-field full">
         <label class="form-label">予習・復習タスクの自動生成設定</label>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;background:var(--bg-surface-subtle);padding:0.6rem 0.75rem;border-radius:var(--radius-sm);">
-          <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;cursor:pointer;">
-            <input type="checkbox" id="sub-edit-autoprep" ${existing?.autoPrep ? 'checked' : ''} />
-            <span>予習を自動生成（講義前日・推定 ${existing?.prepMinutes || 20}分）</span>
-          </label>
-          <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;cursor:pointer;">
-            <input type="checkbox" id="sub-edit-autoreview" ${existing?.autoReview ? 'checked' : ''} />
-            <span>復習を自動生成（講義当日〜翌日・推定 ${existing?.reviewMinutes || 20}分）</span>
-          </label>
-        </div>
+        ${isExp ? `
+          <div style="background:var(--bg-surface-subtle);padding:0.6rem 0.75rem;border-radius:var(--radius-sm);font-size:0.8rem;color:var(--text-secondary);">
+            実験科目のため、通常の予習・復習タスク（20分）の自動生成対象から除外されています。
+          </div>
+        ` : `
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;background:var(--bg-surface-subtle);padding:0.6rem 0.75rem;border-radius:var(--radius-sm);">
+            <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;cursor:pointer;">
+              <input type="checkbox" id="sub-edit-autoprep" ${existing?.autoPrep ? 'checked' : ''} />
+              <span>予習を自動生成（講義前日・推定 ${existing?.prepMinutes || 20}分）</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;cursor:pointer;">
+              <input type="checkbox" id="sub-edit-autoreview" ${existing?.autoReview ? 'checked' : ''} />
+              <span>復習を自動生成（講義当日〜翌日・推定 ${existing?.reviewMinutes || 20}分）</span>
+            </label>
+          </div>
+        `}
       </div>
       <div class="form-field full">
         <label class="form-label">苦手分野・試験範囲メモ</label>
@@ -6602,8 +7493,9 @@ function openSubjectModal(subjectId, presetWeekday = null, presetPeriod = null) 
     const rawAliases = document.getElementById('sub-edit-aliases')?.value || name;
     const aliases = Array.from(new Set([name, ...rawAliases.split(',').map(s => s.trim()).filter(Boolean)]));
     const color = document.getElementById('sub-edit-color')?.value || colors[0];
-    const autoPrep = Boolean(document.getElementById('sub-edit-autoprep')?.checked);
-    const autoReview = Boolean(document.getElementById('sub-edit-autoreview')?.checked);
+    const expSubject = isExperimentSubject(name);
+    const autoPrep = expSubject ? false : Boolean(document.getElementById('sub-edit-autoprep')?.checked);
+    const autoReview = expSubject ? false : Boolean(document.getElementById('sub-edit-autoreview')?.checked);
     const weakPointsNote = document.getElementById('sub-edit-weak')?.value?.trim() || '';
 
     if (existing) {
