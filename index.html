@@ -1,0 +1,3026 @@
+<!DOCTYPE html>
+<html class="light" lang="ja" data-theme="light"><head><meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js; frame-src 'none'; object-src 'none'"><style data-host-theme="">:root { --background: #FFFFFF; --foreground: #0A0A0C; --primary: #2F75C3; --primary-foreground: #FFFFFF; --secondary: rgb(10 10 12 / 0.06); --secondary-foreground: #3F3F46; --muted: rgb(10 10 12 / 0.038); --muted-foreground: #71717A; --placeholder: #8E8E95; --sidebar: #FAFAFA; --sidebar-secondary: rgb(10 10 12 / 0.075); --sidebar-muted: rgb(10 10 12 / 0.042); --content: #FFFFFF; --card: #FFFFFF; --card-border: rgb(10 10 12 / 0.07); --border: rgb(10 10 12 / 0.06); --code-foreground: color-mix(in oklab, #3F3F46 65%, #2F75C3); --link: #3e8ed1; --success: #58983f; --warning: #ac830b; --error: #f05151; --chart-1: #1d4ed8; --chart-2: #b45309; --chart-3: #15803d; --chart-4: #7e22ce; --chart-5: #be123c; --chart-6: #0369a1; --accent: #2F75C3; --editor-font-family: 'Google Sans Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; --font-size: 14px; --theme-type: light; } html, body { margin: 0; padding: 0; overflow: hidden; color-scheme: light; background-color: transparent; color: var(--foreground, inherit); font-family: var(--font-family, sans-serif); } html { font-size: 16px; } body { font-size: var(--font-size, 14px); } body :is(code, pre, kbd, samp), body .font-mono { font-family: var(--editor-font-family, ui-monospace, monospace); }</style><style>html, body { overflow: auto; }</style><script>(function(){var t=window.tailwind=window.tailwind||{};if(!t.config){t.config={darkMode:'class'};}else if(t.config.darkMode!=='class'){t.config.darkMode='class';}})();document.addEventListener('DOMContentLoaded',function(){(function(){var t=window.tailwind=window.tailwind||{};if(!t.config){t.config={darkMode:'class'};}else if(t.config.darkMode!=='class'){t.config.darkMode='class';}})();});window.addEventListener('load',function(){(function(){var t=window.tailwind=window.tailwind||{};if(!t.config){t.config={darkMode:'class'};}else if(t.config.darkMode!=='class'){t.config.darkMode='class';}})();});</script><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.hidden{display:none}.tabular-nums{--tw-numeric-spacing:tabular-nums;font-variant-numeric:var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)}</style></head><body>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Study OS — 大学生向けスマート学習・課題管理アプリ</title>
+  <meta name="theme-color" content="#116979">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="StudyOS">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23116979'/%3E%3Ccircle cx='390' cy='122' r='44' fill='%23e69c24'/%3E%3Cpath d='M148 268l72 72 148-156' fill='none' stroke='%23ffffff' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23116979'/%3E%3Ccircle cx='390' cy='122' r='44' fill='%23e69c24'/%3E%3Cpath d='M148 268l72 72 148-156' fill='none' stroke='%23ffffff' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --bg-app: hsl(40, 20%, 97%);
+      --bg-sidebar: hsl(40, 18%, 94%);
+      --bg-surface: hsl(0, 0%, 100%);
+      --bg-surface-hover: hsl(40, 15%, 96%);
+      --bg-surface-subtle: hsl(40, 16%, 95%);
+      --bg-elevated: hsl(0, 0%, 100%);
+      --bg-glass: hsla(40, 20%, 98%, 0.88);
+
+      --text-primary: hsl(215, 28%, 14%);
+      --text-secondary: hsl(215, 16%, 38%);
+      --text-muted: hsl(215, 12%, 56%);
+      --text-on-accent: hsl(0, 0%, 100%);
+
+      --border-subtle: hsl(40, 14%, 89%);
+      --border-default: hsl(215, 14%, 84%);
+      --border-strong: hsl(215, 16%, 72%);
+
+      --accent-primary: hsl(192, 78%, 31%);
+      --accent-primary-hover: hsl(192, 82%, 25%);
+      --accent-soft: hsl(192, 55%, 93%);
+      --accent-soft-text: hsl(192, 85%, 24%);
+
+      --danger-bg: hsl(4, 82%, 95%);
+      --danger-text: hsl(4, 74%, 42%);
+      --danger-border: hsl(4, 70%, 84%);
+      --danger-dot: hsl(4, 76%, 52%);
+
+      --warning-bg: hsl(36, 90%, 94%);
+      --warning-text: hsl(32, 84%, 34%);
+      --warning-border: hsl(36, 80%, 80%);
+      --warning-dot: hsl(35, 90%, 48%);
+
+      --safe-bg: hsl(152, 56%, 94%);
+      --safe-text: hsl(154, 68%, 28%);
+      --safe-border: hsl(152, 48%, 82%);
+      --safe-dot: hsl(152, 64%, 40%);
+
+      --neutral-badge-bg: hsl(215, 16%, 93%);
+      --neutral-badge-text: hsl(215, 16%, 40%);
+
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 2px 6px -1px rgba(15, 23, 42, 0.06), 0 1px 3px -1px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 8px 20px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 18px 36px -6px rgba(15, 23, 42, 0.14), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --radius-pill: 9999px;
+
+      --sidebar-width: 244px;
+      --transition-fast: 140ms cubic-bezier(0.22, 1, 0.36, 1);
+      --transition-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg-app: hsl(210, 20%, 10%);
+      --bg-sidebar: hsl(210, 22%, 8%);
+      --bg-surface: hsl(210, 18%, 14%);
+      --bg-surface-hover: hsl(210, 18%, 17%);
+      --bg-surface-subtle: hsl(210, 19%, 12%);
+      --bg-elevated: hsl(210, 18%, 16%);
+      --bg-glass: hsla(210, 20%, 11%, 0.88);
+
+      --text-primary: hsl(40, 15%, 94%);
+      --text-secondary: hsl(210, 12%, 70%);
+      --text-muted: hsl(210, 10%, 50%);
+      --text-on-accent: hsl(210, 22%, 8%);
+
+      --border-subtle: hsl(210, 16%, 19%);
+      --border-default: hsl(210, 15%, 24%);
+      --border-strong: hsl(210, 14%, 34%);
+
+      --accent-primary: hsl(186, 68%, 50%);
+      --accent-primary-hover: hsl(186, 74%, 58%);
+      --accent-soft: hsla(186, 68%, 45%, 0.15);
+      --accent-soft-text: hsl(186, 72%, 68%);
+
+      --danger-bg: hsla(4, 76%, 54%, 0.15);
+      --danger-text: hsl(4, 85%, 74%);
+      --danger-border: hsla(4, 76%, 54%, 0.32);
+      --danger-dot: hsl(4, 82%, 62%);
+
+      --warning-bg: hsla(36, 88%, 52%, 0.15);
+      --warning-text: hsl(38, 92%, 72%);
+      --warning-border: hsla(36, 88%, 52%, 0.32);
+      --warning-dot: hsl(36, 90%, 58%);
+
+      --safe-bg: hsla(152, 60%, 45%, 0.15);
+      --safe-text: hsl(152, 70%, 70%);
+      --safe-border: hsla(152, 60%, 45%, 0.32);
+      --safe-dot: hsl(152, 65%, 52%);
+
+      --neutral-badge-bg: hsl(210, 16%, 20%);
+      --neutral-badge-text: hsl(210, 14%, 74%);
+
+      --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.25);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.32);
+      --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.42);
+      --shadow-lg: 0 20px 44px rgba(0, 0, 0, 0.58);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--text-primary);
+      background-color: var(--bg-app);
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--transition-base), color var(--transition-base);
+    }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; border: none; background: none; }
+    .tabular-nums { font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+
+    .app-shell { display: grid; grid-template-columns: var(--sidebar-width) 1fr; min-height: 100vh; }
+    .sidebar {
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.15rem 0.8rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 30;
+    }
+    .brand-header { display: flex; align-items: center; justify-content: space-between; padding: 0.2rem 0.5rem 1.15rem; }
+    .brand-logo { display: flex; align-items: center; gap: 0.6rem; }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: var(--radius-sm);
+      background-color: var(--accent-primary); color: var(--text-on-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem;
+    }
+    .brand-title { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+    .brand-subtitle { font-size: 0.7rem; color: var(--text-muted); display: block; font-weight: 500; }
+
+    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .nav-item {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 0.55rem 0.7rem; border-radius: var(--radius-md);
+      color: var(--text-secondary); font-weight: 500; font-size: 0.86rem;
+      transition: background-color var(--transition-fast), color var(--transition-fast);
+      text-align: left;
+    }
+    .nav-item:hover { background-color: var(--bg-surface-hover); color: var(--text-primary); }
+    .nav-item.active { background-color: var(--bg-surface); color: var(--text-primary); font-weight: 600; box-shadow: var(--shadow-xs); }
+    .nav-item-left { display: flex; align-items: center; gap: 0.55rem; }
+    .nav-badge {
+      font-size: 0.7rem; font-weight: 600; padding: 0.08rem 0.42rem;
+      border-radius: var(--radius-pill); background-color: var(--neutral-badge-bg); color: var(--neutral-badge-text);
+    }
+    .nav-badge.alert { background-color: var(--danger-bg); color: var(--danger-text); }
+
+    .sidebar-footer { border-top: 1px solid var(--border-subtle); padding-top: 0.75rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    .sidebar-section-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding: 0.6rem 0.65rem 0.2rem; }
+    .subject-mini-list { display: flex; flex-direction: column; gap: 0.12rem; max-height: 200px; overflow-y: auto; }
+    .subject-mini-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.35rem 0.65rem; border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--text-secondary);
+    }
+    .subject-mini-item:hover { background-color: var(--bg-surface-hover); color: var(--text-primary); }
+    .subject-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 0.45rem; flex-shrink: 0; }
+
+    .main-area { display: flex; flex-direction: column; min-width: 0; padding-bottom: 4.5rem; }
+    .top-capture-sticky {
+      position: sticky; top: 0; z-index: 25;
+      background-color: var(--bg-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle); padding: 0.75rem 1.25rem;
+    }
+    .capture-container { max-width: 960px; margin: 0 auto; }
+    .capture-box {
+      background-color: var(--bg-surface); border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      padding: 0.42rem 0.55rem 0.42rem 0.85rem; display: flex; align-items: center; gap: 0.55rem;
+    }
+    .capture-box:focus-within { border-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-sm); }
+    .capture-input { flex: 1; border: none; background: transparent; font-size: 0.92rem; color: var(--text-primary); outline: none; min-width: 0; }
+    .capture-input::placeholder { color: var(--text-muted); }
+    .capture-submit-btn {
+      background-color: var(--accent-primary); color: var(--text-on-accent);
+      font-weight: 600; font-size: 0.82rem; padding: 0.42rem 0.85rem; border-radius: var(--radius-md);
+      display: inline-flex; align-items: center; gap: 0.3rem; flex-shrink: 0;
+    }
+    .capture-submit-btn:hover { background-color: var(--accent-primary-hover); }
+
+    .capture-preview { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; padding-top: 0.5rem; font-size: 0.76rem; }
+    .capture-preview.hidden { display: none; }
+    .preview-chip {
+      display: inline-flex; align-items: center; gap: 0.28rem; padding: 0.16rem 0.55rem;
+      border-radius: var(--radius-pill); background-color: var(--bg-surface);
+      border: 1px solid var(--border-default); color: var(--text-secondary); font-weight: 500;
+    }
+    .preview-chip.matched { background-color: var(--accent-soft); border-color: transparent; color: var(--accent-soft-text); font-weight: 600; }
+    .preview-chip.warning { background-color: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-text); }
+
+    .quick-examples-row { display: flex; align-items: center; gap: 0.35rem; margin-top: 0.4rem; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .quick-examples-row::-webkit-scrollbar { display: none; }
+    .quick-example-label { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+    .example-pill {
+      font-size: 0.72rem; color: var(--text-secondary); background-color: var(--bg-surface-subtle);
+      border: 1px solid var(--border-subtle); padding: 0.14rem 0.5rem; border-radius: var(--radius-pill); white-space: nowrap;
+    }
+    .example-pill:hover { background-color: var(--bg-surface); border-color: var(--border-default); color: var(--text-primary); }
+
+    .page-container { max-width: 960px; width: 100%; margin: 0 auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1.35rem; }
+    .status-banner {
+      background-color: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 1rem 1.2rem; box-shadow: var(--shadow-xs);
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .date-greeting h1 { font-size: 1.18rem; font-weight: 700; color: var(--text-primary); }
+    .date-greeting p { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.1rem; }
+
+    .condition-selector-group { display: flex; flex-direction: column; gap: 0.25rem; }
+    .condition-label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); }
+    .condition-segmented {
+      display: inline-flex; background-color: var(--bg-surface-subtle);
+      padding: 0.18rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);
+    }
+    .condition-btn {
+      padding: 0.3rem 0.65rem; border-radius: var(--radius-sm); font-size: 0.78rem;
+      font-weight: 500; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.3rem;
+    }
+    .condition-btn.active { background-color: var(--bg-surface); color: var(--text-primary); font-weight: 600; box-shadow: var(--shadow-xs); }
+
+    .workload-meter-box { min-width: 210px; flex: 1; max-width: 280px; }
+    .workload-header { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; margin-bottom: 0.3rem; }
+    .workload-title { color: var(--text-secondary); font-weight: 500; }
+    .workload-numbers { font-weight: 600; color: var(--text-primary); }
+    .progress-track { height: 7px; background-color: var(--bg-surface-subtle); border-radius: var(--radius-pill); overflow: hidden; display: flex; border: 1px solid var(--border-subtle); }
+    .progress-fill-done { background-color: var(--safe-dot); height: 100%; transition: width var(--transition-base); }
+    .progress-fill-planned { background-color: var(--accent-primary); height: 100%; transition: width var(--transition-base); }
+    .progress-fill-overload { background-color: var(--danger-dot); height: 100%; transition: width var(--transition-base); }
+    .workload-caption { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; display: flex; justify-content: space-between; }
+
+    .replan-callout {
+      background-color: var(--warning-bg); border: 1px solid var(--warning-border); color: var(--warning-text);
+      border-radius: var(--radius-lg); padding: 0.8rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; flex-wrap: wrap;
+    }
+    .replan-callout-left { display: flex; align-items: center; gap: 0.65rem; }
+    .replan-callout-title { font-weight: 600; font-size: 0.86rem; }
+    .replan-callout-desc { font-size: 0.76rem; opacity: 0.9; }
+    .btn-replan-preview {
+      background-color: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-default);
+      padding: 0.4rem 0.8rem; border-radius: var(--radius-md); font-size: 0.78rem; font-weight: 600; box-shadow: var(--shadow-xs); white-space: nowrap;
+    }
+
+    .dashboard-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.25rem; align-items: start; }
+    .section-block { display: flex; flex-direction: column; gap: 0.65rem; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .section-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.4rem; }
+    .section-subtitle { font-size: 0.74rem; color: var(--text-muted); }
+
+    .hero-focus-card {
+      background-color: var(--bg-surface); border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 1.1rem 1.2rem; box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .hero-focus-top { display: flex; align-items: center; justify-content: space-between; gap: 0.45rem; flex-wrap: wrap; }
+    .badge-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .subject-pill {
+      display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 600;
+      background-color: var(--bg-surface-subtle); border: 1px solid var(--border-subtle); color: var(--text-secondary);
+    }
+    .risk-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.55rem; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 600; }
+    .risk-badge.danger { background-color: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+    .risk-badge.warning { background-color: var(--warning-bg); color: var(--warning-text); border: 1px solid var(--warning-border); }
+    .risk-badge.safe { background-color: var(--safe-bg); color: var(--safe-text); border: 1px solid var(--safe-border); }
+    .risk-badge.none { background-color: var(--neutral-badge-bg); color: var(--neutral-badge-text); }
+
+    .hero-step-title { font-size: 1.08rem; font-weight: 700; color: var(--text-primary); line-height: 1.35; }
+    .hero-parent-title { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.15rem; }
+    .hero-meta-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem; padding-top: 0.45rem; border-top: 1px solid var(--border-subtle); }
+    .meta-stat { font-size: 0.78rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.3rem; }
+    .hero-actions { display: flex; align-items: center; gap: 0.5rem; }
+
+    .btn-primary {
+      background-color: var(--accent-primary); color: var(--text-on-accent);
+      padding: 0.45rem 0.9rem; border-radius: var(--radius-md); font-size: 0.8rem; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .btn-primary:hover { background-color: var(--accent-primary-hover); }
+    .btn-secondary {
+      background-color: var(--bg-surface-subtle); color: var(--text-primary);
+      border: 1px solid var(--border-default); padding: 0.42rem 0.8rem;
+      border-radius: var(--radius-md); font-size: 0.8rem; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+    }
+    .btn-secondary:hover { background-color: var(--bg-surface-hover); }
+
+    .step-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .step-card {
+      background-color: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: 0.75rem 0.9rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    }
+    .step-card:hover { border-color: var(--border-default); box-shadow: var(--shadow-xs); }
+    .step-card-left { display: flex; align-items: flex-start; gap: 0.65rem; min-width: 0; flex: 1; }
+    .check-circle {
+      width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-strong);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; color: transparent;
+    }
+    .check-circle:hover { border-color: var(--accent-primary); background-color: var(--accent-soft); }
+    .check-circle.completed { background-color: var(--safe-dot); border-color: var(--safe-dot); color: #fff; }
+    .step-info { min-width: 0; flex: 1; cursor: pointer; }
+    .step-title-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .step-name { font-weight: 600; font-size: 0.88rem; color: var(--text-primary); }
+    .step-card.completed .step-name { text-decoration: line-through; color: var(--text-muted); }
+    .step-parent-label { font-size: 0.74rem; color: var(--text-secondary); margin-top: 0.12rem; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .step-card-right { display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0; }
+    .duration-tag { font-size: 0.74rem; font-weight: 600; padding: 0.18rem 0.5rem; border-radius: var(--radius-sm); background-color: var(--bg-surface-subtle); color: var(--text-secondary); white-space: nowrap; }
+
+    .pocket-tabs { display: flex; gap: 0.3rem; background-color: var(--bg-surface-subtle); padding: 0.18rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+    .pocket-tab { flex: 1; text-align: center; padding: 0.28rem 0.4rem; font-size: 0.75rem; font-weight: 600; border-radius: var(--radius-sm); color: var(--text-secondary); }
+    .pocket-tab.active { background-color: var(--bg-surface); color: var(--accent-primary); box-shadow: var(--shadow-xs); }
+
+    .radar-card { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem 0.9rem; display: flex; flex-direction: column; gap: 0.45rem; cursor: pointer; }
+    .radar-card:hover { border-color: var(--border-default); }
+    .radar-top { display: flex; align-items: center; justify-content: space-between; gap: 0.45rem; }
+    .radar-title { font-size: 0.84rem; font-weight: 600; color: var(--text-primary); }
+    .radar-progress-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); }
+
+    .timeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 0.85rem; }
+    .day-bucket-card { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 0.9rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .day-bucket-card.today { border-color: var(--accent-primary); box-shadow: var(--shadow-xs); }
+    .day-bucket-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.45rem; border-bottom: 1px solid var(--border-subtle); }
+    .day-bucket-title { font-weight: 700; font-size: 0.88rem; }
+    .day-bucket-cap { font-size: 0.74rem; color: var(--text-secondary); }
+
+    .subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.85rem; }
+    .subject-card { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; cursor: pointer; }
+    .subject-card:hover { border-color: var(--border-default); box-shadow: var(--shadow-sm); }
+    .subject-card-header { display: flex; align-items: center; justify-content: space-between; }
+    .subject-name-wrap { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; }
+
+    .modal-backdrop { position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.45); backdrop-filter: blur(3px); z-index: 60; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-backdrop.hidden { display: none; }
+    .modal-panel { background-color: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); max-width: 620px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 1.35rem; display: flex; flex-direction: column; gap: 1rem; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.65rem; border-bottom: 1px solid var(--border-subtle); }
+    .modal-title { font-size: 1.02rem; font-weight: 700; }
+    .close-btn { padding: 0.3rem; border-radius: var(--radius-sm); color: var(--text-muted); }
+    .close-btn:hover { background-color: var(--bg-surface-hover); color: var(--text-primary); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
+    .form-input, .form-select, .form-textarea { background-color: var(--bg-surface-subtle); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 0.45rem 0.65rem; font-size: 0.84rem; color: var(--text-primary); outline: none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent-primary); background-color: var(--bg-surface); }
+
+    .rating-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; }
+    .rating-btn { border: 1.5px solid var(--border-default); background-color: var(--bg-surface); border-radius: var(--radius-md); padding: 0.65rem 0.45rem; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+    .rating-btn:hover { border-color: var(--accent-primary); background-color: var(--accent-soft); }
+    .rating-emoji { font-size: 1.2rem; }
+    .rating-title { font-size: 0.8rem; font-weight: 700; }
+    .rating-sub { font-size: 0.68rem; color: var(--text-muted); }
+
+    .diff-list { display: flex; flex-direction: column; gap: 0.45rem; max-height: 280px; overflow-y: auto; }
+    .diff-row { background-color: var(--bg-surface-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.55rem 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 0.65rem; font-size: 0.8rem; }
+    .diff-dates { display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 600; white-space: nowrap; }
+    .diff-old { color: var(--text-muted); text-decoration: line-through; }
+    .diff-new { color: var(--accent-primary); background-color: var(--accent-soft); padding: 0.12rem 0.45rem; border-radius: var(--radius-sm); }
+
+    .timer-floating-bar { position: fixed; bottom: 1.1rem; right: 1.25rem; z-index: 50; background-color: var(--text-primary); color: var(--bg-surface); padding: 0.65rem 1rem; border-radius: var(--radius-pill); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.8rem; }
+    .timer-floating-bar.hidden { display: none; }
+    .timer-clock { font-size: 1.05rem; font-weight: 700; }
+
+    .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--bg-glass); backdrop-filter: blur(12px); border-top: 1px solid var(--border-subtle); z-index: 40; padding: 0.3rem 0.4rem; justify-content: space-around; }
+    .mobile-nav-btn { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; font-size: 0.68rem; font-weight: 600; color: var(--text-muted); padding: 0.3rem 0.65rem; border-radius: var(--radius-sm); }
+    .mobile-nav-btn.active { color: var(--accent-primary); }
+
+    .toast-container { position: fixed; bottom: 1.1rem; left: 50%; transform: translateX(-50%); z-index: 80; display: flex; flex-direction: column; gap: 0.4rem; pointer-events: none; }
+    .toast-msg { background-color: var(--text-primary); color: var(--bg-surface); padding: 0.55rem 1rem; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 600; box-shadow: var(--shadow-md); }
+
+    @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .mobile-bottom-nav { display: flex; }
+      .top-capture-sticky { padding: 0.65rem 0.85rem; }
+      .page-container { padding: 0.9rem 0.85rem 5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .timer-floating-bar { bottom: 4.2rem; right: 0.75rem; left: 0.75rem; justify-content: space-between; }
+    }
+  </style>
+
+
+  <div class="app-shell">
+    <!-- Left Sidebar Navigation -->
+    <aside class="sidebar" aria-label="メインナビゲーション">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <div class="brand-mark">S</div>
+            <div>
+              <div class="brand-title">Smart Study OS</div>
+              <span class="brand-subtitle">個人学習・課題管理OS</span>
+            </div>
+          </div>
+        </div>
+
+        <ul class="nav-list">
+          <li>
+            <button type="button" class="nav-item active" data-nav-tab="today">
+              <span class="nav-item-left"><span>🎯</span><span>今日のダッシュボード</span></span>
+              <span class="nav-badge" id="nav-badge-today">4</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-nav-tab="plan">
+              <span class="nav-item-left"><span>📅</span><span>週間計画・リスケ調整</span></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-nav-tab="inbox">
+              <span class="nav-item-left"><span>📥</span><span>Inbox・課題分解</span></span>
+              <span class="nav-badge alert" id="nav-badge-inbox">1</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-nav-tab="subjects">
+              <span class="nav-item-left"><span>📚</span><span>科目・定期課題・設定</span></span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="sidebar-section-label">受講科目クイックアクセス</div>
+        <div class="subject-mini-list" id="sidebar-subject-list"></div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn-primary" id="btn-export-index-html" style="width:100%;justify-content:center;font-size:0.78rem;">
+          📋 GitHub公開用コードをコピー
+        </button>
+        <button type="button" class="btn-secondary" id="btn-quick-backup" style="width:100%;justify-content:center;">
+          💾 バックアップ保存 (JSON)
+        </button>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.15rem 0.2rem;">
+          <span style="font-size:0.7rem;color:var(--text-muted);">自動ローカル保存: ON</span>
+          <button type="button" class="btn-secondary" id="btn-theme-toggle" style="padding:0.22rem 0.5rem;font-size:0.72rem;">🌙 ダーク</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Area -->
+    <div class="main-area">
+      <!-- Persistent Quick Capture Bar -->
+      <header class="top-capture-sticky">
+        <div class="capture-container">
+          <form id="quick-capture-form" autocomplete="off">
+            <div class="capture-box">
+              <span style="color:var(--accent-primary);">⚡</span>
+              <input type="text" id="quick-capture-input" class="capture-input" placeholder="自然な文章で入力（例: 毎週月曜に電磁気の小テスト / 毎週金曜までに電子回路のレポート）" aria-label="クイック課題登録">
+              <button type="submit" class="capture-submit-btn">
+                <span>追加</span>
+                <span style="font-size:0.7rem;opacity:0.85;">↵</span>
+              </button>
+            </div>
+          </form>
+
+          <div id="quick-capture-preview" class="capture-preview hidden" aria-live="polite"></div>
+
+          <div class="quick-examples-row">
+            <span class="quick-example-label">入力例をタップ:</span>
+            <button type="button" class="example-pill" data-example-text="毎週月曜に電磁気の小テスト">🔁 毎週月曜に電磁気の小テスト</button>
+            <button type="button" class="example-pill" data-example-text="毎週金曜までに電子回路のレポートを提出">🔁 毎週金曜までに電子回路のレポート</button>
+            <button type="button" class="example-pill" data-example-text="熱力学の問題3問を解く">熱力学の問題3問を解く</button>
+            <button type="button" class="example-pill" data-example-text="英語を20分勉強する">英語を20分勉強する</button>
+            <button type="button" class="example-pill" data-example-text="今日の実験結果を整理する">今日の実験結果を整理する</button>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-view-container" class="page-container"></main>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav" aria-label="モバイルナビゲーション">
+    <button type="button" class="mobile-nav-btn active" data-nav-tab="today"><span>🎯</span><span>今日</span></button>
+    <button type="button" class="mobile-nav-btn" data-nav-tab="plan"><span>📅</span><span>週間計画</span></button>
+    <button type="button" class="mobile-nav-btn" data-nav-tab="inbox"><span>📥</span><span>Inbox/分解</span></button>
+    <button type="button" class="mobile-nav-btn" data-nav-tab="subjects"><span>📚</span><span>科目/定期</span></button>
+  </nav>
+
+  <!-- Active Focus Timer Floating Bar -->
+  <div id="timer-floating-bar" class="timer-floating-bar hidden" role="status">
+    <div>
+      <div style="font-size:0.68rem;opacity:0.8;">集中タイマー実行中</div>
+      <div id="timer-step-title" style="font-size:0.82rem;font-weight:600;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+    </div>
+    <div id="timer-clock-display" class="timer-clock tabular-nums">25:00</div>
+    <div style="display:flex;gap:0.35rem;">
+      <button type="button" id="timer-toggle-btn" class="btn-secondary" style="padding:0.28rem 0.6rem;font-size:0.74rem;">⏸ 一時停止</button>
+      <button type="button" id="timer-finish-btn" class="btn-primary" style="padding:0.28rem 0.6rem;font-size:0.74rem;">✓ 完了記録</button>
+      <button type="button" id="timer-close-btn" class="close-btn" style="color:inherit;">✕</button>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div id="modal-complete-step" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title">ステップ完了 ＆ 実績時間からの推定時間学習</h3>
+        <button type="button" class="close-btn" data-close-modal="modal-complete-step">✕</button>
+      </div>
+      <div id="modal-complete-body" style="display:flex;flex-direction:column;gap:0.9rem;"></div>
+    </div>
+  </div>
+
+  <div id="modal-task-detail" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title">課題の詳細設定・ステップ分解・毎週繰り返し</h3>
+        <button type="button" class="close-btn" data-close-modal="modal-task-detail">✕</button>
+      </div>
+      <div id="modal-task-body" style="display:flex;flex-direction:column;gap:0.9rem;"></div>
+    </div>
+  </div>
+
+  <div id="modal-replan-diff" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title">🔄 スケジュール再計画の確認（変更前 → 変更後）</h3>
+        <button type="button" class="close-btn" data-close-modal="modal-replan-diff">✕</button>
+      </div>
+      <div id="modal-replan-body" style="display:flex;flex-direction:column;gap:0.9rem;"></div>
+    </div>
+  </div>
+
+  <div id="modal-subject-edit" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title">📚 科目の設定・資料・苦手メモ</h3>
+        <button type="button" class="close-btn" data-close-modal="modal-subject-edit">✕</button>
+      </div>
+      <div id="modal-subject-body" style="display:flex;flex-direction:column;gap:0.9rem;"></div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script>
+    /* ==========================================================================
+       1. Database & Date Utilities
+       ========================================================================== */
+    const STORAGE_KEY = 'smart_study_os_v2_state';
+    const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
+
+    function toDateStr(dateObj = new Date()) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const d = String(dateObj.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function addDays(dateStr, days) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dt = new Date(y, m - 1, d);
+      dt.setDate(dt.getDate() + days);
+      return toDateStr(dt);
+    }
+
+    function diffDays(fromDateStr, toDateStr) {
+      if (!fromDateStr || !toDateStr) return null;
+      const [fy, fm, fd] = fromDateStr.split('-').map(Number);
+      const [ty, tm, td] = toDateStr.split('-').map(Number);
+      const f = new Date(fy, fm - 1, fd);
+      const t = new Date(ty, tm - 1, td);
+      return Math.round((t - f) / (1000 * 60 * 60 * 24));
+    }
+
+    function formatJpDate(dateStr, todayStr = toDateStr()) {
+      if (!dateStr) return '期限未設定';
+      const diff = diffDays(todayStr, dateStr);
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const dt = new Date(y, m - 1, d);
+      const w = WEEKDAY_LABELS[dt.getDay()];
+
+      if (diff === 0) return `今日 (${m}/${d} ${w})`;
+      if (diff === 1) return `明日 (${m}/${d} ${w})`;
+      if (diff === -1) return `昨日 (${m}/${d} ${w})`;
+      if (diff > 1 && diff <= 7) return `${m}/${d}(${w})・あと${diff}日`;
+      if (diff < -1) return `${m}/${d}(${w})・${Math.abs(diff)}日超過`;
+      return `${m}/${d}(${w})`;
+    }
+
+    function uid(prefix = 'id') {
+      return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+    }
+
+    function weekdayOf(dateStr) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      return new Date(y, m - 1, d).getDay();
+    }
+
+    function roundTo5(minutes) {
+      return Math.max(5, Math.round(minutes / 5) * 5);
+    }
+
+    function createSeedData(todayStr = toDateStr()) {
+      const yesterday = addDays(todayStr, -1);
+      const tomorrow = addDays(todayStr, 1);
+      const in2Days = addDays(todayStr, 2);
+      const in4Days = addDays(todayStr, 4);
+      const lastWeek = addDays(todayStr, -7);
+
+      const subjects = [
+        {
+          id: 'sub_circuits',
+          name: '電子回路',
+          aliases: ['電子回路', '回路', 'アナログ回路'],
+          color: 'hsl(192, 78%, 36%)',
+          defaultWeekday: 5,
+          syllabusNote: 'LMS: 第6回 オペアンプの周波数特性と発振回路 / 関数電卓必携',
+          weakPointsNote: 'ボード線図の位相余裕の計算、トランジスタ小信号等価回路'
+        },
+        {
+          id: 'sub_em',
+          name: '電磁気学',
+          aliases: ['電磁気学', '電磁気', '電磁'],
+          color: 'hsl(28, 84%, 48%)',
+          defaultWeekday: 1,
+          syllabusNote: '教科書 第4章 マクスウェル方程式と電磁波 / 毎回小テストあり',
+          weakPointsNote: 'ベクトルポテンシャルとビオ・サバールの法則の積分計算'
+        },
+        {
+          id: 'sub_thermo',
+          name: '熱力学',
+          aliases: ['熱力学', '熱力'],
+          color: 'hsl(4, 72%, 52%)',
+          defaultWeekday: 3,
+          syllabusNote: '演習プリント No.5 カルノーサイクルとエントロピー増大則',
+          weakPointsNote: '断熱変化と等温変化のP-V線図での仕事量比較'
+        },
+        {
+          id: 'sub_exp',
+          name: '物理学実験',
+          aliases: ['物理学実験', '実験', '物理実験'],
+          color: 'hsl(152, 62%, 36%)',
+          defaultWeekday: 4,
+          syllabusNote: '実験テキスト p.42〜 半導体ダイオードの電流-電圧特性測定',
+          weakPointsNote: '最小二乗法による誤差伝播の計算式'
+        },
+        {
+          id: 'sub_eng',
+          name: '英語',
+          aliases: ['英語', 'TOEIC', '英単語', 'リスニング'],
+          color: 'hsl(215, 65%, 48%)',
+          defaultWeekday: 2,
+          syllabusNote: 'Academic Reading Unit 7 / TOEIC Part 5 文法演習',
+          weakPointsNote: '関係代名詞の非制限用法と科学論文のアブストラクト読解'
+        }
+      ];
+
+      const tasks = [
+        {
+          id: 'task_circuit_rep',
+          subjectId: 'sub_circuits',
+          title: '電子回路のレポート提出（オペアンプ増幅回路）',
+          rawInput: '毎週金曜までに電子回路のレポートを提出',
+          category: 'report',
+          status: 'in_progress',
+          deadlineDate: in2Days,
+          estimatedMinutes: 120,
+          importance: 3,
+          understandingLevel: null,
+          nextReviewDate: null,
+          createdAt: yesterday,
+          recurringRuleId: 'rule_circuit_rep',
+          occurrenceDate: in2Days
+        },
+        {
+          id: 'task_exp_org',
+          subjectId: 'sub_exp',
+          title: '今日の実験結果を整理する',
+          rawInput: '今日の実験結果を整理する',
+          category: 'self_study',
+          status: 'planned',
+          deadlineDate: todayStr,
+          estimatedMinutes: 30,
+          importance: 2,
+          understandingLevel: null,
+          nextReviewDate: null,
+          createdAt: todayStr
+        },
+        {
+          id: 'task_thermo_prob',
+          subjectId: 'sub_thermo',
+          title: '熱力学の問題3問を解く',
+          rawInput: '熱力学の問題3問を解く',
+          category: 'assignment',
+          status: 'planned',
+          deadlineDate: tomorrow,
+          estimatedMinutes: 45,
+          importance: 2,
+          understandingLevel: null,
+          nextReviewDate: null,
+          createdAt: yesterday
+        },
+        {
+          id: 'task_em_quiz',
+          subjectId: 'sub_em',
+          title: '電磁気の小テスト対策（ビオ・サバールの法則）',
+          rawInput: '毎週月曜日に電磁気の小テスト',
+          category: 'quiz',
+          status: 'planned',
+          deadlineDate: in4Days,
+          estimatedMinutes: 60,
+          importance: 3,
+          understandingLevel: null,
+          nextReviewDate: null,
+          createdAt: todayStr,
+          recurringRuleId: 'rule_em_quiz',
+          occurrenceDate: in4Days
+        },
+        {
+          id: 'task_eng_study',
+          subjectId: 'sub_eng',
+          title: '英語を20分勉強する（TOEIC単語・Part5）',
+          rawInput: '英語を20分勉強する',
+          category: 'self_study',
+          status: 'inbox',
+          deadlineDate: null,
+          estimatedMinutes: 20,
+          importance: 1,
+          understandingLevel: null,
+          nextReviewDate: null,
+          createdAt: todayStr
+        },
+        {
+          id: 'task_em_prev',
+          subjectId: 'sub_em',
+          title: 'ガウスの法則の演習プリントNo.3',
+          rawInput: '電磁気の課題プリント',
+          category: 'assignment',
+          status: 'completed',
+          deadlineDate: yesterday,
+          estimatedMinutes: 30,
+          importance: 2,
+          understandingLevel: 1,
+          nextReviewDate: in2Days,
+          createdAt: addDays(todayStr, -3),
+          completedAt: yesterday
+        }
+      ];
+
+      const taskSteps = [
+        { id: 'step_cir_1', taskId: 'task_circuit_rep', title: '課題内容・指定条件の確認とデータ整理', orderIndex: 1, templateIndex: 0, estimatedMinutes: 15, scheduledDate: yesterday, isCompleted: true, completedAt: yesterday },
+        { id: 'step_cir_2', taskId: 'task_circuit_rep', title: '利得・周波数特性の理論値計算とグラフ作成', orderIndex: 2, templateIndex: 1, estimatedMinutes: 30, scheduledDate: yesterday, isCompleted: false, completedAt: null },
+        { id: 'step_cir_3', taskId: 'task_circuit_rep', title: 'シミュレーション結果との比較・考察の執筆', orderIndex: 3, templateIndex: 2, estimatedMinutes: 45, scheduledDate: todayStr, isCompleted: false, completedAt: null },
+        { id: 'step_cir_4', taskId: 'task_circuit_rep', title: '本文まとめ・誤字チェック・PDF提出', orderIndex: 4, templateIndex: 3, estimatedMinutes: 30, scheduledDate: tomorrow, isCompleted: false, completedAt: null },
+        { id: 'step_exp_1', taskId: 'task_exp_org', title: '測定データのExcel入力と有効数字の整理', orderIndex: 1, estimatedMinutes: 30, scheduledDate: todayStr, isCompleted: false, completedAt: null },
+        { id: 'step_thermo_1', taskId: 'task_thermo_prob', title: '演習問題 問1〜問2（等温・断熱変化）を解く', orderIndex: 1, estimatedMinutes: 30, scheduledDate: todayStr, isCompleted: false, completedAt: null },
+        { id: 'step_thermo_2', taskId: 'task_thermo_prob', title: '演習問題 問3（カルノーサイクル）と解答確認', orderIndex: 2, estimatedMinutes: 15, scheduledDate: tomorrow, isCompleted: false, completedAt: null },
+        { id: 'step_em_1', taskId: 'task_em_quiz', title: '講義ノートの公式確認と基本例題の解き直し', orderIndex: 1, templateIndex: 0, estimatedMinutes: 30, scheduledDate: in2Days, isCompleted: false, completedAt: null },
+        { id: 'step_em_2', taskId: 'task_em_quiz', title: '過去小テスト問題の演習と弱点チェック', orderIndex: 2, templateIndex: 1, estimatedMinutes: 30, scheduledDate: addDays(todayStr, 3), isCompleted: false, completedAt: null },
+        { id: 'step_eng_1', taskId: 'task_eng_study', title: '英語を20分勉強する（TOEIC単語・Part5）', orderIndex: 1, estimatedMinutes: 20, scheduledDate: null, isCompleted: false, completedAt: null },
+        { id: 'step_em_prev_1', taskId: 'task_em_prev', title: 'ガウスの法則の演習プリントNo.3', orderIndex: 1, estimatedMinutes: 30, scheduledDate: yesterday, isCompleted: true, completedAt: yesterday }
+      ];
+
+      const recurringRules = [
+        {
+          id: 'rule_circuit_rep',
+          subjectId: 'sub_circuits',
+          title: '電子回路のレポート提出',
+          category: 'report',
+          importance: 3,
+          weekday: weekdayOf(in2Days),
+          active: true,
+          startDate: addDays(todayStr, -14),
+          lastGeneratedDeadline: in2Days,
+          stepsTemplate: [
+            { title: '課題内容・指定条件の確認とデータ整理', estimatedMinutes: 15, sampleCount: 1, history: [{ date: yesterday, estimated: 20, actual: 15 }] },
+            { title: '利得・周波数特性の理論値計算とグラフ作成', estimatedMinutes: 30, sampleCount: 0, history: [] },
+            { title: 'シミュレーション結果との比較・考察の執筆', estimatedMinutes: 45, sampleCount: 0, history: [] },
+            { title: '本文まとめ・誤字チェック・PDF提出', estimatedMinutes: 30, sampleCount: 0, history: [] }
+          ],
+          createdAt: addDays(todayStr, -14)
+        },
+        {
+          id: 'rule_em_quiz',
+          subjectId: 'sub_em',
+          title: '電磁気の小テスト対策',
+          category: 'quiz',
+          importance: 3,
+          weekday: weekdayOf(in4Days),
+          active: true,
+          startDate: addDays(todayStr, -14),
+          lastGeneratedDeadline: in4Days,
+          stepsTemplate: [
+            { title: '講義ノートの公式確認と基本例題の解き直し', estimatedMinutes: 30, sampleCount: 1, history: [{ date: lastWeek, estimated: 20, actual: 30 }] },
+            { title: '過去小テスト問題の演習と弱点チェック', estimatedMinutes: 30, sampleCount: 1, history: [{ date: lastWeek, estimated: 25, actual: 30 }] }
+          ],
+          createdAt: addDays(todayStr, -14)
+        }
+      ];
+
+      const studyLogs = [
+        { id: 'log_1', taskId: 'task_circuit_rep', stepId: 'step_cir_1', subjectId: 'sub_circuits', title: '電子回路のレポート：課題内容・指定条件の確認とデータ整理', studiedDate: yesterday, durationMinutes: 15, estimatedMinutes: 20, understandingLevel: 3, reflectionNote: '実験データのCSV読み込みまで完了（初期推定20分→実績15分に自動補正）。' },
+        { id: 'log_2', taskId: 'task_em_prev', stepId: 'step_em_prev_1', subjectId: 'sub_em', title: 'ガウスの法則の演習プリントNo.3', studiedDate: yesterday, durationMinutes: 30, understandingLevel: 1, reflectionNote: '球対称でない電荷分布の面積分でつまずいた。週末にもう一度解く。' }
+      ];
+
+      const dailyStates = { [todayStr]: { date: todayStr, condition: 'normal', customAvailableMinutes: null } };
+      const userSettings = {
+        theme: 'light',
+        weekdayCapacity: { 0: 150, 1: 90, 2: 90, 3: 105, 4: 90, 5: 90, 6: 150 },
+        defaultTaskMinutes: 30,
+        lastBackupDate: todayStr
+      };
+
+      return { version: 2, subjects, tasks, taskSteps, studyLogs, dailyStates, userSettings, recurringRules };
+    }
+
+    function normalizeState(data) {
+      return {
+        version: 2,
+        subjects: data.subjects,
+        tasks: data.tasks,
+        taskSteps: data.taskSteps,
+        studyLogs: Array.isArray(data.studyLogs) ? data.studyLogs : [],
+        dailyStates: data.dailyStates || {},
+        userSettings: data.userSettings || createSeedData().userSettings,
+        recurringRules: Array.isArray(data.recurringRules) ? data.recurringRules : []
+      };
+    }
+
+    function saveAppState(st) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(st)); } catch (_) {}
+    }
+
+    function loadAppState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.tasks) && Array.isArray(parsed.subjects) && Array.isArray(parsed.taskSteps)) {
+            return normalizeState(parsed);
+          }
+        }
+      } catch (_) {}
+      const seed = createSeedData(toDateStr());
+      saveAppState(seed);
+      return seed;
+    }
+
+    function exportBackupJson(st) {
+      const today = toDateStr();
+      const blob = new Blob([JSON.stringify({ ...st, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `smart-study-os-backup-${today}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function parseAndValidateBackup(jsonString) {
+      const data = JSON.parse(jsonString);
+      if (!data || !Array.isArray(data.subjects) || !Array.isArray(data.tasks) || !Array.isArray(data.taskSteps)) {
+        throw new Error('バックアップファイルの形式が正しくありません。');
+      }
+      return normalizeState(data);
+    }
+
+    /* ==========================================================================
+       2. Recurring Rules & Estimate Learning Engine
+       ========================================================================== */
+    function computeLearnedEstimate(templateStep, actualMinutes) {
+      const current = templateStep.estimatedMinutes || 30;
+      const n = templateStep.sampleCount || 0;
+      let actual = Math.min(600, Math.max(1, Number(actualMinutes) || current));
+      if (n > 0) {
+        actual = Math.min(current * 3, Math.max(current / 3, actual));
+      }
+      const alpha = n === 0 ? 1 : Math.max(0.3, 1 / (n + 1));
+      return roundTo5(alpha * actual + (1 - alpha) * current);
+    }
+
+    function getAverageError(templateStep) {
+      const history = templateStep.history || [];
+      if (history.length === 0) return null;
+      const recent = history.slice(-3);
+      const total = recent.reduce((acc, h) => acc + Math.abs(h.actual - h.estimated), 0);
+      return Math.round(total / recent.length);
+    }
+
+    function findTemplateStepForStep(st, step) {
+      if (!step || typeof step.templateIndex !== 'number') return null;
+      const task = st.tasks.find(t => t.id === step.taskId);
+      if (!task || !task.recurringRuleId) return null;
+      const rule = (st.recurringRules || []).find(r => r.id === task.recurringRuleId);
+      if (!rule) return null;
+      const templateStep = rule.stepsTemplate[step.templateIndex];
+      if (!templateStep) return null;
+      return { rule, templateStep, task };
+    }
+
+    function previewLearning(st, step, actualMinutes) {
+      const found = findTemplateStepForStep(st, step);
+      if (!found) return null;
+      return {
+        ruleTitle: found.rule.title,
+        current: found.templateStep.estimatedMinutes,
+        next: computeLearnedEstimate(found.templateStep, actualMinutes),
+        sampleCount: found.templateStep.sampleCount || 0
+      };
+    }
+
+    function applyActualToRecurringRule(st, step, actualMinutes, todayStr) {
+      const found = findTemplateStepForStep(st, step);
+      if (!found) return null;
+      const { rule, templateStep } = found;
+      const oldEstimate = templateStep.estimatedMinutes || 30;
+      const nextEstimate = computeLearnedEstimate(templateStep, actualMinutes);
+
+      templateStep.history = [
+        ...(templateStep.history || []),
+        { date: todayStr, estimated: step.estimatedMinutes || oldEstimate, actual: Number(actualMinutes) || oldEstimate }
+      ].slice(-8);
+      templateStep.sampleCount = (templateStep.sampleCount || 0) + 1;
+      templateStep.estimatedMinutes = nextEstimate;
+
+      const otherTaskIds = new Set(st.tasks.filter(t => t.recurringRuleId === rule.id && t.id !== step.taskId).map(t => t.id));
+      for (const s of st.taskSteps) {
+        if (otherTaskIds.has(s.taskId) && !s.isCompleted && s.templateIndex === step.templateIndex && s.estimatedMinutes === oldEstimate) {
+          s.estimatedMinutes = nextEstimate;
+        }
+      }
+      for (const taskId of otherTaskIds) {
+        const t = st.tasks.find(x => x.id === taskId);
+        if (t) {
+          t.estimatedMinutes = st.taskSteps.filter(s => s.taskId === taskId).reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+        }
+      }
+      return { ruleTitle: rule.title, oldEstimate, nextEstimate, sampleCount: templateStep.sampleCount };
+    }
+
+    /* ==========================================================================
+       3. Natural Language Parser & Decomposition Templates
+       ========================================================================== */
+    const CATEGORY_META = {
+      report: { label: 'レポート', icon: '📄', defaultImportance: 3, defaultMinutes: 120 },
+      quiz: { label: '小テスト', icon: '✏️', defaultImportance: 2, defaultMinutes: 60 },
+      exam: { label: '定期試験', icon: '🎓', defaultImportance: 3, defaultMinutes: 180 },
+      assignment: { label: '課題・演習', icon: '📘', defaultImportance: 2, defaultMinutes: 45 },
+      self_study: { label: '自主学習', icon: '🌱', defaultImportance: 1, defaultMinutes: 30 }
+    };
+
+    const DECOMPOSITION_TEMPLATES = {
+      report: [
+        { title: '課題要件・テーマの確認', minutes: 15 },
+        { title: '実験データ・参考資料の整理', minutes: 25 },
+        { title: '計算・グラフ・図表の作成', minutes: 30 },
+        { title: '考察・本文の執筆', minutes: 35 },
+        { title: '最終確認・誤字チェック・提出', minutes: 15 }
+      ],
+      experiment_org: [
+        { title: '測定データ・実験ノートの整理', minutes: 15 },
+        { title: 'グラフ作成・有効数字の計算確認', minutes: 15 }
+      ],
+      quiz: [
+        { title: '出題範囲の講義ノート・公式確認', minutes: 20 },
+        { title: '例題・演習問題の解き直し', minutes: 25 },
+        { title: '重要ポイントの最終チェック', minutes: 15 }
+      ],
+      exam: [
+        { title: '試験範囲の全体確認と重要度仕分け', minutes: 20 },
+        { title: '前半範囲の演習問題解き直し', minutes: 45 },
+        { title: '後半範囲の演習問題解き直し', minutes: 45 },
+        { title: '苦手問題・間違えた箇所の集中復習', minutes: 40 },
+        { title: '公式・要点の総仕上げチェック', minutes: 30 }
+      ]
+    };
+
+    const WEEKDAY_MAP = { '日': 0, '月': 1, '火': 2, '水': 3, '木': 4, '金': 5, '土': 6 };
+
+    function parseNaturalInput(rawText, subjects = [], todayStr = toDateStr(), defaultMinutes = 30) {
+      const text = (rawText || '').trim();
+      if (!text) return null;
+
+      const [ty, tm, td] = todayStr.split('-').map(Number);
+      const todayObj = new Date(ty, tm - 1, td);
+      const currentDow = todayObj.getDay();
+
+      let matchedSubject = null;
+      for (const sub of subjects) {
+        const candidates = [sub.name, ...(sub.aliases || [])].filter(Boolean).sort((a, b) => b.length - a.length);
+        if (candidates.some(alias => text.includes(alias))) {
+          matchedSubject = sub;
+          break;
+        }
+      }
+
+      let category = 'assignment';
+      if (/レポート|レポ|報告書|論文/.test(text)) category = 'report';
+      else if (/小テスト|クイズ|単語テスト|ミニテスト/.test(text)) category = 'quiz';
+      else if (/定期試験|期末試験|中間試験|期末テスト|中間テスト|本試験|試験/.test(text)) category = 'exam';
+      else if (/問題|演習|課題|宿題|プリント|提出/.test(text)) category = 'assignment';
+      else if (/勉強|復習|予習|整理|まとめ|暗記|読書|読む|リスニング/.test(text)) category = 'self_study';
+
+      let deadlineDate = null;
+      let matchedDateToken = '';
+      let recurrence = null;
+
+      const weeklyMatch = text.match(/毎週(?:の)?(?:([日月火水木金土])曜(?:日)?)?(?:まで(?:に)?|に|の)?/);
+      if (weeklyMatch) {
+        let weekday;
+        if (weeklyMatch[1]) weekday = WEEKDAY_MAP[weeklyMatch[1]];
+        else if (matchedSubject && typeof matchedSubject.defaultWeekday === 'number') weekday = matchedSubject.defaultWeekday;
+        else weekday = currentDow;
+        let delta = weekday - currentDow;
+        if (delta <= 0) delta += 7;
+        deadlineDate = addDays(todayStr, delta);
+        matchedDateToken = weeklyMatch[0];
+        recurrence = { frequency: 'weekly', weekday };
+      }
+
+      const mdMatch = text.match(/(\d{1,2})\s*(?:月|\/)\s*(\d{1,2})\s*日?(?:まで(?:に)?|に)?/);
+      if (!deadlineDate && mdMatch) {
+        const m = parseInt(mdMatch[1], 10);
+        const d = parseInt(mdMatch[2], 10);
+        if (m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+          deadlineDate = toDateStr(new Date(ty, m - 1, d));
+          matchedDateToken = mdMatch[0];
+        }
+      }
+
+      if (!deadlineDate) {
+        const relDaysMatch = text.match(/(\d+)\s*日後(?:まで(?:に)?|に)?/);
+        if (relDaysMatch) {
+          deadlineDate = addDays(todayStr, parseInt(relDaysMatch[1], 10));
+          matchedDateToken = relDaysMatch[0];
+        } else if (/今日|本日|きょう/.test(text)) {
+          deadlineDate = todayStr;
+          const m = text.match(/(?:今日|本日|きょう)(?:の|中|まで(?:に)?|に)?/);
+          if (m) matchedDateToken = m[0];
+        } else if (/明後日|あさって/.test(text)) {
+          deadlineDate = addDays(todayStr, 2);
+          const m = text.match(/(?:明後日|あさって)(?:の|まで(?:に)?|に)?/);
+          if (m) matchedDateToken = m[0];
+        } else if (/明日|あした/.test(text)) {
+          deadlineDate = addDays(todayStr, 1);
+          const m = text.match(/(?:明日|あした)(?:の|まで(?:に)?|に)?/);
+          if (m) matchedDateToken = m[0];
+        }
+      }
+
+      if (!deadlineDate) {
+        const dowMatch = text.match(/(再来週|来週|今週)?(?:の)?([日月火水木金土])曜(?:日)?(?:まで(?:に)?|に|の)?/);
+        if (dowMatch) {
+          const prefix = dowMatch[1] || '';
+          const targetDow = WEEKDAY_MAP[dowMatch[2]];
+          let delta = targetDow - currentDow;
+          if (prefix === '来週') {
+            const daysToNextMonday = ((1 - currentDow + 7) % 7) || 7;
+            const offsetFromMonday = (targetDow === 0) ? 6 : (targetDow - 1);
+            delta = daysToNextMonday + offsetFromMonday;
+          } else if (prefix === '再来週') {
+            const daysToNextMonday = ((1 - currentDow + 7) % 7) || 7;
+            const offsetFromMonday = (targetDow === 0) ? 6 : (targetDow - 1);
+            delta = daysToNextMonday + 7 + offsetFromMonday;
+          } else if (delta <= 0) {
+            delta += 7;
+          }
+          deadlineDate = addDays(todayStr, delta);
+          matchedDateToken = dowMatch[0];
+        }
+      }
+
+      if (!deadlineDate && /来週/.test(text) && matchedSubject && typeof matchedSubject.defaultWeekday === 'number') {
+        const targetDow = matchedSubject.defaultWeekday;
+        const daysToNextMonday = ((1 - currentDow + 7) % 7) || 7;
+        const offsetFromMonday = (targetDow === 0) ? 6 : (targetDow - 1);
+        deadlineDate = addDays(todayStr, daysToNextMonday + offsetFromMonday);
+        matchedDateToken = '来週';
+      }
+
+      let explicitMinutes = null;
+      let matchedDurationToken = '';
+      const halfHourMatch = text.match(/(\d+)\s*時間半/);
+      const hourMinMatch = text.match(/(\d+(?:\.\d+)?)\s*時間(?:\s*(\d+)\s*分)?/);
+      const minMatch = text.match(/(\d+)\s*(?:分|分間|m|min)(?:間|だけ|勉強する|やる)?/i);
+
+      if (halfHourMatch) {
+        explicitMinutes = parseInt(halfHourMatch[1], 10) * 60 + 30;
+        matchedDurationToken = halfHourMatch[0];
+      } else if (hourMinMatch) {
+        explicitMinutes = Math.round(parseFloat(hourMinMatch[1]) * 60) + (hourMinMatch[2] ? parseInt(hourMinMatch[2], 10) : 0);
+        matchedDurationToken = hourMinMatch[0];
+      } else if (minMatch) {
+        explicitMinutes = parseInt(minMatch[1], 10);
+        matchedDurationToken = minMatch[0];
+      }
+
+      const probMatch = text.match(/(\d+)\s*問/);
+      const problemCount = probMatch ? parseInt(probMatch[1], 10) : null;
+
+      let suggestedSteps = [];
+      let shouldDecompose = false;
+
+      if (category === 'report') {
+        shouldDecompose = true;
+        suggestedSteps = DECOMPOSITION_TEMPLATES.report.map(s => ({ ...s }));
+      } else if (category === 'exam') {
+        shouldDecompose = true;
+        suggestedSteps = DECOMPOSITION_TEMPLATES.exam.map(s => ({ ...s }));
+      } else if (category === 'quiz' && (!explicitMinutes || explicitMinutes >= 45)) {
+        shouldDecompose = true;
+        suggestedSteps = DECOMPOSITION_TEMPLATES.quiz.map(s => ({ ...s }));
+      } else if (/実験結果.*整理/.test(text) && (!explicitMinutes || explicitMinutes >= 40)) {
+        shouldDecompose = true;
+        suggestedSteps = DECOMPOSITION_TEMPLATES.experiment_org.map(s => ({ ...s }));
+      } else if (problemCount && problemCount >= 3 && (!explicitMinutes || explicitMinutes >= 45)) {
+        shouldDecompose = true;
+        const firstBatch = Math.ceil(problemCount / 2);
+        const secondBatch = problemCount - firstBatch;
+        suggestedSteps = [
+          { title: `問題 1〜${firstBatch} を解く`, minutes: firstBatch * 15 },
+          { title: `問題 ${firstBatch + 1}〜${problemCount} を解く＆解答確認`, minutes: secondBatch * 15 }
+        ];
+      }
+
+      if (explicitMinutes && explicitMinutes <= 35 && category !== 'report') {
+        shouldDecompose = false;
+        suggestedSteps = [];
+      }
+
+      let estimatedMinutes = explicitMinutes;
+      let isDefaultDuration = false;
+      if (!estimatedMinutes) {
+        if (shouldDecompose && suggestedSteps.length > 0) {
+          estimatedMinutes = suggestedSteps.reduce((acc, s) => acc + s.minutes, 0);
+        } else if (problemCount) {
+          estimatedMinutes = Math.max(15, Math.min(120, problemCount * 15));
+        } else {
+          estimatedMinutes = defaultMinutes || 30;
+          isDefaultDuration = true;
+        }
+      }
+
+      let cleanTitle = text;
+      if (matchedDateToken && !/今日/.test(matchedDateToken)) {
+        cleanTitle = cleanTitle.replace(matchedDateToken, '').trim();
+      }
+      if (matchedDurationToken) {
+        cleanTitle = cleanTitle
+          .replace(/を?\s*\d+(?:\.\d+)?\s*(?:時間半|時間|分|分間)\s*(?:勉強する|やる|行う)$/, 'を勉強する')
+          .replace(/\s+\d+\s*(?:分|時間)$/, '')
+          .trim();
+      }
+      cleanTitle = cleanTitle.replace(/^[、,・\s]+/, '').trim() || text;
+
+      return {
+        rawInput: text,
+        cleanTitle,
+        subjectId: matchedSubject ? matchedSubject.id : null,
+        subjectName: matchedSubject ? matchedSubject.name : null,
+        subjectColor: matchedSubject ? matchedSubject.color : null,
+        category,
+        categoryLabel: CATEGORY_META[category].label,
+        categoryIcon: CATEGORY_META[category].icon,
+        importance: CATEGORY_META[category].defaultImportance,
+        deadlineDate,
+        deadlineLabel: deadlineDate ? formatJpDate(deadlineDate, todayStr) : '未設定',
+        estimatedMinutes,
+        isDefaultDuration,
+        shouldDecompose,
+        suggestedSteps,
+        recurrence
+      };
+    }
+
+    /* ==========================================================================
+       4. Auto-Scheduler, Risk Evaluator & Replanning Engine
+       ========================================================================== */
+    const CONDITION_META = {
+      energetic: { label: '元気', icon: '🔥', multiplier: 1.2, desc: '通常より+20%の作業枠。重めの課題や先取りに最適' },
+      normal: { label: '普通', icon: '🙂', multiplier: 1.0, desc: '標準ペース。計画通りに無理なく進めるモード' },
+      tired: { label: '疲れている', icon: '😴', multiplier: 0.6, desc: '作業枠を60%に圧縮。必須課題と短時間タスクのみに厳選' }
+    };
+
+    const RISK_META = {
+      danger: { label: '危険', icon: '🔴', className: 'danger', weight: 300 },
+      warning: { label: '注意', icon: '🟡', className: 'warning', weight: 200 },
+      safe: { label: '余裕', icon: '🟢', className: 'safe', weight: 100 },
+      none: { label: '期限なし', icon: '⚪', className: 'none', weight: 30 }
+    };
+
+    function getDayEffectiveCapacity(dateStr, st) {
+      const dow = weekdayOf(dateStr);
+      const baseCap = (st.userSettings?.weekdayCapacity?.[dow]) ?? 90;
+      const dayState = st.dailyStates?.[dateStr];
+      const rawCap = (dayState && typeof dayState.customAvailableMinutes === 'number') ? dayState.customAvailableMinutes : baseCap;
+      const condition = dayState?.condition || 'normal';
+      const mult = CONDITION_META[condition]?.multiplier ?? 1.0;
+      return Math.max(15, Math.round((rawCap * mult) / 5) * 5);
+    }
+
+    function getDayScheduledMinutes(dateStr, st) {
+      let total = 0;
+      for (const step of st.taskSteps) {
+        if (step.scheduledDate === dateStr) total += (step.estimatedMinutes || 30);
+      }
+      return total;
+    }
+
+    function evaluateTaskRisk(task, st, todayStr = toDateStr()) {
+      const steps = st.taskSteps.filter(s => s.taskId === task.id);
+      const uncompletedSteps = steps.filter(s => !s.isCompleted);
+      const remainingMinutes = uncompletedSteps.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+      const totalMinutes = steps.length > 0 ? steps.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0) : (task.estimatedMinutes || 30);
+      const progressPercent = totalMinutes > 0 ? Math.round(((totalMinutes - remainingMinutes) / totalMinutes) * 100) : 0;
+
+      if (task.status === 'completed' || (steps.length > 0 && uncompletedSteps.length === 0)) {
+        return { level: 'safe', label: '完了済', reason: '完了済', remainingMinutes: 0, totalMinutes, progressPercent: 100, daysLeft: null, score: 0 };
+      }
+
+      const hasOverdueStep = uncompletedSteps.some(s => s.scheduledDate && diffDays(todayStr, s.scheduledDate) < 0);
+      if (!task.deadlineDate) {
+        return {
+          level: 'none', label: '期限なし',
+          reason: `残作業 ${remainingMinutes}分（空き時間に実行可能）`,
+          remainingMinutes, totalMinutes, progressPercent, daysLeft: null,
+          score: 40 + (task.importance || 1) * 15
+        };
+      }
+
+      const daysLeft = diffDays(todayStr, task.deadlineDate);
+      let cumulativeCapacity = 0;
+      const spanDays = Math.max(0, Math.min(daysLeft, 21));
+      for (let i = 0; i <= spanDays; i++) {
+        cumulativeCapacity += getDayEffectiveCapacity(addDays(todayStr, i), st);
+      }
+      const occupationRatio = remainingMinutes / Math.max(cumulativeCapacity, 15);
+
+      let level = 'safe';
+      let reason = `締切まであと${daysLeft}日・残作業${remainingMinutes}分`;
+      if (daysLeft < 0) {
+        level = 'danger'; reason = `締切を${Math.abs(daysLeft)}日超過・残作業${remainingMinutes}分`;
+      } else if (daysLeft === 0) {
+        level = 'danger'; reason = `今日が締切・残作業${remainingMinutes}分`;
+      } else if (daysLeft === 1 && remainingMinutes >= 30) {
+        level = 'danger'; reason = `明日が締切・残作業${remainingMinutes}分`;
+      } else if (occupationRatio >= 0.45) {
+        level = 'danger'; reason = `残日数に対し作業量が大（空き枠の${Math.round(occupationRatio * 100)}%占有）`;
+      } else if (daysLeft <= 3 || occupationRatio >= 0.22 || hasOverdueStep) {
+        level = 'warning';
+        reason = hasOverdueStep ? `昨日以前の未消化ステップあり（締切まであと${daysLeft}日）` : `締切まであと${daysLeft}日・計画的な着手が必要`;
+      }
+
+      const urgencyBonus = Math.max(0, 14 - Math.max(0, daysLeft)) * 12;
+      const score = RISK_META[level].weight + (task.importance || 2) * 35 + urgencyBonus + (hasOverdueStep ? 80 : 0);
+      return { level, label: RISK_META[level].label, reason, remainingMinutes, totalMinutes, progressPercent, daysLeft, score };
+    }
+
+    function assignDatesForNewTaskSteps(steps, deadlineDate, st, todayStr = toDateStr()) {
+      if (!steps || steps.length === 0) return [];
+      if (!deadlineDate) {
+        const todayCap = getDayEffectiveCapacity(todayStr, st);
+        const todayUsed = getDayScheduledMinutes(todayStr, st);
+        return steps.map((s, idx) => (idx === 0 && (todayUsed + s.estimatedMinutes) <= todayCap) ? { ...s, scheduledDate: todayStr } : { ...s, scheduledDate: null });
+      }
+      const daysToDeadline = Math.max(0, diffDays(todayStr, deadlineDate));
+      const targetSpan = daysToDeadline >= 2 ? daysToDeadline - 1 : daysToDeadline;
+      const candidateDates = [];
+      for (let d = 0; d <= targetSpan; d++) candidateDates.push(addDays(todayStr, d));
+
+      const virtualUsage = {};
+      const taskStepsCountOnDay = {};
+      for (const dt of candidateDates) {
+        virtualUsage[dt] = getDayScheduledMinutes(dt, st);
+        taskStepsCountOnDay[dt] = 0;
+      }
+
+      return steps.map(step => {
+        const stepMins = step.estimatedMinutes || 30;
+        let chosenDate = candidateDates[0];
+        let found = false;
+        for (const dt of candidateDates) {
+          if ((virtualUsage[dt] + stepMins) <= getDayEffectiveCapacity(dt, st) && taskStepsCountOnDay[dt] < 1) {
+            chosenDate = dt; found = true; break;
+          }
+        }
+        if (!found) {
+          let bestRatio = Infinity;
+          for (const dt of candidateDates) {
+            const ratio = (virtualUsage[dt] + stepMins) / Math.max(getDayEffectiveCapacity(dt, st), 15);
+            if (ratio < bestRatio) { bestRatio = ratio; chosenDate = dt; }
+          }
+        }
+        virtualUsage[chosenDate] = (virtualUsage[chosenDate] || 0) + stepMins;
+        taskStepsCountOnDay[chosenDate] = (taskStepsCountOnDay[chosenDate] || 0) + 1;
+        return { ...step, scheduledDate: chosenDate };
+      });
+    }
+
+    function createInstanceForRule(st, rule, deadlineDate, todayStr) {
+      const taskId = uid('task');
+      const [, m, d] = deadlineDate.split('-').map(Number);
+      const rawSteps = rule.stepsTemplate.map((ts, idx) => ({
+        id: uid('step'), taskId, title: ts.title, orderIndex: idx + 1,
+        estimatedMinutes: ts.estimatedMinutes, templateIndex: idx,
+        scheduledDate: null, isCompleted: false, completedAt: null
+      }));
+      const scheduledSteps = assignDatesForNewTaskSteps(rawSteps, deadlineDate, st, todayStr);
+      const task = {
+        id: taskId, subjectId: rule.subjectId, title: `${rule.title}（${m}/${d}）`,
+        rawInput: `毎週${WEEKDAY_LABELS[rule.weekday]}曜: ${rule.title}`,
+        category: rule.category, status: 'planned', deadlineDate,
+        estimatedMinutes: scheduledSteps.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0),
+        importance: rule.importance || 2, understandingLevel: null, nextReviewDate: null,
+        createdAt: todayStr, recurringRuleId: rule.id, occurrenceDate: deadlineDate
+      };
+      st.tasks.unshift(task);
+      st.taskSteps.push(...scheduledSteps);
+      return task;
+    }
+
+    function generateRecurringInstances(st, todayStr) {
+      const created = [];
+      for (const rule of st.recurringRules || []) {
+        if (!rule.active) continue;
+        for (let d = 0; d <= 7; d++) {
+          const date = addDays(todayStr, d);
+          if (weekdayOf(date) !== rule.weekday) continue;
+          if (rule.startDate && date < rule.startDate) continue;
+          if (rule.lastGeneratedDeadline && date <= rule.lastGeneratedDeadline) continue;
+          const exists = st.tasks.some(t => t.recurringRuleId === rule.id && t.occurrenceDate === date);
+          if (!exists) created.push(createInstanceForRule(st, rule, date, todayStr));
+          rule.lastGeneratedDeadline = date;
+        }
+      }
+      return created;
+    }
+
+    function createRuleFromParsed(st, parsed, stepDefs, todayStr) {
+      const rule = {
+        id: uid('rule'), subjectId: parsed.subjectId, title: parsed.cleanTitle,
+        category: parsed.category, importance: parsed.importance,
+        weekday: parsed.recurrence.weekday, active: true,
+        startDate: addDays(todayStr, 1), lastGeneratedDeadline: null,
+        stepsTemplate: stepDefs.map(s => ({ title: s.title, estimatedMinutes: s.minutes, sampleCount: 0, history: [] })),
+        createdAt: todayStr
+      };
+      if (!st.recurringRules) st.recurringRules = [];
+      st.recurringRules.push(rule);
+      return rule;
+    }
+
+    function createRuleFromTask(st, task, weekday, todayStr) {
+      const steps = st.taskSteps.filter(s => s.taskId === task.id).sort((a, b) => a.orderIndex - b.orderIndex);
+      const rule = {
+        id: uid('rule'), subjectId: task.subjectId, title: task.title.replace(/（\d{1,2}\/\d{1,2}）$/, ''),
+        category: task.category, importance: task.importance || 2, weekday, active: true,
+        startDate: addDays(todayStr, 1),
+        lastGeneratedDeadline: task.deadlineDate && weekdayOf(task.deadlineDate) === weekday ? task.deadlineDate : null,
+        stepsTemplate: steps.map(s => ({ title: s.title, estimatedMinutes: s.estimatedMinutes || 30, sampleCount: 0, history: [] })),
+        createdAt: todayStr
+      };
+      steps.forEach((s, idx) => { s.templateIndex = idx; });
+      task.recurringRuleId = rule.id;
+      task.occurrenceDate = task.deadlineDate || null;
+      if (!st.recurringRules) st.recurringRules = [];
+      st.recurringRules.push(rule);
+      return rule;
+    }
+
+    function generateReplanProposal(st, todayStr = toDateStr(), forceFullOptimize = false) {
+      const uncompletedSteps = st.taskSteps.filter(s => !s.isCompleted);
+      const taskMap = new Map(st.tasks.map(t => [t.id, t]));
+      const subjectMap = new Map(st.subjects.map(s => [s.id, s]));
+
+      const overdueSteps = uncompletedSteps.filter(s => s.scheduledDate && diffDays(todayStr, s.scheduledDate) < 0);
+      const todayCap = getDayEffectiveCapacity(todayStr, st);
+      const todayUncompleted = uncompletedSteps.filter(s => s.scheduledDate === todayStr);
+      const todayCompletedMins = st.taskSteps.filter(s => s.isCompleted && s.scheduledDate === todayStr).reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+      const todayPlannedMins = todayUncompleted.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0) + todayCompletedMins;
+      const condition = st.dailyStates?.[todayStr]?.condition || 'normal';
+      const isOverloadedToday = todayPlannedMins > todayCap;
+
+      if (!forceFullOptimize && overdueSteps.length === 0 && !isOverloadedToday) {
+        return { hasChanges: false, reasons: [], diffs: [] };
+      }
+
+      const reasons = [];
+      if (overdueSteps.length > 0) reasons.push(`昨日以前の未完了ステップが ${overdueSteps.length}件 あります`);
+      if (isOverloadedToday) reasons.push(`今日の予定（${todayPlannedMins}分）が現在の目安枠（${todayCap}分・${CONDITION_META[condition].label}モード）を超えています`);
+      if (forceFullOptimize && reasons.length === 0) reasons.push('締切危険度と日別の空き時間バランスに合わせて全体を再配分します');
+
+      const schedulableSteps = uncompletedSteps
+        .filter(s => { const task = taskMap.get(s.taskId); return task && (task.deadlineDate || s.scheduledDate); })
+        .map(step => {
+          const task = taskMap.get(step.taskId);
+          const risk = evaluateTaskRisk(task, st, todayStr);
+          return { step, task, riskScore: risk.score, deadlineDate: task.deadlineDate || addDays(todayStr, 7) };
+        });
+
+      schedulableSteps.sort((a, b) => {
+        if (b.riskScore !== a.riskScore) return b.riskScore - a.riskScore;
+        if (a.step.taskId === b.step.taskId) return a.step.orderIndex - b.step.orderIndex;
+        return (a.deadlineDate || '').localeCompare(b.deadlineDate || '');
+      });
+
+      const dayUsage = { [todayStr]: todayCompletedMins };
+      const taskDayCount = {};
+      const diffs = [];
+
+      for (const item of schedulableSteps) {
+        const { step, task, deadlineDate } = item;
+        const mins = step.estimatedMinutes || 30;
+        const daysLeft = Math.max(0, diffDays(todayStr, deadlineDate));
+        const maxOffset = daysLeft >= 2 ? daysLeft - 1 : daysLeft;
+
+        let startOffset = (condition === 'tired' && daysLeft >= 2 && mins > 30) ? 1 : 0;
+        const minDateForTask = taskDayCount[`lastDate_${task.id}`] || todayStr;
+        startOffset = Math.max(startOffset, Math.max(0, diffDays(todayStr, minDateForTask)));
+
+        let selectedDate = null;
+        for (let d = startOffset; d <= Math.max(startOffset, maxOffset + 1); d++) {
+          const candidate = addDays(todayStr, d);
+          if (((dayUsage[candidate] || 0) + mins) <= getDayEffectiveCapacity(candidate, st) && (taskDayCount[`${task.id}_${candidate}`] || 0) < 1) {
+            selectedDate = candidate; break;
+          }
+        }
+        if (!selectedDate) {
+          let bestDate = addDays(todayStr, Math.min(startOffset, daysLeft));
+          let minRatio = Infinity;
+          for (let d = startOffset; d <= Math.max(startOffset, daysLeft); d++) {
+            const candidate = addDays(todayStr, d);
+            const ratio = ((dayUsage[candidate] || 0) + mins) / Math.max(getDayEffectiveCapacity(candidate, st), 15);
+            if (ratio < minRatio) { minRatio = ratio; bestDate = candidate; }
+          }
+          selectedDate = bestDate;
+        }
+
+        dayUsage[selectedDate] = (dayUsage[selectedDate] || 0) + mins;
+        taskDayCount[`${task.id}_${selectedDate}`] = (taskDayCount[`${task.id}_${selectedDate}`] || 0) + 1;
+        taskDayCount[`lastDate_${task.id}`] = selectedDate;
+
+        if (step.scheduledDate !== selectedDate) {
+          const sub = subjectMap.get(task.subjectId);
+          diffs.push({
+            stepId: step.id, taskId: task.id, stepTitle: step.title, taskTitle: task.title,
+            subjectName: sub ? sub.name : '科目未設定', subjectColor: sub ? sub.color : 'hsl(215, 16%, 50%)',
+            minutes: mins, oldDate: step.scheduledDate, oldDateLabel: formatJpDate(step.scheduledDate, todayStr),
+            newDate: selectedDate, newDateLabel: formatJpDate(selectedDate, todayStr)
+          });
+        }
+      }
+
+      return { hasChanges: diffs.length > 0, reasons, diffs };
+    }
+
+    function buildDashboardModel(st, todayStr = toDateStr(), pocketMaxMinutes = 30) {
+      const taskMap = new Map(st.tasks.map(t => [t.id, t]));
+      const subjectMap = new Map(st.subjects.map(s => [s.id, s]));
+      const condition = st.dailyStates?.[todayStr]?.condition || 'normal';
+      const capacityMinutes = getDayEffectiveCapacity(todayStr, st);
+
+      const enrichedSteps = st.taskSteps.map(step => {
+        const task = taskMap.get(step.taskId);
+        if (!task) return null;
+        const sub = subjectMap.get(task.subjectId);
+        const risk = evaluateTaskRisk(task, st, todayStr);
+        const isOverdue = !step.isCompleted && step.scheduledDate && diffDays(todayStr, step.scheduledDate) < 0;
+        return {
+          ...step, taskTitle: task.title, category: task.category, deadlineDate: task.deadlineDate,
+          deadlineLabel: formatJpDate(task.deadlineDate, todayStr), subjectId: task.subjectId,
+          subjectName: sub ? sub.name : '未設定', subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)',
+          risk, isOverdue, isRecurring: !!task.recurringRuleId,
+          priorityScore: risk.score + (isOverdue ? 100 : 0) - step.orderIndex * 2
+        };
+      }).filter(Boolean);
+
+      const todayAndOverdueUncompleted = enrichedSteps
+        .filter(s => !s.isCompleted && (s.scheduledDate === todayStr || s.isOverdue))
+        .sort((a, b) => b.priorityScore - a.priorityScore);
+
+      const completedTodaySteps = enrichedSteps.filter(s => s.isCompleted && (s.completedAt === todayStr || s.scheduledDate === todayStr));
+      const completedTodayMinutes = completedTodaySteps.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+      let plannedRemainingMinutes = todayAndOverdueUncompleted.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+
+      const unscheduledSteps = enrichedSteps.filter(s => !s.isCompleted && !s.scheduledDate);
+      const recommendedBonusSteps = [];
+      let runningTotal = completedTodayMinutes + plannedRemainingMinutes;
+      for (const us of unscheduledSteps) {
+        if ((runningTotal + (us.estimatedMinutes || 30)) <= capacityMinutes && recommendedBonusSteps.length < 2) {
+          recommendedBonusSteps.push({ ...us, isBonusRecommendation: true });
+          runningTotal += (us.estimatedMinutes || 30);
+        }
+      }
+
+      const allTodayActionSteps = [...todayAndOverdueUncompleted, ...recommendedBonusSteps];
+      const topPriorityStep = allTodayActionSteps.length > 0 ? allTodayActionSteps[0] : null;
+      const otherTodaySteps = allTodayActionSteps.slice(1);
+      const totalTodayMinutes = completedTodayMinutes + allTodayActionSteps.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+
+      const firstUncompletedByTask = new Map();
+      for (const s of enrichedSteps) {
+        if (!s.isCompleted && !firstUncompletedByTask.has(s.taskId)) firstUncompletedByTask.set(s.taskId, s);
+      }
+      const pocketSteps = Array.from(firstUncompletedByTask.values())
+        .filter(s => (s.estimatedMinutes || 30) <= pocketMaxMinutes)
+        .sort((a, b) => b.priorityScore - a.priorityScore)
+        .slice(0, 5);
+
+      const activeTasksWithRisk = st.tasks
+        .filter(t => t.status !== 'completed')
+        .map(t => {
+          const sub = subjectMap.get(t.subjectId);
+          const risk = evaluateTaskRisk(t, st, todayStr);
+          return { ...t, subjectName: sub ? sub.name : '未設定', subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)', deadlineLabel: formatJpDate(t.deadlineDate, todayStr), risk };
+        })
+        .filter(t => t.risk.remainingMinutes > 0)
+        .sort((a, b) => b.risk.score - a.risk.score);
+
+      const reviewTasks = st.tasks
+        .filter(t => t.understandingLevel === 1 || t.nextReviewDate)
+        .map(t => {
+          const sub = subjectMap.get(t.subjectId);
+          return { ...t, subjectName: sub ? sub.name : '未設定', subjectColor: sub ? sub.color : 'hsl(215, 14%, 55%)', reviewDateLabel: t.nextReviewDate ? formatJpDate(t.nextReviewDate, todayStr) : '要復習' };
+        });
+
+      const replanProposal = generateReplanProposal(st, todayStr, false);
+      return { todayStr, condition, capacityMinutes, completedTodayMinutes, totalTodayMinutes, completedTodaySteps, topPriorityStep, otherTodaySteps, pocketSteps, activeTasksWithRisk, reviewTasks, replanProposal };
+    }
+
+    /* ==========================================================================
+       5. Main App Controller & View Renderer
+       ========================================================================== */
+    let state = loadAppState();
+    let currentTab = 'today';
+    let pocketFilterMins = 30;
+    let inboxFilter = 'all';
+    let captureDecomposeOverride = null;
+    let captureRecurringOverride = null;
+    let captureRecurringWeekday = null;
+    let activeTimer = { stepId: null, taskId: null, title: '', remainingSeconds: 0, elapsedSeconds: 0, isRunning: false, intervalId: null };
+
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const el = document.createElement('div');
+      el.className = 'toast-msg';
+      el.textContent = message;
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 3200);
+    }
+
+    function applyTheme(theme) {
+      if (!state.userSettings) state.userSettings = {};
+      state.userSettings.theme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      const btn = document.getElementById('btn-theme-toggle');
+      if (btn) btn.innerHTML = theme === 'dark' ? '☀️ ライト' : '🌙 ダーク';
+    }
+
+    function commitState() {
+      saveAppState(state);
+      renderAll();
+    }
+
+    function resolveCaptureRecurrence(parsed, todayStr) {
+      const isRecurring = captureRecurringOverride !== null ? captureRecurringOverride : !!parsed.recurrence;
+      if (!isRecurring) return null;
+      const currentDow = weekdayOf(todayStr);
+      let weekday = captureRecurringWeekday;
+      if (typeof weekday !== 'number') {
+        if (parsed.recurrence && typeof parsed.recurrence.weekday === 'number') weekday = parsed.recurrence.weekday;
+        else if (parsed.deadlineDate) weekday = weekdayOf(parsed.deadlineDate);
+        else {
+          const sub = state.subjects.find(s => s.id === parsed.subjectId);
+          weekday = typeof sub?.defaultWeekday === 'number' ? sub.defaultWeekday : currentDow;
+        }
+      }
+      let delta = weekday - currentDow;
+      if (delta <= 0) delta += 7;
+      return { frequency: 'weekly', weekday, nextDeadlineDate: addDays(todayStr, delta) };
+    }
+
+    function renderCapturePreview() {
+      const input = document.getElementById('quick-capture-input');
+      const previewEl = document.getElementById('quick-capture-preview');
+      if (!input || !previewEl) return;
+
+      const todayStr = toDateStr();
+      const parsed = parseNaturalInput(input.value, state.subjects, todayStr, state.userSettings?.defaultTaskMinutes || 30);
+      if (!parsed) {
+        previewEl.classList.add('hidden');
+        previewEl.innerHTML = '';
+        return;
+      }
+
+      const effectiveDecompose = captureDecomposeOverride !== null ? captureDecomposeOverride : parsed.shouldDecompose;
+      const stepCount = effectiveDecompose && parsed.suggestedSteps.length > 0 ? parsed.suggestedSteps.length : 1;
+      const rec = resolveCaptureRecurrence(parsed, todayStr);
+      const effectiveDeadline = rec ? rec.nextDeadlineDate : parsed.deadlineDate;
+      const effectiveDeadlineLabel = effectiveDeadline ? formatJpDate(effectiveDeadline, todayStr) : '未設定';
+
+      previewEl.classList.remove('hidden');
+      previewEl.innerHTML = `
+        <span class="preview-chip ${parsed.subjectId ? 'matched' : ''}">
+          <span class="subject-dot" style="background:${parsed.subjectColor || 'hsl(215,15%,60%)'}"></span>
+          科目: ${escapeHtml(parsed.subjectName || '未設定 (そのまま登録可)')}
+        </span>
+        <span class="preview-chip matched">${parsed.categoryIcon} 種別: ${escapeHtml(parsed.categoryLabel)}</span>
+        <span class="preview-chip ${effectiveDeadline ? 'matched' : ''}">📅 初回期限: ${escapeHtml(effectiveDeadlineLabel)}</span>
+        <span class="preview-chip ${!parsed.isDefaultDuration ? 'matched' : ''}">⏱️ 初期推定: ${parsed.estimatedMinutes}分${rec ? ' (完了時に実績から自動補正)' : (parsed.isDefaultDuration ? ' (標準)' : '')}</span>
+        <button type="button" id="toggle-capture-decompose" class="preview-chip ${effectiveDecompose ? 'matched' : ''}">
+          🪄 ${effectiveDecompose && parsed.suggestedSteps.length > 0 ? `自動分解: ON (${stepCount}ステップ)` : '単一タスク (分解OFF)'}
+        </button>
+        <button type="button" id="toggle-capture-recurring" class="preview-chip ${rec ? 'matched' : ''}">
+          🔁 ${rec ? `毎週${WEEKDAY_LABELS[rec.weekday]}曜に繰り返す: ON` : '毎週繰り返す: OFF (クリックでON)'}
+        </button>
+        ${rec ? `
+          <label class="preview-chip matched" style="padding:0.1rem 0.45rem;">
+            <span>曜日変更:</span>
+            <select id="capture-recurring-dow" style="background:transparent;border:none;font-weight:700;outline:none;cursor:pointer;">
+              ${WEEKDAY_LABELS.map((w, idx) => `<option value="${idx}" ${rec.weekday === idx ? 'selected' : ''}>毎週${w}曜</option>`).join('')}
+            </select>
+          </label>
+        ` : ''}
+      `;
+
+      document.getElementById('toggle-capture-decompose')?.addEventListener('click', () => {
+        if (parsed.suggestedSteps.length === 0 && !effectiveDecompose) {
+          parsed.suggestedSteps = [
+            { title: '準備・内容確認', minutes: 10 },
+            { title: 'メイン作業・演習', minutes: Math.max(15, parsed.estimatedMinutes - 20) },
+            { title: '見直し・完了確認', minutes: 10 }
+          ];
+        }
+        captureDecomposeOverride = !effectiveDecompose;
+        renderCapturePreview();
+      });
+
+      document.getElementById('toggle-capture-recurring')?.addEventListener('click', () => {
+        captureRecurringOverride = !rec;
+        renderCapturePreview();
+      });
+
+      document.getElementById('capture-recurring-dow')?.addEventListener('change', (e) => {
+        captureRecurringWeekday = Number(e.target.value);
+        captureRecurringOverride = true;
+        renderCapturePreview();
+      });
+    }
+
+    function handleQuickCaptureSubmit() {
+      const input = document.getElementById('quick-capture-input');
+      if (!input || !input.value.trim()) return;
+      const todayStr = toDateStr();
+      const parsed = parseNaturalInput(input.value, state.subjects, todayStr, state.userSettings?.defaultTaskMinutes || 30);
+      if (!parsed) return;
+
+      const effectiveDecompose = captureDecomposeOverride !== null ? captureDecomposeOverride : parsed.shouldDecompose;
+      const rec = resolveCaptureRecurrence(parsed, todayStr);
+
+      let stepDefs = [];
+      if (effectiveDecompose && parsed.suggestedSteps.length > 0) {
+        stepDefs = parsed.suggestedSteps.map(s => ({ title: s.title, minutes: s.minutes }));
+      } else {
+        stepDefs = [{ title: parsed.cleanTitle, minutes: parsed.estimatedMinutes }];
+      }
+
+      if (rec) {
+        const rule = createRuleFromParsed(state, { ...parsed, recurrence: { frequency: 'weekly', weekday: rec.weekday } }, stepDefs, todayStr);
+        generateRecurringInstances(state, todayStr);
+        input.value = '';
+        captureDecomposeOverride = null;
+        captureRecurringOverride = null;
+        captureRecurringWeekday = null;
+        renderCapturePreview();
+        commitState();
+        showToast(`🔁「${rule.title}」を毎週${WEEKDAY_LABELS[rec.weekday]}曜の定期課題として登録しました（完了時に実時間から推定時間を自動補正します）`);
+        return;
+      }
+
+      const newTaskId = uid('task');
+      const rawSteps = stepDefs.map((s, idx) => ({
+        id: uid('step'), taskId: newTaskId, title: s.title, orderIndex: idx + 1,
+        estimatedMinutes: s.minutes, scheduledDate: null, isCompleted: false, completedAt: null
+      }));
+      const scheduledSteps = assignDatesForNewTaskSteps(rawSteps, parsed.deadlineDate, state, todayStr);
+      const totalMins = scheduledSteps.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+
+      state.tasks.unshift({
+        id: newTaskId, subjectId: parsed.subjectId, title: parsed.cleanTitle, rawInput: parsed.rawInput,
+        category: parsed.category, status: parsed.deadlineDate ? 'planned' : 'inbox',
+        deadlineDate: parsed.deadlineDate, estimatedMinutes: totalMins, importance: parsed.importance,
+        understandingLevel: null, nextReviewDate: null, createdAt: todayStr
+      });
+      state.taskSteps.push(...scheduledSteps);
+
+      input.value = '';
+      captureDecomposeOverride = null;
+      captureRecurringOverride = null;
+      captureRecurringWeekday = null;
+      renderCapturePreview();
+      commitState();
+      showToast(`✓「${parsed.cleanTitle}」を追加しました（${scheduledSteps.length}ステップ）`);
+    }
+
+    function renderAll() {
+      const todayStr = toDateStr();
+      const dashboardModel = buildDashboardModel(state, todayStr, pocketFilterMins);
+
+      document.querySelectorAll('[data-nav-tab]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-nav-tab') === currentTab);
+      });
+
+      const todayBadge = document.getElementById('nav-badge-today');
+      if (todayBadge) todayBadge.textContent = String((dashboardModel.topPriorityStep ? 1 : 0) + dashboardModel.otherTodaySteps.length);
+
+      const inboxBadge = document.getElementById('nav-badge-inbox');
+      if (inboxBadge) {
+        const cnt = state.tasks.filter(t => t.status !== 'completed' && (!t.deadlineDate || !t.subjectId)).length;
+        inboxBadge.textContent = String(cnt);
+        inboxBadge.classList.toggle('alert', cnt > 0);
+      }
+
+      const subListEl = document.getElementById('sidebar-subject-list');
+      if (subListEl) {
+        subListEl.innerHTML = state.subjects.map(sub => {
+          const activeCount = state.tasks.filter(t => t.subjectId === sub.id && t.status !== 'completed').length;
+          return `
+            <button type="button" class="subject-mini-item" data-jump-subject="${sub.id}">
+              <span style="display:flex;align-items:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                <span class="subject-dot" style="background:${sub.color}"></span>${escapeHtml(sub.name)}
+              </span>
+              <span class="nav-badge">${activeCount}</span>
+            </button>
+          `;
+        }).join('');
+        subListEl.querySelectorAll('[data-jump-subject]').forEach(b => {
+          b.addEventListener('click', () => { currentTab = 'subjects'; renderAll(); });
+        });
+      }
+
+      const container = document.getElementById('main-view-container');
+      if (!container) return;
+      if (currentTab === 'today') renderTodayDashboard(container, dashboardModel);
+      else if (currentTab === 'plan') renderPlanTimelineView(container);
+      else if (currentTab === 'inbox') renderInboxTasksView(container);
+      else if (currentTab === 'subjects') renderSubjectsAndLogsView(container);
+    }
+
+    function renderTodayDashboard(container, model) {
+      const { todayStr, condition, capacityMinutes, completedTodayMinutes, totalTodayMinutes, completedTodaySteps, topPriorityStep, otherTodaySteps, pocketSteps, activeTasksWithRisk, reviewTasks, replanProposal } = model;
+      const [y, m, d] = todayStr.split('-').map(Number);
+      const dowLabel = WEEKDAY_LABELS[new Date(y, m - 1, d).getDay()];
+      const donePct = Math.min(100, Math.round((completedTodayMinutes / Math.max(capacityMinutes, 15)) * 100));
+      const plannedRemMins = Math.max(0, totalTodayMinutes - completedTodayMinutes);
+      const plannedPct = Math.min(100 - donePct, Math.round((plannedRemMins / Math.max(capacityMinutes, 15)) * 100));
+      const isOver = totalTodayMinutes > capacityMinutes;
+
+      container.innerHTML = `
+        <section class="status-banner">
+          <div class="date-greeting">
+            <h1>${m}月${d}日（${dowLabel}）の学習ダッシュボード</h1>
+            <p>${escapeHtml(CONDITION_META[condition].desc)}</p>
+          </div>
+          <div class="condition-selector-group">
+            <span class="condition-label">今日のコンディション（疲労度調整）</span>
+            <div class="condition-segmented">
+              ${Object.entries(CONDITION_META).map(([key, meta]) => `
+                <button type="button" class="condition-btn ${condition === key ? 'active' : ''}" data-set-condition="${key}">
+                  <span>${meta.icon}</span><span>${meta.label}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="workload-meter-box">
+            <div class="workload-header">
+              <span class="workload-title">今日の予定作業時間</span>
+              <span class="workload-numbers tabular-nums">${totalTodayMinutes}分 <span style="color:var(--text-muted);font-weight:400;">/ 目安 ${capacityMinutes}分</span></span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill-done" style="width:${donePct}%"></div>
+              <div class="${isOver ? 'progress-fill-overload' : 'progress-fill-planned'}" style="width:${plannedPct}%"></div>
+            </div>
+            <div class="workload-caption">
+              <span>✓ 完了: ${completedTodayMinutes}分</span>
+              <span>${isOver ? `⚠️ 目安を +${totalTodayMinutes - capacityMinutes}分 超過` : `残り枠: ${Math.max(0, capacityMinutes - totalTodayMinutes)}分`}</span>
+            </div>
+          </div>
+        </section>
+
+        ${replanProposal.hasChanges ? `
+          <section class="replan-callout">
+            <div class="replan-callout-left">
+              <span style="font-size:1.25rem;">🔄</span>
+              <div>
+                <div class="replan-callout-title">無理のないスケジュール再調整案（${replanProposal.diffs.length}件の変更提案）があります</div>
+                <div class="replan-callout-desc">${escapeHtml(replanProposal.reasons.join(' ／ '))}。内容を確認してから適用できます。</div>
+              </div>
+            </div>
+            <button type="button" class="btn-replan-preview" id="btn-open-replan-modal">変更内容を確認する (${replanProposal.diffs.length}件)</button>
+          </section>
+        ` : ''}
+
+        <div class="dashboard-grid">
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+            <section class="section-block">
+              <div class="section-header">
+                <h2 class="section-title">🎯 今日の最優先タスク</h2>
+                <span class="section-subtitle">まずこの1ステップから着手</span>
+              </div>
+              ${topPriorityStep ? `
+                <div class="hero-focus-card">
+                  <div class="hero-focus-top">
+                    <div class="badge-row">
+                      <span class="subject-pill"><span class="subject-dot" style="background:${topPriorityStep.subjectColor}"></span>${escapeHtml(topPriorityStep.subjectName)}</span>
+                      ${topPriorityStep.isRecurring ? `<span class="subject-pill">🔁 毎週</span>` : ''}
+                      <span class="risk-badge ${topPriorityStep.risk.level}">${RISK_META[topPriorityStep.risk.level].icon} 危険度:${topPriorityStep.risk.label}（${escapeHtml(topPriorityStep.deadlineLabel)}）</span>
+                      ${topPriorityStep.isOverdue ? `<span class="risk-badge warning">昨日からの繰越</span>` : ''}
+                    </div>
+                    <span class="duration-tag tabular-nums">⏱️ 推定 ${topPriorityStep.estimatedMinutes}分</span>
+                  </div>
+                  <div style="cursor:pointer;" data-open-task="${topPriorityStep.taskId}">
+                    <div class="hero-step-title">${escapeHtml(topPriorityStep.title)}</div>
+                    <div class="hero-parent-title">親課題: ${escapeHtml(topPriorityStep.taskTitle)} （クリックで分解・毎週設定）</div>
+                  </div>
+                  <div class="hero-meta-row">
+                    <span class="meta-stat">💡 ${escapeHtml(topPriorityStep.risk.reason)}</span>
+                    <div class="hero-actions">
+                      <button type="button" class="btn-secondary" data-start-timer="${topPriorityStep.id}">▶ 集中タイマー</button>
+                      <button type="button" class="btn-primary" data-complete-step="${topPriorityStep.id}">✓ 完了にする</button>
+                    </div>
+                  </div>
+                </div>
+              ` : `
+                <div class="hero-focus-card" style="align-items:center;text-align:center;padding:1.5rem;">
+                  <div style="font-size:1.6rem;">🎉</div>
+                  <div class="hero-step-title">今日予定されていたタスクはすべて完了しました！</div>
+                </div>
+              `}
+            </section>
+
+            <section class="section-block">
+              <div class="section-header">
+                <h2 class="section-title">📋 今日取り組む推奨タスク</h2>
+                <span class="section-subtitle">残り ${otherTodaySteps.length}ステップ</span>
+              </div>
+              <div class="step-list">
+                ${otherTodaySteps.length > 0 ? otherTodaySteps.map(step => renderStepCardHtml(step)).join('') : `
+                  <div class="step-card" style="justify-content:center;color:var(--text-muted);">最優先タスク以外に今日必須のステップはありません。</div>
+                `}
+              </div>
+            </section>
+
+            ${completedTodaySteps.length > 0 ? `
+              <section class="section-block">
+                <div class="section-header"><h2 class="section-title">✅ 今日完了したステップ (${completedTodaySteps.length}件・計${completedTodayMinutes}分)</h2></div>
+                <div class="step-list">${completedTodaySteps.map(step => renderStepCardHtml(step)).join('')}</div>
+              </section>
+            ` : ''}
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+            <section class="section-block">
+              <div class="section-header">
+                <h2 class="section-title">⏳ 空き時間にできるタスク提案</h2>
+                <span class="section-subtitle">スキマ時間を選択</span>
+              </div>
+              <div class="pocket-tabs">
+                ${[15, 30, 60, 90].map(mins => `
+                  <button type="button" class="pocket-tab ${pocketFilterMins === mins ? 'active' : ''}" data-pocket-mins="${mins}">${mins}分以内</button>
+                `).join('')}
+              </div>
+              <div class="step-list">
+                ${pocketSteps.length > 0 ? pocketSteps.map(step => `
+                  <div class="step-card">
+                    <div class="step-card-left">
+                      <button type="button" class="check-circle" data-complete-step="${step.id}">✓</button>
+                      <div class="step-info" data-open-task="${step.taskId}">
+                        <div class="step-name">${escapeHtml(step.title)}</div>
+                        <div class="step-parent-label"><span class="subject-dot" style="background:${step.subjectColor}"></span>${escapeHtml(step.subjectName)}・${escapeHtml(step.taskTitle)}</div>
+                      </div>
+                    </div>
+                    <div class="step-card-right">
+                      <span class="duration-tag tabular-nums">${step.estimatedMinutes}分</span>
+                      <button type="button" class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:0.72rem;" data-start-timer="${step.id}">▶</button>
+                    </div>
+                  </div>
+                `).join('') : `<div class="step-card" style="justify-content:center;color:var(--text-muted);">${pocketFilterMins}分以内の未完了ステップはありません。</div>`}
+              </div>
+            </section>
+
+            <section class="section-block">
+              <div class="section-header">
+                <h2 class="section-title">⚠️ 締切が近いタスク・危険度判定</h2>
+              </div>
+              <div class="step-list">
+                ${activeTasksWithRisk.map(task => `
+                  <div class="radar-card" data-open-task="${task.id}">
+                    <div class="radar-top">
+                      <div class="badge-row">
+                        <span class="subject-pill"><span class="subject-dot" style="background:${task.subjectColor}"></span>${escapeHtml(task.subjectName)}</span>
+                        ${task.recurringRuleId ? `<span class="subject-pill">🔁 毎週</span>` : ''}
+                        <span class="risk-badge ${task.risk.level}">${RISK_META[task.risk.level].icon} ${task.risk.label}</span>
+                      </div>
+                      <span style="font-size:0.74rem;font-weight:600;color:var(--text-secondary);">📅 ${escapeHtml(task.deadlineLabel)}</span>
+                    </div>
+                    <div class="radar-title">${escapeHtml(task.title)}</div>
+                    <div class="progress-track" style="height:5px;"><div class="progress-fill-done" style="width:${task.risk.progressPercent}%"></div></div>
+                    <div class="radar-progress-row">
+                      <span>${escapeHtml(task.risk.reason)}</span>
+                      <span class="tabular-nums">進捗 ${task.risk.progressPercent}% (残${task.risk.remainingMinutes}分)</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </section>
+
+            ${reviewTasks.length > 0 ? `
+              <section class="section-block">
+                <div class="section-header"><h2 class="section-title">🔄 復習おすすめ（理解度△の課題）</h2></div>
+                <div class="step-list">
+                  ${reviewTasks.slice(0, 3).map(rt => `
+                    <div class="step-card">
+                      <div class="step-info">
+                        <div class="step-name" style="font-size:0.84rem;">${escapeHtml(rt.title)}</div>
+                        <div class="step-parent-label"><span class="subject-dot" style="background:${rt.subjectColor}"></span>${escapeHtml(rt.subjectName)} ・ 復習予定: ${escapeHtml(rt.reviewDateLabel)}</div>
+                      </div>
+                      <button type="button" class="btn-secondary" style="font-size:0.72rem;padding:0.28rem 0.6rem;" data-spawn-review="${rt.id}">+ 今日復習</button>
+                    </div>
+                  `).join('')}
+                </div>
+              </section>
+            ` : ''}
+          </div>
+        </div>
+      `;
+
+      bindDashboardEvents(replanProposal);
+    }
+
+    function renderStepCardHtml(step) {
+      return `
+        <div class="step-card ${step.isCompleted ? 'completed' : ''}">
+          <div class="step-card-left">
+            <button type="button" class="check-circle ${step.isCompleted ? 'completed' : ''}" data-complete-step="${step.id}">✓</button>
+            <div class="step-info" data-open-task="${step.taskId}">
+              <div class="step-title-row">
+                <span class="step-name">${escapeHtml(step.title)}</span>
+                ${step.isRecurring ? `<span class="subject-pill" style="font-size:0.66rem;padding:0.06rem 0.4rem;">🔁 毎週</span>` : ''}
+                ${step.isOverdue ? `<span class="risk-badge warning" style="font-size:0.66rem;padding:0.08rem 0.4rem;">昨日分から繰越</span>` : ''}
+                ${step.isBonusRecommendation ? `<span class="risk-badge safe" style="font-size:0.66rem;padding:0.08rem 0.4rem;">空き枠おすすめ</span>` : ''}
+              </div>
+              <div class="step-parent-label">
+                <span><span class="subject-dot" style="background:${step.subjectColor}"></span>${escapeHtml(step.subjectName)}</span>
+                <span>・${escapeHtml(step.taskTitle)}</span>
+                <span>・📅 ${escapeHtml(step.deadlineLabel)}</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-card-right">
+            <span class="risk-badge ${step.risk.level}" style="font-size:0.68rem;">${RISK_META[step.risk.level].icon}</span>
+            <span class="duration-tag tabular-nums">${step.estimatedMinutes}分</span>
+            ${!step.isCompleted ? `<button type="button" class="btn-secondary" style="padding:0.25rem 0.5rem;font-size:0.72rem;" data-start-timer="${step.id}">▶</button>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function bindDashboardEvents(replanProposal) {
+      const todayStr = toDateStr();
+      document.querySelectorAll('[data-set-condition]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cond = btn.getAttribute('data-set-condition');
+          if (!state.dailyStates) state.dailyStates = {};
+          state.dailyStates[todayStr] = { date: todayStr, condition: cond, customAvailableMinutes: null };
+          commitState();
+          showToast(`今日のコンディションを「${CONDITION_META[cond].icon} ${CONDITION_META[cond].label}」に切り替えました`);
+        });
+      });
+
+      document.querySelectorAll('[data-pocket-mins]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          pocketFilterMins = parseInt(btn.getAttribute('data-pocket-mins'), 10);
+          renderAll();
+        });
+      });
+
+      document.getElementById('btn-open-replan-modal')?.addEventListener('click', () => openReplanModal(replanProposal));
+
+      document.querySelectorAll('[data-complete-step]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const stepId = btn.getAttribute('data-complete-step');
+          const step = state.taskSteps.find(s => s.id === stepId);
+          if (!step) return;
+          if (step.isCompleted) {
+            step.isCompleted = false;
+            step.completedAt = null;
+            const parent = state.tasks.find(t => t.id === step.taskId);
+            if (parent && parent.status === 'completed') parent.status = 'in_progress';
+            commitState();
+          } else {
+            openCompleteStepModal(stepId);
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-start-timer]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          startFocusTimerForStep(btn.getAttribute('data-start-timer'));
+        });
+      });
+
+      document.querySelectorAll('[data-open-task]').forEach(el => {
+        el.addEventListener('click', () => openTaskDetailModal(el.getAttribute('data-open-task')));
+      });
+
+      document.querySelectorAll('[data-spawn-review]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const orig = state.tasks.find(t => t.id === btn.getAttribute('data-spawn-review'));
+          if (!orig) return;
+          const newTaskId = uid('task');
+          state.tasks.unshift({
+            id: newTaskId, subjectId: orig.subjectId, title: `【復習】${orig.title}`, rawInput: `復習: ${orig.title}`,
+            category: 'self_study', status: 'planned', deadlineDate: todayStr, estimatedMinutes: 20,
+            importance: 2, understandingLevel: null, nextReviewDate: null, createdAt: todayStr
+          });
+          state.taskSteps.push({
+            id: uid('step'), taskId: newTaskId, title: `【要点復習】${orig.title} の解き直し`,
+            orderIndex: 1, estimatedMinutes: 20, scheduledDate: todayStr, isCompleted: false, completedAt: null
+          });
+          orig.understandingLevel = 2;
+          orig.nextReviewDate = null;
+          commitState();
+          showToast(`「${orig.title}」の20分復習ステップを今日の予定に追加しました`);
+        });
+      });
+    }
+
+    function renderPlanTimelineView(container) {
+      const todayStr = toDateStr();
+      const taskMap = new Map(state.tasks.map(t => [t.id, t]));
+      const subjectMap = new Map(state.subjects.map(s => [s.id, s]));
+
+      const days = [];
+      for (let i = 0; i < 7; i++) {
+        const dtStr = addDays(todayStr, i);
+        const [y, m, d] = dtStr.split('-').map(Number);
+        const dow = new Date(y, m - 1, d).getDay();
+        const cap = getDayEffectiveCapacity(dtStr, state);
+        const stepsForDay = state.taskSteps
+          .filter(s => i === 0 ? (s.scheduledDate === dtStr || (!s.isCompleted && s.scheduledDate && s.scheduledDate < todayStr)) : s.scheduledDate === dtStr)
+          .map(s => {
+            const t = taskMap.get(s.taskId);
+            const sub = t ? subjectMap.get(t.subjectId) : null;
+            return { ...s, taskTitle: t ? t.title : '', subjectName: sub ? sub.name : '未設定', subjectColor: sub ? sub.color : '#888' };
+          });
+        const totalMins = stepsForDay.reduce((acc, s) => acc + (s.estimatedMinutes || 30), 0);
+        days.push({
+          dateStr: dtStr,
+          label: i === 0 ? `今日 (${m}/${d} ${WEEKDAY_LABELS[dow]})` : i === 1 ? `明日 (${m}/${d} ${WEEKDAY_LABELS[dow]})` : `${m}/${d} (${WEEKDAY_LABELS[dow]})`,
+          isToday: i === 0, capacity: cap, totalMins, steps: stepsForDay
+        });
+      }
+
+      container.innerHTML = `
+        <section class="status-banner">
+          <div class="date-greeting">
+            <h1>今後7日間の作業計画（日別バケット）</h1>
+            <p>時刻で固定せず「その日に実行するステップ」を空き枠に合わせて分散配置しています。</p>
+          </div>
+          <button type="button" class="btn-primary" id="btn-run-full-replan">🔄 自動スケジューリング再計算（変更案プレビュー）</button>
+        </section>
+        <div class="timeline-grid">
+          ${days.map(day => {
+            const pct = Math.min(100, Math.round((day.totalMins / Math.max(day.capacity, 15)) * 100));
+            const isOver = day.totalMins > day.capacity;
+            return `
+              <div class="day-bucket-card ${day.isToday ? 'today' : ''}">
+                <div class="day-bucket-header">
+                  <span class="day-bucket-title">${escapeHtml(day.label)}</span>
+                  <span class="day-bucket-cap tabular-nums" style="${isOver ? 'color:var(--danger-text);font-weight:700;' : ''}">${day.totalMins}分 / 枠${day.capacity}分</span>
+                </div>
+                <div class="progress-track" style="height:5px;"><div class="${isOver ? 'progress-fill-overload' : 'progress-fill-planned'}" style="width:${pct}%"></div></div>
+                <div class="step-list">
+                  ${day.steps.length > 0 ? day.steps.map(st => `
+                    <div class="step-card ${st.isCompleted ? 'completed' : ''}" style="padding:0.55rem 0.65rem;">
+                      <div style="min-width:0;flex:1;cursor:pointer;" data-open-task="${st.taskId}">
+                        <div style="font-size:0.72rem;color:var(--text-secondary);"><span class="subject-dot" style="background:${st.subjectColor}"></span>${escapeHtml(st.subjectName)}・${st.estimatedMinutes}分</div>
+                        <div class="step-name" style="font-size:0.82rem;">${escapeHtml(st.title)}</div>
+                      </div>
+                      ${!st.isCompleted ? `
+                        <select class="form-select" style="padding:0.15rem 0.3rem;font-size:0.7rem;width:auto;" data-move-step="${st.id}">
+                          ${days.map(dOpt => `<option value="${dOpt.dateStr}" ${st.scheduledDate === dOpt.dateStr ? 'selected' : ''}>${dOpt.label.split(' ')[0]}</option>`).join('')}
+                        </select>
+                      ` : `<span class="risk-badge safe" style="font-size:0.68rem;">完了</span>`}
+                    </div>
+                  `).join('') : `<div style="font-size:0.76rem;color:var(--text-muted);text-align:center;padding:0.8rem 0;">予定なし（空き ${day.capacity}分）</div>`}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      document.getElementById('btn-run-full-replan')?.addEventListener('click', () => {
+        openReplanModal(generateReplanProposal(state, todayStr, true));
+      });
+      container.querySelectorAll('[data-move-step]').forEach(sel => {
+        sel.addEventListener('change', () => {
+          const st = state.taskSteps.find(s => s.id === sel.getAttribute('data-move-step'));
+          if (st) { st.scheduledDate = sel.value; commitState(); showToast('予定日を移動しました'); }
+        });
+      });
+      container.querySelectorAll('[data-open-task]').forEach(el => {
+        el.addEventListener('click', () => openTaskDetailModal(el.getAttribute('data-open-task')));
+      });
+    }
+
+    function renderInboxTasksView(container) {
+      const todayStr = toDateStr();
+      const subjectMap = new Map(state.subjects.map(s => [s.id, s]));
+      let filtered = [...state.tasks];
+      if (inboxFilter === 'unconfigured') filtered = filtered.filter(t => t.status !== 'completed' && (!t.deadlineDate || !t.subjectId));
+      else if (inboxFilter === 'completed') filtered = filtered.filter(t => t.status === 'completed');
+      else filtered = filtered.filter(t => t.status !== 'completed');
+
+      container.innerHTML = `
+        <section class="status-banner">
+          <div class="date-greeting">
+            <h1>Inbox・全タスク整理＆ステップ分解</h1>
+            <p>未設定項目の補完や、大きな課題のステップ分解、毎週の繰り返し設定を行えます。</p>
+          </div>
+          <div class="condition-segmented">
+            <button type="button" class="condition-btn ${inboxFilter === 'all' ? 'active' : ''}" data-inbox-filter="all">進行中すべて</button>
+            <button type="button" class="condition-btn ${inboxFilter === 'unconfigured' ? 'active' : ''}" data-inbox-filter="unconfigured">未設定あり</button>
+            <button type="button" class="condition-btn ${inboxFilter === 'completed' ? 'active' : ''}" data-inbox-filter="completed">完了済み</button>
+          </div>
+        </section>
+        <div class="step-list">
+          ${filtered.map(task => {
+            const sub = subjectMap.get(task.subjectId);
+            const steps = state.taskSteps.filter(s => s.taskId === task.id);
+            const doneCount = steps.filter(s => s.isCompleted).length;
+            const risk = evaluateTaskRisk(task, state, todayStr);
+            return `
+              <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.6rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+                  <div class="badge-row">
+                    <span class="subject-pill"><span class="subject-dot" style="background:${sub ? sub.color : '#888'}"></span>${escapeHtml(sub ? sub.name : '科目未設定')}</span>
+                    ${task.recurringRuleId ? `<span class="subject-pill">🔁 毎週定期</span>` : ''}
+                    <span class="risk-badge ${risk.level}">${RISK_META[risk.level].icon} ${risk.label}</span>
+                    <span style="font-size:0.76rem;color:var(--text-secondary);">📅 ${escapeHtml(formatJpDate(task.deadlineDate, todayStr))}</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.45rem;">
+                    <span class="duration-tag tabular-nums">計 ${risk.totalMinutes}分 (${doneCount}/${steps.length}完了)</span>
+                    <button type="button" class="btn-secondary" style="padding:0.3rem 0.65rem;font-size:0.76rem;" data-open-task="${task.id}">🪄 分解・毎週設定</button>
+                  </div>
+                </div>
+                <div style="font-weight:700;font-size:0.95rem;cursor:pointer;" data-open-task="${task.id}">${escapeHtml(task.title)}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+                  ${steps.map((st, idx) => `<span class="preview-chip ${st.isCompleted ? 'matched' : ''}" style="font-size:0.72rem;">${st.isCompleted ? '✓' : `${idx + 1}.`} ${escapeHtml(st.title)} (${st.estimatedMinutes}分)</span>`).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      container.querySelectorAll('[data-inbox-filter]').forEach(btn => {
+        btn.addEventListener('click', () => { inboxFilter = btn.getAttribute('data-inbox-filter'); renderAll(); });
+      });
+      container.querySelectorAll('[data-open-task]').forEach(el => {
+        el.addEventListener('click', () => openTaskDetailModal(el.getAttribute('data-open-task')));
+      });
+    }
+
+    function renderRecurringRulesHtml() {
+      const rules = state.recurringRules || [];
+      const subjectMap = new Map(state.subjects.map(s => [s.id, s]));
+      if (rules.length === 0) {
+        return `<div class="step-card" style="color:var(--text-secondary);font-size:0.8rem;">まだ毎週の課題はありません。「毎週月曜に電磁気の小テスト」のように入力するか、課題詳細から設定できます。</div>`;
+      }
+      return rules.map(rule => {
+        const sub = subjectMap.get(rule.subjectId);
+        const totalEstimate = rule.stepsTemplate.reduce((acc, s) => acc + (s.estimatedMinutes || 0), 0);
+        const totalSamples = rule.stepsTemplate.reduce((acc, s) => acc + (s.sampleCount || 0), 0);
+        return `
+          <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.55rem;${rule.active ? '' : 'opacity:0.65;'}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+              <div class="badge-row">
+                <span class="subject-pill"><span class="subject-dot" style="background:${sub ? sub.color : '#888'}"></span>${escapeHtml(sub ? sub.name : '科目未設定')}</span>
+                <span style="font-weight:700;font-size:0.9rem;">🔁 ${escapeHtml(rule.title)}</span>
+                ${rule.active ? '' : '<span class="risk-badge none">一時停止中</span>'}
+              </div>
+              <div style="display:flex;align-items:center;gap:0.35rem;">
+                <span style="font-size:0.75rem;">毎週</span>
+                <select class="form-select" style="padding:0.2rem 0.35rem;font-size:0.75rem;" data-rule-weekday="${rule.id}">
+                  ${WEEKDAY_LABELS.map((w, idx) => `<option value="${idx}" ${rule.weekday === idx ? 'selected' : ''}>${w}曜</option>`).join('')}
+                </select>
+                <button type="button" class="btn-secondary" style="font-size:0.72rem;padding:0.24rem 0.5rem;" data-toggle-rule="${rule.id}">${rule.active ? '⏸ 停止' : '▶ 再開'}</button>
+              </div>
+            </div>
+            <div style="font-size:0.74rem;color:var(--text-secondary);">
+              次回の推定 合計 <strong class="tabular-nums">${totalEstimate}分</strong> ・ 実績の学習反映 ${totalSamples}回
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.25rem;">
+              ${rule.stepsTemplate.map((ts, idx) => {
+                const last = (ts.history || []).slice(-1)[0];
+                const err = getAverageError(ts);
+                return `
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:var(--bg-surface-subtle);padding:0.35rem 0.55rem;border-radius:var(--radius-sm);font-size:0.76rem;flex-wrap:wrap;">
+                    <span>${idx + 1}. ${escapeHtml(ts.title)}</span>
+                    <span style="display:flex;align-items:center;gap:0.45rem;color:var(--text-secondary);" class="tabular-nums">
+                      ${last ? `<span>前回:推定${last.estimated}分→実績${last.actual}分</span>` : '<span style="color:var(--text-muted);">実績なし（初期値）</span>'}
+                      ${err !== null ? `<span>誤差±${err}分</span>` : ''}
+                      <span class="duration-tag">次回推定 ${ts.estimatedMinutes}分</span>
+                    </span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSubjectsAndLogsView(container) {
+      const todayStr = toDateStr();
+      const subjectMap = new Map(state.subjects.map(s => [s.id, s]));
+      const totalStudiedMins = state.studyLogs.reduce((acc, l) => acc + (l.durationMinutes || 0), 0);
+
+      container.innerHTML = `
+        <section class="status-banner">
+          <div class="date-greeting">
+            <h1>科目管理・毎週の定期課題・学習履歴・設定</h1>
+            <p>毎週の定期課題と推定時間の自動学習（実績から精度向上）、科目メモ、JSONバックアップを管理します。</p>
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button type="button" class="btn-secondary" id="btn-open-new-subject">+ 新しい科目を追加</button>
+            <button type="button" class="btn-primary" id="btn-export-backup-main">💾 バックアップを保存 (JSON)</button>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <h2 class="section-title">🔁 毎週の定期課題 ＆ 推定時間の自動学習</h2>
+            <span class="section-subtitle">最初は適当な推定時間でOK。完了時の実時間との差から次回の推定時間を自動補正します</span>
+          </div>
+          <div class="step-list">${renderRecurringRulesHtml()}</div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header"><h2 class="section-title">📚 受講中の科目一覧（クリックで教材・苦手分野メモを編集）</h2></div>
+          <div class="subject-grid">
+            ${state.subjects.map(sub => {
+              const subTasks = state.tasks.filter(t => t.subjectId === sub.id);
+              const activeTasks = subTasks.filter(t => t.status !== 'completed');
+              const subMins = state.studyLogs.filter(l => l.subjectId === sub.id).reduce((acc, l) => acc + (l.durationMinutes || 0), 0);
+              const weakTasks = subTasks.filter(t => t.understandingLevel === 1);
+              return `
+                <div class="subject-card" data-edit-subject="${sub.id}">
+                  <div class="subject-card-header">
+                    <div class="subject-name-wrap"><span class="subject-dot" style="background:${sub.color};width:10px;height:10px;"></span><span>${escapeHtml(sub.name)}</span></div>
+                    <span class="duration-tag tabular-nums">累計 ${subMins}分</span>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                    <span class="preview-chip">進行中: ${activeTasks.length}件</span>
+                    <span class="preview-chip ${weakTasks.length > 0 ? 'warning' : ''}">要復習(△): ${weakTasks.length}件</span>
+                  </div>
+                  <div style="font-size:0.76rem;color:var(--text-secondary);background:var(--bg-surface-subtle);padding:0.5rem 0.65rem;border-radius:var(--radius-sm);">
+                    <div><strong>📎 教材・資料:</strong> ${escapeHtml(sub.syllabusNote || '未記入')}</div>
+                    <div style="margin-top:0.2rem;"><strong>⚠️ 苦手分野:</strong> ${escapeHtml(sub.weakPointsNote || '未記入')}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="section-block">
+            <div class="section-header"><h2 class="section-title">📊 学習履歴ログ（累計 ${totalStudiedMins}分）</h2></div>
+            <div class="step-list">
+              ${state.studyLogs.map(log => {
+                const sub = subjectMap.get(log.subjectId);
+                const uBadge = log.understandingLevel === 3 ? '◎ 完璧' : log.understandingLevel === 1 ? '△ 要復習' : '◯ 普通';
+                const uClass = log.understandingLevel === 3 ? 'safe' : log.understandingLevel === 1 ? 'warning' : 'none';
+                return `
+                  <div class="step-card" style="flex-direction:column;align-items:stretch;gap:0.35rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                      <div class="badge-row">
+                        <span class="subject-pill"><span class="subject-dot" style="background:${sub ? sub.color : '#888'}"></span>${escapeHtml(sub ? sub.name : '未設定')}</span>
+                        <span class="risk-badge ${uClass}">${uBadge}</span>
+                      </div>
+                      <span style="font-size:0.74rem;color:var(--text-muted);" class="tabular-nums">${escapeHtml(formatJpDate(log.studiedDate, todayStr))}・実時間${log.durationMinutes}分</span>
+                    </div>
+                    <div style="font-weight:600;font-size:0.84rem;">${escapeHtml(log.title)}</div>
+                    ${log.reflectionNote ? `<div style="font-size:0.75rem;color:var(--text-secondary);">📝 ${escapeHtml(log.reflectionNote)}</div>` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </section>
+
+          <section class="section-block">
+            <div class="section-header"><h2 class="section-title">⚙️ 曜日ごとの標準空き時間 ＆ バックアップ</h2></div>
+            <div class="day-bucket-card">
+              <div style="font-weight:700;font-size:0.86rem;">曜日別の標準学習枠（時間割ベース）</div>
+              <div style="display:flex;flex-direction:column;gap:0.45rem;margin-top:0.2rem;">
+                ${WEEKDAY_LABELS.map((wLabel, dow) => {
+                  const val = state.userSettings?.weekdayCapacity?.[dow] ?? 90;
+                  return `
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:0.6rem;font-size:0.8rem;">
+                      <span style="width:45px;font-weight:600;">${wLabel}曜日</span>
+                      <input type="range" min="15" max="300" step="15" value="${val}" data-weekday-slider="${dow}" style="flex:1;accent-color:var(--accent-primary);" />
+                      <span class="tabular-nums" style="width:52px;text-align:right;font-weight:600;" id="weekday-val-${dow}">${val}分</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="day-bucket-card">
+              <div style="font-weight:700;font-size:0.86rem;">データのバックアップと復元</div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+                <button type="button" class="btn-primary" id="btn-download-json">📥 JSONファイルを書き出す</button>
+                <label class="btn-secondary" style="cursor:pointer;">
+                  📤 JSONファイルから復元
+                  <input type="file" id="input-restore-json" accept=".json,application/json" style="display:none;" />
+                </label>
+                <button type="button" class="btn-secondary" id="btn-reset-demo">初期サンプル再読込</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+
+      container.querySelectorAll('[data-toggle-rule]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const rule = state.recurringRules.find(r => r.id === btn.getAttribute('data-toggle-rule'));
+          if (!rule) return;
+          rule.active = !rule.active;
+          if (rule.active) { rule.startDate = addDays(todayStr, 1); generateRecurringInstances(state, todayStr); }
+          commitState();
+          showToast(rule.active ? `「${rule.title}」の繰り返しを再開しました` : `「${rule.title}」の繰り返しを一時停止しました`);
+        });
+      });
+
+      container.querySelectorAll('[data-rule-weekday]').forEach(sel => {
+        sel.addEventListener('change', () => {
+          const rule = state.recurringRules.find(r => r.id === sel.getAttribute('data-rule-weekday'));
+          if (!rule) return;
+          rule.weekday = Number(sel.value);
+          rule.startDate = addDays(todayStr, 1);
+          generateRecurringInstances(state, todayStr);
+          commitState();
+          showToast(`「${rule.title}」を毎週${WEEKDAY_LABELS[rule.weekday]}曜に変更しました`);
+        });
+      });
+
+      container.querySelectorAll('[data-weekday-slider]').forEach(slider => {
+        slider.addEventListener('input', () => {
+          const dow = Number(slider.getAttribute('data-weekday-slider'));
+          const el = document.getElementById(`weekday-val-${dow}`);
+          if (el) el.textContent = `${slider.value}分`;
+        });
+        slider.addEventListener('change', () => {
+          const dow = Number(slider.getAttribute('data-weekday-slider'));
+          state.userSettings.weekdayCapacity[dow] = Number(slider.value);
+          commitState();
+          showToast('曜日別の空き時間設定を更新しました');
+        });
+      });
+
+      container.querySelectorAll('[data-edit-subject]').forEach(c => {
+        c.addEventListener('click', () => openSubjectModal(c.getAttribute('data-edit-subject')));
+      });
+      document.getElementById('btn-open-new-subject')?.addEventListener('click', () => openSubjectModal(null));
+      document.getElementById('btn-export-backup-main')?.addEventListener('click', () => exportBackupJson(state));
+      document.getElementById('btn-download-json')?.addEventListener('click', () => exportBackupJson(state));
+      document.getElementById('input-restore-json')?.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            state = parseAndValidateBackup(ev.target.result);
+            applyTheme(state.userSettings?.theme || 'light');
+            commitState();
+            showToast('✓ バックアップから復元しました');
+          } catch (err) { alert(err.message); }
+        };
+        reader.readAsText(file);
+      });
+      document.getElementById('btn-reset-demo')?.addEventListener('click', () => {
+        state = createSeedData(toDateStr());
+        commitState();
+        showToast('初期サンプルデータを再読み込みしました');
+      });
+    }
+
+    function openCompleteStepModal(stepId, measuredMinutes = null) {
+      const step = state.taskSteps.find(s => s.id === stepId);
+      if (!step) return;
+      const task = state.tasks.find(t => t.id === step.taskId);
+      const modal = document.getElementById('modal-complete-step');
+      const body = document.getElementById('modal-complete-body');
+      if (!modal || !body) return;
+
+      const initialMinutes = measuredMinutes || step.estimatedMinutes || 30;
+      const isRecurringStep = !!previewLearning(state, step, initialMinutes);
+
+      body.innerHTML = `
+        <div>
+          <div style="font-size:0.78rem;color:var(--text-secondary);">${escapeHtml(task ? task.title : '')}</div>
+          <div style="font-size:1rem;font-weight:700;margin-top:0.1rem;">✓ ${escapeHtml(step.title)}</div>
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label">実際にかかった時間（分）${measuredMinutes ? '・タイマー計測値' : ''}</label>
+            <input type="number" id="complete-actual-mins" class="form-input tabular-nums" value="${initialMinutes}" min="1" max="600" />
+            <span style="font-size:0.7rem;color:var(--text-muted);">今回の推定時間は ${step.estimatedMinutes || 30}分 でした</span>
+          </div>
+          <div class="form-field">
+            <label class="form-label">振り返り・つまずきメモ（任意）</label>
+            <input type="text" id="complete-reflection-note" class="form-input" placeholder="例: 問2の積分計算を週末にもう一度見る" />
+          </div>
+        </div>
+        ${isRecurringStep ? `<div id="learning-preview" class="replan-callout" style="padding:0.55rem 0.8rem;background:var(--accent-soft);border-color:transparent;color:var(--accent-soft-text);font-size:0.78rem;"></div>` : ''}
+        <div class="form-field">
+          <label class="form-label">理解度・手応えを1タップで選択（完了して記録）</label>
+          <div class="rating-group">
+            <button type="button" class="rating-btn" data-confirm-rating="3"><span class="rating-emoji">◎</span><span class="rating-title">バッチリ</span><span class="rating-sub">順調に完了</span></button>
+            <button type="button" class="rating-btn" data-confirm-rating="2"><span class="rating-emoji">◯</span><span class="rating-title">だいたいOK</span><span class="rating-sub">標準完了</span></button>
+            <button type="button" class="rating-btn" data-confirm-rating="1"><span class="rating-emoji">△</span><span class="rating-title">要復習</span><span class="rating-sub">3日後に復習提案</span></button>
+          </div>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+
+      const minsInput = document.getElementById('complete-actual-mins');
+      const updatePreview = () => {
+        const el = document.getElementById('learning-preview');
+        if (!el) return;
+        const p = previewLearning(state, step, Number(minsInput?.value) || initialMinutes);
+        if (!p) return;
+        el.innerHTML = `🔁 毎週の定期課題「${escapeHtml(p.ruleTitle)}」: 実時間との差から、次回のこのステップの推定時間を <strong class="tabular-nums">${p.current}分 → ${p.next}分</strong> に自動調整します（${p.sampleCount === 0 ? '初回のため実績をそのまま採用' : `過去${p.sampleCount}回の実績と加重平均`}）`;
+      };
+      minsInput?.addEventListener('input', updatePreview);
+      updatePreview();
+
+      body.querySelectorAll('[data-confirm-rating]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const rating = Number(btn.getAttribute('data-confirm-rating'));
+          const mins = Number(document.getElementById('complete-actual-mins')?.value) || step.estimatedMinutes || 30;
+          const note = document.getElementById('complete-reflection-note')?.value?.trim() || '';
+          const todayStr = toDateStr();
+          const learning = applyActualToRecurringRule(state, step, mins, todayStr);
+          step.isCompleted = true;
+          step.completedAt = todayStr;
+          step.actualMinutes = mins;
+          if (task) {
+            task.understandingLevel = rating;
+            if (rating === 1) task.nextReviewDate = addDays(todayStr, 3);
+            const siblings = state.taskSteps.filter(s => s.taskId === task.id);
+            task.status = siblings.every(s => s.isCompleted) ? 'completed' : 'in_progress';
+          }
+          state.studyLogs.unshift({
+            id: uid('log'), taskId: task ? task.id : null, stepId: step.id, subjectId: task ? task.subjectId : null,
+            title: task && task.title !== step.title ? `${task.title}：${step.title}` : step.title,
+            studiedDate: todayStr, durationMinutes: mins, estimatedMinutes: step.estimatedMinutes || null,
+            understandingLevel: rating, reflectionNote: note
+          });
+          modal.classList.add('hidden');
+          commitState();
+          let msg = rating === 1 ? '✓ 完了を記録（3日後に復習提案します）' : '✓ 学習履歴に記録しました！';
+          if (learning && learning.oldEstimate !== learning.nextEstimate) {
+            msg += ` ／ 次回推定: ${learning.oldEstimate}分→${learning.nextEstimate}分に更新`;
+          }
+          showToast(msg);
+        });
+      });
+    }
+
+    function openTaskDetailModal(taskId) {
+      const task = state.tasks.find(t => t.id === taskId);
+      if (!task) return;
+      const modal = document.getElementById('modal-task-detail');
+      const body = document.getElementById('modal-task-body');
+      if (!modal || !body) return;
+
+      const renderContent = () => {
+        const steps = state.taskSteps.filter(s => s.taskId === task.id).sort((a, b) => a.orderIndex - b.orderIndex);
+        const rule = task.recurringRuleId ? (state.recurringRules || []).find(r => r.id === task.recurringRuleId) : null;
+        const defaultDow = task.deadlineDate ? weekdayOf(task.deadlineDate) : 1;
+
+        body.innerHTML = `
+          <div class="form-grid">
+            <div class="form-field full"><label class="form-label">課題・タスク名</label><input type="text" id="edit-task-title" class="form-input" value="${escapeHtml(task.title)}" /></div>
+            <div class="form-field">
+              <label class="form-label">科目</label>
+              <select id="edit-task-subject" class="form-select">
+                <option value="">未設定</option>
+                ${state.subjects.map(sub => `<option value="${sub.id}" ${task.subjectId === sub.id ? 'selected' : ''}>${escapeHtml(sub.name)}</option>`).join('')}
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">締切日（未設定可）</label>
+              <input type="date" id="edit-task-deadline" class="form-input" value="${task.deadlineDate || ''}" />
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border-subtle);padding-top:0.85rem;display:flex;flex-direction:column;gap:0.55rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.4rem;">
+              <div style="font-weight:700;font-size:0.88rem;">🪄 実行ステップ分解 (${steps.length}ステップ)</div>
+              <div style="display:flex;gap:0.35rem;">
+                <button type="button" class="btn-secondary" style="font-size:0.72rem;padding:0.25rem 0.5rem;" data-apply-template="report">📄 レポート型に分解</button>
+                <button type="button" class="btn-secondary" style="font-size:0.72rem;padding:0.25rem 0.5rem;" id="btn-add-custom-step">+ ステップ追加</button>
+              </div>
+            </div>
+            <div class="step-list" style="max-height:200px;overflow-y:auto;">
+              ${steps.map((st, idx) => `
+                <div style="display:flex;align-items:center;gap:0.4rem;background:var(--bg-surface-subtle);padding:0.4rem 0.55rem;border-radius:var(--radius-sm);">
+                  <span style="font-size:0.75rem;font-weight:700;width:18px;">${idx + 1}.</span>
+                  <input type="text" class="form-input" style="flex:1;padding:0.25rem 0.45rem;font-size:0.8rem;" data-step-title="${st.id}" value="${escapeHtml(st.title)}" />
+                  <input type="number" class="form-input tabular-nums" style="width:62px;padding:0.25rem 0.35rem;font-size:0.8rem;" data-step-mins="${st.id}" value="${st.estimatedMinutes}" min="5" max="240" step="5" />
+                  <span style="font-size:0.72rem;">分</span>
+                  <input type="date" class="form-input" style="width:125px;padding:0.25rem 0.35rem;font-size:0.75rem;" data-step-date="${st.id}" value="${st.scheduledDate || ''}" />
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          ${rule ? `
+            <div style="border-top:1px solid var(--border-subtle);padding-top:0.75rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+              <div>
+                <div style="font-weight:700;font-size:0.86rem;">🔁 毎週${WEEKDAY_LABELS[rule.weekday]}曜の定期課題 ${rule.active ? '' : '（停止中）'}</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">完了時の実時間から次回の推定時間を自動学習します</div>
+              </div>
+              ${rule.active ? `<button type="button" class="btn-secondary" style="font-size:0.74rem;padding:0.25rem 0.55rem;" id="btn-stop-recurring">⏸ 繰り返し停止</button>` : ''}
+            </div>
+          ` : `
+            <div style="border-top:1px solid var(--border-subtle);padding-top:0.75rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+              <div>
+                <div style="font-weight:700;font-size:0.86rem;">🔁 この課題を毎週繰り返す</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">今の推定時間を初期値にし、完了時の実時間から毎回精度を上げます</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.35rem;">
+                <select id="select-recurring-weekday" class="form-select" style="padding:0.25rem 0.4rem;font-size:0.76rem;">
+                  ${WEEKDAY_LABELS.map((w, idx) => `<option value="${idx}" ${idx === defaultDow ? 'selected' : ''}>毎週${w}曜</option>`).join('')}
+                </select>
+                <button type="button" class="btn-secondary" style="font-size:0.74rem;padding:0.28rem 0.6rem;" id="btn-make-recurring">毎週にセット</button>
+              </div>
+            </div>
+          `}
+          <div style="display:flex;justify-content:space-between;padding-top:0.65rem;border-top:1px solid var(--border-subtle);">
+            <button type="button" class="btn-secondary" style="color:var(--danger-text);" id="btn-delete-task">🗑️ 削除</button>
+            <button type="button" class="btn-primary" id="btn-save-task-detail">保存して閉じる</button>
+          </div>
+        `;
+
+        const syncDraft = () => {
+          task.title = document.getElementById('edit-task-title')?.value?.trim() || task.title;
+          task.subjectId = document.getElementById('edit-task-subject')?.value || null;
+          task.deadlineDate = document.getElementById('edit-task-deadline')?.value || null;
+          body.querySelectorAll('[data-step-title]').forEach(inp => {
+            const st = state.taskSteps.find(s => s.id === inp.getAttribute('data-step-title'));
+            if (st) st.title = inp.value.trim() || st.title;
+          });
+          body.querySelectorAll('[data-step-mins]').forEach(inp => {
+            const st = state.taskSteps.find(s => s.id === inp.getAttribute('data-step-mins'));
+            if (st) st.estimatedMinutes = Math.max(5, Number(inp.value) || 15);
+          });
+          body.querySelectorAll('[data-step-date]').forEach(inp => {
+            const st = state.taskSteps.find(s => s.id === inp.getAttribute('data-step-date'));
+            if (st) st.scheduledDate = inp.value || null;
+          });
+        };
+
+        document.getElementById('btn-make-recurring')?.addEventListener('click', () => {
+          syncDraft();
+          const weekday = Number(document.getElementById('select-recurring-weekday')?.value);
+          const todayStr = toDateStr();
+          const newRule = createRuleFromTask(state, task, weekday, todayStr);
+          generateRecurringInstances(state, todayStr);
+          modal.classList.add('hidden');
+          commitState();
+          showToast(`🔁「${newRule.title}」を毎週${WEEKDAY_LABELS[weekday]}曜の定期課題にセットしました`);
+        });
+
+        document.getElementById('btn-stop-recurring')?.addEventListener('click', () => {
+          if (rule) rule.active = false;
+          renderContent();
+          saveAppState(state);
+          showToast('繰り返しを一時停止しました');
+        });
+
+        body.querySelectorAll('[data-apply-template]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            syncDraft();
+            state.taskSteps = state.taskSteps.filter(s => s.taskId !== task.id);
+            const rawNew = DECOMPOSITION_TEMPLATES.report.map((item, idx) => ({
+              id: uid('step'), taskId: task.id, title: item.title, orderIndex: idx + 1, estimatedMinutes: item.minutes, scheduledDate: null, isCompleted: false, completedAt: null
+            }));
+            state.taskSteps.push(...assignDatesForNewTaskSteps(rawNew, task.deadlineDate, state, toDateStr()));
+            renderContent();
+          });
+        });
+
+        document.getElementById('btn-add-custom-step')?.addEventListener('click', () => {
+          syncDraft();
+          const existing = state.taskSteps.filter(s => s.taskId === task.id);
+          state.taskSteps.push({ id: uid('step'), taskId: task.id, title: `ステップ ${existing.length + 1}`, orderIndex: existing.length + 1, estimatedMinutes: 30, scheduledDate: task.deadlineDate || toDateStr(), isCompleted: false, completedAt: null });
+          renderContent();
+        });
+
+        document.getElementById('btn-delete-task')?.addEventListener('click', () => {
+          state.tasks = state.tasks.filter(t => t.id !== task.id);
+          state.taskSteps = state.taskSteps.filter(s => s.taskId !== task.id);
+          modal.classList.add('hidden');
+          commitState();
+          showToast('タスクを削除しました');
+        });
+
+        document.getElementById('btn-save-task-detail')?.addEventListener('click', () => {
+          syncDraft();
+          modal.classList.add('hidden');
+          commitState();
+          showToast('保存しました');
+        });
+      };
+
+      renderContent();
+      modal.classList.remove('hidden');
+    }
+
+    function openReplanModal(proposal) {
+      const modal = document.getElementById('modal-replan-diff');
+      const body = document.getElementById('modal-replan-body');
+      if (!modal || !body) return;
+
+      if (!proposal || !proposal.hasChanges) {
+        body.innerHTML = `<div style="text-align:center;padding:1.2rem 0;"><div style="font-size:1.8rem;">✅</div><div style="font-weight:700;margin-top:0.4rem;">現在のスケジュールは最適に配分されています</div></div>`;
+        modal.classList.remove('hidden');
+        return;
+      }
+
+      body.innerHTML = `
+        <div style="font-size:0.82rem;color:var(--text-secondary);">以下のステップの実行予定日を再配置することで、締切直前の集中や1日のキャパシティ超過を防ぎます。確認の上で適用してください。</div>
+        <div class="diff-list">
+          ${proposal.diffs.map(d => `
+            <div class="diff-row">
+              <div style="min-width:0;flex:1;">
+                <div style="font-size:0.72rem;color:var(--text-secondary);"><span class="subject-dot" style="background:${d.subjectColor}"></span>${escapeHtml(d.subjectName)}・${escapeHtml(d.taskTitle)} (${d.minutes}分)</div>
+                <div style="font-weight:600;">${escapeHtml(d.stepTitle)}</div>
+              </div>
+              <div class="diff-dates"><span class="diff-old">${escapeHtml(d.oldDateLabel)}</span><span>→</span><span class="diff-new">${escapeHtml(d.newDateLabel)}</span></div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:0.55rem;padding-top:0.65rem;border-top:1px solid var(--border-subtle);">
+          <button type="button" class="btn-secondary" id="btn-cancel-replan">今は変更しない</button>
+          <button type="button" class="btn-primary" id="btn-approve-replan">✓ この内容で計画を更新する (${proposal.diffs.length}件)</button>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+      document.getElementById('btn-cancel-replan')?.addEventListener('click', () => modal.classList.add('hidden'));
+      document.getElementById('btn-approve-replan')?.addEventListener('click', () => {
+        for (const diff of proposal.diffs) {
+          const st = state.taskSteps.find(s => s.id === diff.stepId);
+          if (st) st.scheduledDate = diff.newDate;
+        }
+        modal.classList.add('hidden');
+        commitState();
+        showToast(`✓ ${proposal.diffs.length}件のステップを新しい計画に更新しました`);
+      });
+    }
+
+    function openSubjectModal(subjectId) {
+      const existing = subjectId ? state.subjects.find(s => s.id === subjectId) : null;
+      const modal = document.getElementById('modal-subject-edit');
+      const body = document.getElementById('modal-subject-body');
+      if (!modal || !body) return;
+
+      body.innerHTML = `
+        <div class="form-grid">
+          <div class="form-field"><label class="form-label">科目名</label><input type="text" id="sub-edit-name" class="form-input" value="${escapeHtml(existing ? existing.name : '')}" /></div>
+          <div class="form-field"><label class="form-label">略称（カンマ区切り）</label><input type="text" id="sub-edit-aliases" class="form-input" value="${escapeHtml(existing ? (existing.aliases || []).join(', ') : '')}" /></div>
+          <div class="form-field full"><label class="form-label">📎 教材・資料メモ</label><textarea id="sub-edit-syllabus" class="form-textarea" rows="2">${escapeHtml(existing ? existing.syllabusNote : '')}</textarea></div>
+          <div class="form-field full"><label class="form-label">⚠️ 苦手分野メモ</label><textarea id="sub-edit-weak" class="form-textarea" rows="2">${escapeHtml(existing ? existing.weakPointsNote : '')}</textarea></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;padding-top:0.65rem;border-top:1px solid var(--border-subtle);">
+          <button type="button" class="btn-primary" id="btn-save-subject">保存する</button>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+      document.getElementById('btn-save-subject')?.addEventListener('click', () => {
+        const name = document.getElementById('sub-edit-name')?.value?.trim();
+        if (!name) return;
+        const aliases = Array.from(new Set([name, ...(document.getElementById('sub-edit-aliases')?.value || '').split(',').map(s => s.trim()).filter(Boolean)]));
+        const syllabusNote = document.getElementById('sub-edit-syllabus')?.value?.trim() || '';
+        const weakPointsNote = document.getElementById('sub-edit-weak')?.value?.trim() || '';
+        if (existing) {
+          existing.name = name; existing.aliases = aliases; existing.syllabusNote = syllabusNote; existing.weakPointsNote = weakPointsNote;
+        } else {
+          state.subjects.push({ id: uid('sub'), name, aliases, defaultWeekday: 1, color: 'hsl(192, 78%, 36%)', syllabusNote, weakPointsNote });
+        }
+        modal.classList.add('hidden');
+        commitState();
+        showToast(`科目「${name}」を保存しました`);
+      });
+    }
+
+    function startFocusTimerForStep(stepId) {
+      const step = state.taskSteps.find(s => s.id === stepId);
+      if (!step) return;
+      if (activeTimer.intervalId) clearInterval(activeTimer.intervalId);
+      activeTimer = {
+        stepId: step.id, taskId: step.taskId, title: step.title,
+        remainingSeconds: (step.estimatedMinutes || 25) * 60, elapsedSeconds: 0, isRunning: true,
+        intervalId: setInterval(() => {
+          if (!activeTimer.isRunning) return;
+          activeTimer.elapsedSeconds += 1;
+          if (activeTimer.remainingSeconds > 0) activeTimer.remainingSeconds -= 1;
+          updateTimerUI();
+        }, 1000)
+      };
+      updateTimerUI();
+      document.getElementById('timer-floating-bar')?.classList.remove('hidden');
+    }
+
+    function updateTimerUI() {
+      const tEl = document.getElementById('timer-step-title');
+      const cEl = document.getElementById('timer-clock-display');
+      const bEl = document.getElementById('timer-toggle-btn');
+      if (tEl) tEl.textContent = activeTimer.title;
+      if (cEl) {
+        const m = String(Math.floor(activeTimer.remainingSeconds / 60)).padStart(2, '0');
+        const s = String(activeTimer.remainingSeconds % 60).padStart(2, '0');
+        cEl.textContent = `${m}:${s}`;
+      }
+      if (bEl) bEl.textContent = activeTimer.isRunning ? '⏸ 一時停止' : '▶ 再開';
+    }
+
+    function stopFocusTimer() {
+      if (activeTimer.intervalId) clearInterval(activeTimer.intervalId);
+      activeTimer.intervalId = null; activeTimer.stepId = null;
+      document.getElementById('timer-floating-bar')?.classList.add('hidden');
+    }
+
+    // Initialize
+    generateRecurringInstances(state, toDateStr());
+    document.querySelectorAll('[data-nav-tab]').forEach(btn => {
+      btn.addEventListener('click', () => { currentTab = btn.getAttribute('data-nav-tab'); renderAll(); });
+    });
+    document.getElementById('btn-theme-toggle')?.addEventListener('click', () => {
+      applyTheme(state.userSettings?.theme === 'dark' ? 'light' : 'dark');
+      saveAppState(state);
+    });
+    document.getElementById('btn-quick-backup')?.addEventListener('click', () => exportBackupJson(state));
+    document.getElementById('btn-export-index-html')?.addEventListener('click', () => {
+      const clone = document.documentElement.cloneNode(true);
+      const mainView = clone.querySelector('#main-view-container');
+      if (mainView) mainView.innerHTML = '';
+      const subList = clone.querySelector('#sidebar-subject-list');
+      if (subList) subList.innerHTML = '';
+      const toasts = clone.querySelector('#toast-container');
+      if (toasts) toasts.innerHTML = '';
+      clone.querySelectorAll('.modal-backdrop').forEach(m => m.classList.add('hidden'));
+      const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+
+      // Open modal with pre-selected textarea and copy automatically
+      const modal = document.getElementById('modal-subject-edit');
+      const body = document.getElementById('modal-subject-body');
+      if (modal && body) {
+        body.innerHTML = `
+          <div style="background:var(--accent-primary-soft);color:var(--accent-primary);padding:0.7rem 0.85rem;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;">
+            ✅ GitHub公開用の全コード（index.html）を準備しました！下のボタンを押すか、全選択された枠内で Ctrl+C（Macは ⌘+C）を押してコピーしてください。
+          </div>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn-primary" id="btn-do-copy-html" style="width:100%;justify-content:center;padding:0.65rem;">
+              📋 クリップボードにコピーする
+            </button>
+          </div>
+          <textarea id="export-html-textarea" class="form-textarea" rows="6" readonly style="font-family:var(--font-mono);font-size:0.72rem;"></textarea>
+          <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.6;">
+            <strong>次の手順：</strong><br/>
+            1. チャットのリンク「GitHubで index.html を新規作成」を開く<br/>
+            2. 大きい入力欄に <strong>貼り付け（Ctrl+V / ⌘+V）</strong> する<br/>
+            3. 右上の緑色の <strong>「Commit changes...」</strong> を押す
+          </div>
+        `;
+        modal.classList.remove('hidden');
+        const ta = document.getElementById('export-html-textarea');
+        if (ta) {
+          ta.value = htmlContent;
+          ta.focus();
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(htmlContent).catch(() => {});
+        }
+        showToast('📋 GitHub公開用コードをコピーしました！');
+
+        document.getElementById('btn-do-copy-html')?.addEventListener('click', () => {
+          if (ta) {
+            ta.focus();
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(htmlContent).catch(() => {});
+          }
+          const btn = document.getElementById('btn-do-copy-html');
+          if (btn) btn.textContent = '✓ コピー完了！GitHubに貼り付けてください';
+          showToast('📋 クリップボードにコピーしました！');
+        });
+      }
+    });
+    document.getElementById('quick-capture-input')?.addEventListener('input', () => {
+      captureDecomposeOverride = null; captureRecurringOverride = null; captureRecurringWeekday = null;
+      renderCapturePreview();
+    });
+    document.getElementById('quick-capture-form')?.addEventListener('submit', (e) => { e.preventDefault(); handleQuickCaptureSubmit(); });
+    document.querySelectorAll('[data-example-text]').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const inp = document.getElementById('quick-capture-input');
+        if (inp) {
+          inp.value = pill.getAttribute('data-example-text');
+          captureDecomposeOverride = null; captureRecurringOverride = null; captureRecurringWeekday = null;
+          renderCapturePreview(); inp.focus();
+        }
+      });
+    });
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', () => document.getElementById(btn.getAttribute('data-close-modal'))?.classList.add('hidden'));
+    });
+    document.getElementById('timer-toggle-btn')?.addEventListener('click', () => { activeTimer.isRunning = !activeTimer.isRunning; updateTimerUI(); });
+    document.getElementById('timer-finish-btn')?.addEventListener('click', () => {
+      const id = activeTimer.stepId;
+      const measured = activeTimer.elapsedSeconds >= 30 ? Math.max(1, Math.round(activeTimer.elapsedSeconds / 60)) : null;
+      stopFocusTimer();
+      if (id) openCompleteStepModal(id, measured);
+    });
+    document.getElementById('timer-close-btn')?.addEventListener('click', stopFocusTimer);
+
+    applyTheme(state.userSettings?.theme || 'light');
+    renderAll();
+  </script>
+
+
+<script>(function(){var t=window.tailwind=window.tailwind||{};if(!t.config){t.config={darkMode:'class'};}else if(t.config.darkMode!=='class'){t.config.darkMode='class';}})();</script>
+        <script>
+          (function() {
+            function sendInteraction(eventType) {
+              window.parent.postMessage({ type: 'USER_INTERACTION', eventType: eventType }, '*');
+            }
+            document.addEventListener('click', function() { sendInteraction('click'); }, true);
+          })();
+        </script>
+      
+        <script>
+          (function() {
+            var SVG_NS = 'http://www.w3.org/2000/svg';
+            var XLINK_NS = 'http://www.w3.org/1999/xlink';
+
+            function rawHrefOf(el) {
+              if (el.hasAttribute('href')) {
+                return el.getAttribute('href');
+              }
+              if (el.namespaceURI === SVG_NS) {
+                if (el.hasAttribute('xlink:href')) {
+                  return el.getAttribute('xlink:href');
+                }
+                if (typeof el.hasAttributeNS === 'function' && el.hasAttributeNS(XLINK_NS, 'href')) {
+                  return el.getAttributeNS(XLINK_NS, 'href');
+                }
+              }
+              return null;
+            }
+
+            function isTargetLink(node) {
+              if (!node || node.nodeType !== 1 || typeof node.hasAttribute !== 'function') {
+                return false;
+              }
+              var tag = String(node.localName || node.tagName || '').toLowerCase();
+              var isLink = node.namespaceURI === SVG_NS
+                ? tag === 'a'
+                : tag === 'a' || tag === 'area';
+              return isLink && rawHrefOf(node) !== null;
+            }
+
+            function findLink(e) {
+              var path = typeof e.composedPath === 'function' ? e.composedPath() : null;
+              if (path && path.length) {
+                for (var i = 0; i < path.length; i++) {
+                  if (isTargetLink(path[i])) {
+                    return path[i];
+                  }
+                }
+                return null;
+              }
+              var n = e.target;
+              while (n) {
+                if (isTargetLink(n)) {
+                  return n;
+                }
+                n = n.parentElement || n.parentNode || null;
+              }
+              return null;
+            }
+
+            function scrollTopZero() {
+              window.scrollTo(0, 0);
+              if (document.documentElement) {
+                document.documentElement.scrollTop = 0;
+                document.documentElement.scrollLeft = 0;
+              }
+              if (document.body) {
+                document.body.scrollTop = 0;
+                document.body.scrollLeft = 0;
+              }
+            }
+
+            document.addEventListener('click', function(e) {
+              if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                return;
+              }
+              var link = findLink(e);
+              if (!link) {
+                return;
+              }
+              var tgt = (link.getAttribute('target') || '').trim().toLowerCase();
+              if (tgt !== '' && tgt !== '_self') {
+                return;
+              }
+              var rawHref = rawHrefOf(link);
+              var href = (rawHref || '').trim();
+              if (href.charAt(0) !== '#') {
+                return;
+              }
+              // Opaque-origin srcdoc frames resolve relative #fragment links against the
+              // inherited parent URL (hitting X-Frame-Options: SAMEORIGIN), so handle them
+              // in-frame and never let Chromium navigate even when no target exists.
+              e.preventDefault();
+              var frag = href.slice(1);
+              if (frag === '') {
+                scrollTopZero();
+                return;
+              }
+              var decoded = frag;
+              try {
+                decoded = decodeURIComponent(frag);
+              } catch (err) {
+                decoded = frag;
+              }
+              var keys = decoded === frag ? [frag] : [frag, decoded];
+              var root = typeof link.getRootNode === 'function' ? link.getRootNode() : null;
+              var hasScopedRoot = Boolean(root && root !== document && typeof root.getElementById === 'function');
+              var targetEl = null;
+              for (var i = 0; i < keys.length && !targetEl; i++) {
+                var k = keys[i];
+                if (!k) {
+                  continue;
+                }
+                targetEl = (hasScopedRoot && root.getElementById(k)) || document.getElementById(k);
+              }
+              if (!targetEl) {
+                for (var j = 0; j < keys.length && !targetEl; j++) {
+                  var nameKey = keys[j];
+                  if (!nameKey) {
+                    continue;
+                  }
+                  var named = document.getElementsByName(nameKey);
+                  for (var m = 0; m < named.length; m++) {
+                    var cand = named[m];
+                    if (cand.namespaceURI !== SVG_NS && String(cand.localName || cand.tagName || '').toLowerCase() === 'a') {
+                      targetEl = cand;
+                      break;
+                    }
+                  }
+                }
+              }
+              if (targetEl) {
+                targetEl.scrollIntoView();
+                return;
+              }
+              if (decoded.toLowerCase() === 'top') {
+                scrollTopZero();
+              }
+            });
+          })();
+        </script>
+      <script>(function(){var head=document.head;var s=head&&head.querySelector('style[data-host-theme]');window.addEventListener('message',function(event){if(event.source!==window.parent||!event.data||event.data.type!=='THEME_SYNC'||typeof event.data.cssVariables!=='object'||!event.data.cssVariables)return;var vars=event.data.cssVariables;var entries=Object.entries(vars).filter(function(e){return typeof e[0]==='string'&&/^--[a-zA-Z0-9-]+$/.test(e[0])&&typeof e[1]==='string'&&!/[;{}\r\n]|<\/style/i.test(e[1]);});var rootBlock=entries.length?':root { '+entries.map(function(e){return e[0]+': '+e[1]+';';}).join(' ')+' }':'';if(!s&&(true)&&head){var csp=head.querySelector('meta[http-equiv="Content-Security-Policy"]');s=document.createElement('style');s.setAttribute('data-host-theme','');head.insertBefore(s,csp?csp.nextSibling:head.firstChild);}var mode=vars['--theme-type']==='light'?'light':'dark';var other=mode==='light'?'dark':'light';if(s)s.textContent=(rootBlock?rootBlock+' ':'')+"html, body { margin: 0; padding: 0; overflow: hidden; color-scheme: "+mode+"; background-color: transparent; color: var(--foreground, inherit); font-family: var(--font-family, sans-serif); } html { font-size: 16px; } body { font-size: var(--font-size, 14px); } body :is(code, pre, kbd, samp), body .font-mono { font-family: var(--editor-font-family, ui-monospace, monospace); }";var cl=document.documentElement.classList;if(!cl.contains(mode)||cl.contains(other)){cl.remove(other);cl.add(mode);}window.dispatchEvent(new CustomEvent('themechange',{detail:{themeMode:mode,cssVariables:vars}}));});})();</script></body></html>
